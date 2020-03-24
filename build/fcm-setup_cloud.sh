@@ -60,11 +60,16 @@ wget https://raw.githubusercontent.com/alces-software/flight-monitor/master/reso
 wget https://raw.githubusercontent.com/alces-software/flight-monitor/master/build/vpn-client.sh -O /tmp/fcm-vpnclient.sh  
 
 chmod +x /tmp/fcm-vpnclient.sh
-/tmp/fcm-vpnclient.sh
+
+echo "==== FCM INITIAL SETUP COMPLETE ===="
+echo "Now run script located at /tmp/fcm-vpnclient.sh"
+
+#/tmp/fcm-vpnclient.sh
 
 #wget fcm-webserver script
 
-systemctl enable zabbix-proxy
-systemctl enable zabbix-agent
-systemctl start zabbix-proxy
-systemctl start zabbix-agent
+#systemctl enable zabbix-proxy
+#systemctl enable zabbix-agent
+#systemctl start zabbix-proxy
+#systemctl start zabbix-agent
+
