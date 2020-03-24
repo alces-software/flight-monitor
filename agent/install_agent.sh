@@ -6,7 +6,7 @@ mkdir -p /run/zabbix
 chown zabbix /run/zabbix/
 
 
-wget https://www.zabbix.com/downloads/4.4.5/zabbix_agent-4.4.5-linux-3.0-amd64-static.tar.gz -O zabbix_agent.tgz
+wget http://monitor1/resources/zabbix_agent.tgz -O zabbix_agent.tgz
 tar -zxvf zabbix_agent.tgz
 
 useradd zabbix
