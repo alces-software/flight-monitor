@@ -1,15 +1,14 @@
 #!/bin/bash
 
+useradd zabbix
 mkdir -p /opt/zabbix
 cd /opt/zabbix
 mkdir -p /run/zabbix
 chown zabbix /run/zabbix/
 
-
 wget http://monitor1/resources/zabbix_agent.tgz -O zabbix_agent.tgz
 tar -zxvf zabbix_agent.tgz
 
-useradd zabbix
 
 cat << 'EOF' > /usr/lib/systemd/system/zabbix-agent.service
 [Unit]
@@ -33,6 +32,8 @@ Group=zabbix
 [Install]
 WantedBy=multi-user.target
 EOF
+
+wget http://monitor1/resources/zabbix_agentd.conf -O /opt/zabbix/conf/zabbix_agentd.conf
 
 systemctl daemon-reload
 systemctl enable zabbix-agent

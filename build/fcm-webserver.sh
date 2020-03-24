@@ -23,7 +23,7 @@ EOF
 #wget nginx.conf from github.
 wget https://raw.githubusercontent.com/alces-software/flight-monitor/master/build/nginx.conf -O /etc/nginx/nginx.conf
 wget https://raw.githubusercontent.com/alces-software/flight-monitor/master/resources/zabbix_agentd.conf -O /opt/zabbix/srv/resources/zabbix_agentd.conf
-wget https://www.zabbix.com/downloads/4.4.5/zabbix_agent-4.4.5-linux-3.0-amd64-static.tar.gz -O /opt/zabbix/srv/zabbix_agent.tgz
+wget https://www.zabbix.com/downloads/4.4.5/zabbix_agent-4.4.5-linux-3.0-amd64-static.tar.gz -O /opt/zabbix/srv/resources/zabbix_agent.tgz
 
 systemctl enable nginx
 systemctl start nginx
