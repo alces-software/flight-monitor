@@ -16,9 +16,9 @@ systemctl stop firewalld
 systemctl disable firewalld
 
 # Packages
-yum install -y vim git epel-release wget
-yum install -y s3cmd awscli
-yum install -y httpd yum-plugin-priorities yum-utils createrepo
+yum install -y -e0 vim git epel-release wget
+yum install -y -e0 s3cmd awscli
+yum install -y -e0 httpd yum-plugin-priorities yum-utils createrepo
 
 
 #
@@ -28,9 +28,9 @@ curl https://repo.openflighthpc.org/openflight/centos/7/openflight.repo > /etc/y
 
 yum clean all
 #yum install -y flight-architect flight-cloud flight-manage flight-metal flight-inventory
-yum install -y https://repo.zabbix.com/zabbix/4.4/rhel/7/x86_64/zabbix-release-4.4-1.el7.noarch.rpm
-yum install -y mariadb-server
-yum install -y zabbix-agent-4.4.5 zabbix-proxy-mysql-4.4.5
+yum install -y -e0 --nogpgcheck https://repo.zabbix.com/zabbix/4.4/rhel/7/x86_64/zabbix-release-4.4-1.el7.noarch.rpm
+yum install -y -e0 --nogpgcheck mariadb-server
+yum install -y -e0 --nogpgcheck zabbix-agent-4.4.5 zabbix-proxy-mysql-4.4.5
 
 #
 # Pretty Prompt
