@@ -5,6 +5,8 @@ mkdir -p /opt/zabbix
 cd /opt/zabbix
 mkdir -p /run/zabbix
 chown zabbix /run/zabbix/
+mkdir -p /var/log/zabbix
+chown zabbix /var/log/zabbix
 
 wget http://monitor1/resources/zabbix_agent.tgz -O zabbix_agent.tgz
 tar -zxvf zabbix_agent.tgz
