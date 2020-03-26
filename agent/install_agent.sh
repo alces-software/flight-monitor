@@ -23,7 +23,7 @@ Environment="CONFFILE=/opt/zabbix/conf/zabbix_agentd.conf"
 EnvironmentFile=-/etc/sysconfig/zabbix-agent
 Type=forking
 Restart=on-failure
-PIDFile=/run/zabbix/zabbix_agentd.pid
+PIDFile=/opt/zabbix/run/zabbix_agentd.pid
 KillMode=control-group
 ExecStart=/opt/zabbix/sbin/zabbix_agentd -c $CONFFILE
 ExecStop=/bin/kill -SIGTERM $MAINPID
