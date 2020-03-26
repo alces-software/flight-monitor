@@ -61,6 +61,7 @@ wget https://raw.githubusercontent.com/alces-software/flight-monitor/master/buil
 wget https://raw.githubusercontent.com/alces-software/flight-monitor/master/build/fcm-webserver.sh -O /tmp/fcm-webserver.sh 
 
 chmod +x /tmp/fcm-vpnclient.sh
+chmod +x /tmp/fcm-webserver.sh
 
 echo "==== FCM INITIAL SETUP COMPLETE ===="
 echo "Now run script located at /tmp/fcm-vpnclient.sh"
