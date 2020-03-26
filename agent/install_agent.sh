@@ -3,8 +3,8 @@
 useradd zabbix
 mkdir -p /opt/zabbix
 cd /opt/zabbix
-mkdir -p /run/zabbix
-chown zabbix /run/zabbix/
+mkdir -p /opt/zabbix/run
+chown zabbix /opt/zabbix/run
 mkdir -p /var/log/zabbix
 chown zabbix /var/log/zabbix
 
@@ -23,7 +23,7 @@ Environment="CONFFILE=/opt/zabbix/conf/zabbix_agentd.conf"
 EnvironmentFile=-/etc/sysconfig/zabbix-agent
 Type=forking
 Restart=on-failure
-PIDFile=/run/zabbix/zabbix_agentd.pid
+PIDFile=/opt/zabbix/run/zabbix_agentd.pid
 KillMode=control-group
 ExecStart=/opt/zabbix/sbin/zabbix_agentd -c $CONFFILE
 ExecStop=/bin/kill -SIGTERM $MAINPID
