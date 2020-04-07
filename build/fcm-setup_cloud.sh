@@ -1,15 +1,8 @@
 #!/bin/bash
 
-#export REPOSOURCE=10.150.0.10
-#export REPODIR='repo/etc/scripts/'
-
 #
 # Prerequisites
 #
-
-# SElinux
-sed -i 's/^SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config
-setenforce 0
 
 # Firewall
 systemctl stop firewalld
@@ -32,14 +25,6 @@ yum install -y -e0 --nogpgcheck https://repo.zabbix.com/zabbix/4.4/rhel/7/x86_64
 yum install -y -e0 --nogpgcheck mariadb-server
 yum install -y -e0 --nogpgcheck zabbix-agent-4.4.5 zabbix-proxy-mysql-4.4.5
 
-#
-# Pretty Prompt
-#
-cat << "EOF" > /etc/profile.d/monitor-prompt.sh
-if [ "$PS1" ]; then
-  PS1="[\u@\h\[\e[1;34m\] [Flight Monitor]\[\e[0m\] \W]\\$ "
-fi
-EOF
 
 #
 # Configure Zabbix Proxy
@@ -51,9 +36,6 @@ echo "grant all privileges on zabbix_proxy.* to zabbixuser@localhost identified 
 echo "flush privileges;" | mysql -uroot
 zcat /usr/share/doc/zabbix-proxy-mysql-4.4.5/schema.sql.gz | mysql -u zabbixuser zabbix_proxy -ppassword
 
-#wget http://${REPOSOURCE}/${REPODIR}/resources/zabbix_proxy.conf -O /etc/zabbix/zabbix_proxy.conf
-#wget http://${REPOSOURCE}/${REPODIR}/resources/zabbix_agentd.monitor.conf -O /etc/zabbix/zabbix_agentd.conf
-#wget http://${REPOSOURCE}/${REPODIR}/fcm-vpnclient.sh -O /tmp/fcm-vpnclient.sh 
 
 wget https://raw.githubusercontent.com/alces-software/flight-monitor/master/resources/zabbix_proxy.conf -O /etc/zabbix/zabbix_proxy.conf
 wget https://raw.githubusercontent.com/alces-software/flight-monitor/master/resources/zabbix_agentd.monitor.conf -O /etc/zabbix/zabbix_agentd.conf
@@ -67,12 +49,4 @@ echo "==== FCM INITIAL SETUP COMPLETE ===="
 echo "Now run script located at /tmp/fcm-vpnclient.sh"
 echo "Once VPN is enabled, run script /tmp/fcm-webserver.sh to complete"
 
-#/tmp/fcm-vpnclient.sh
-
-#wget fcm-webserver script
-
-#systemctl enable zabbix-proxy
-#systemctl enable zabbix-agent
-#systemctl start zabbix-proxy
-#systemctl start zabbix-agent
 
