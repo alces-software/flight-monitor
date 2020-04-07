@@ -38,10 +38,10 @@ echo "flush privileges;" | mysql -uroot
 zcat /usr/share/doc/zabbix-proxy-mysql-4.4.5/schema.sql.gz | mysql -u zabbixuser zabbix_proxy -ppassword
 
 
-wget https://raw.githubusercontent.com/alces-software/flight-monitor/master/resources/zabbix_proxy.conf -O /etc/zabbix/zabbix_proxy.conf
-wget https://raw.githubusercontent.com/alces-software/flight-monitor/master/resources/zabbix_agentd.monitor.conf -O /etc/zabbix/zabbix_agentd.conf
-wget https://raw.githubusercontent.com/alces-software/flight-monitor/master/build/vpn-client.sh -O /tmp/fcm-vpnclient.sh 
-wget https://raw.githubusercontent.com/alces-software/flight-monitor/master/build/fcm-webserver.sh -O /tmp/fcm-webserver.sh 
+wget https://raw.githubusercontent.com/alces-software/flight-monitor/barkla-fc-gateway/resources/zabbix_proxy.conf -O /etc/zabbix/zabbix_proxy.conf
+wget https://raw.githubusercontent.com/alces-software/flight-monitor/barkla-fc-gateway/resources/zabbix_agentd.monitor.conf -O /etc/zabbix/zabbix_agentd.conf
+wget https://raw.githubusercontent.com/alces-software/flight-monitor/barkla-fc-gateway/build/vpn-client.sh -O /tmp/fcm-vpnclient.sh 
+wget https://raw.githubusercontent.com/alces-software/flight-monitor/barkla-fc-gateway/build/fcm-webserver.sh -O /tmp/fcm-webserver.sh 
 
 chmod +x /tmp/fcm-vpnclient.sh
 chmod +x /tmp/fcm-webserver.sh
