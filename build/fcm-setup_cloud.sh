@@ -9,21 +9,22 @@ systemctl stop firewalld
 systemctl disable firewalld
 
 # Packages
-yum install -y -e0 vim git epel-release wget
-yum install -y -e0 s3cmd awscli
-yum install -y -e0 httpd yum-plugin-priorities yum-utils createrepo
+echo "Installing Prerequisites"
+yum install -y -e0 vim git epel-release wget -q
+yum install -y -e0 s3cmd awscli -q 
+yum install -y -e0 httpd yum-plugin-priorities yum-utils createrepo -q
 
 
 #
 # Install Tools
 #
+echo "Installing Tools"
 curl https://repo.openflighthpc.org/openflight/centos/7/openflight.repo > /etc/yum.repos.d/openflight.repo
 
 yum clean all
-#yum install -y flight-architect flight-cloud flight-manage flight-metal flight-inventory
-yum install -y -e0 --nogpgcheck https://repo.zabbix.com/zabbix/4.4/rhel/7/x86_64/zabbix-release-4.4-1.el7.noarch.rpm
-yum install -y -e0 --nogpgcheck mariadb-server
-yum install -y -e0 --nogpgcheck zabbix-agent-4.4.5 zabbix-proxy-mysql-4.4.5
+yum install -y -e0 --nogpgcheck https://repo.zabbix.com/zabbix/4.4/rhel/7/x86_64/zabbix-release-4.4-1.el7.noarch.rpm -q
+yum install -y -e0 --nogpgcheck mariadb-server -q
+yum install -y -e0 --nogpgcheck zabbix-agent-4.4.5 zabbix-proxy-mysql-4.4.5 -q
 
 
 #
@@ -48,5 +49,3 @@ chmod +x /tmp/fcm-webserver.sh
 echo "==== FCM INITIAL SETUP COMPLETE ===="
 echo "Now run script located at /tmp/fcm-vpnclient.sh"
 echo "Once VPN is enabled, run script /tmp/fcm-webserver.sh to complete"
-
-
