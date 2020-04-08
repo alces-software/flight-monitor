@@ -3,7 +3,7 @@
 mkdir -p /opt/zabbix/srv/resources
 yum -y -e0 install nginx
 
-if=$(ip link | awk -F: '$0 !~ "lo|vir|tun|wl|^[^0-9]"{print $2;getline}')
+if=$(ip link | awk -F: '$0 !~ "lo|vir|tun|wl|^[^0-9]"{print $2;getline}' |head -1)
 ipaddr=$(ifconfig $if | grep inet | awk '{ print $2 }' | head -1)
 
 cat << EOF > /etc/nginx/conf.d/fcm-resources.conf
