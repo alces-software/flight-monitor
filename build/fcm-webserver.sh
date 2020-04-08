@@ -20,7 +20,6 @@ server {
 EOF
 
 
-#wget nginx.conf from github.
 wget https://raw.githubusercontent.com/alces-software/flight-monitor/master/build/nginx.conf -O /etc/nginx/nginx.conf
 wget https://raw.githubusercontent.com/alces-software/flight-monitor/master/agent/install_agent.sh -O /opt/zabbix/srv/resources/install_agent.sh
 wget https://raw.githubusercontent.com/alces-software/flight-monitor/master/resources/zabbix_agentd.conf -O /opt/zabbix/srv/resources/zabbix_agentd.conf
