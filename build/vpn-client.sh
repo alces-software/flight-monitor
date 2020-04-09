@@ -60,5 +60,13 @@ EOF
 chmod 600 /etc/openvpn/auth.fcmonitor
 
 systemctl start openvpn@fcmonitor
-echo -e "\033[0;32m==== VPN SETUP COMPLETE ====\033[0m"
-echo "Now VPN is enabled, run script /tmp/fcm-webserver.sh to setup webserver"
+
+#Testing openvpn is setup
+if  ping -c 1 10.178.0.1 ; then
+        echo "openvpn setup tested with success"
+	echo -e "\033[0;32m==== VPN SETUP COMPLETE ====\033[0m"
+	echo "Now VPN is enabled, run script /tmp/fcm-webserver.sh to setup webserver"
+else
+	echo -e "\033[0;31m==== VPN SETUP INCOMPLETE ====\033[0m"
+	echo "please re-run script and check credentials"
+fi
