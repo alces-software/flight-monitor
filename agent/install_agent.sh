@@ -8,7 +8,7 @@ chown zabbix /opt/zabbix/run
 mkdir -p /var/log/zabbix
 chown zabbix /var/log/zabbix
 
-wget http://monitor1/resources/zabbix_agent.tgz -O zabbix_agent.tgz
+wget http://fcgateway/resources/zabbix_agent.tgz -O zabbix_agent.tgz
 tar -zxvf zabbix_agent.tgz
 
 
@@ -35,7 +35,7 @@ Group=zabbix
 WantedBy=multi-user.target
 EOF
 
-wget http://monitor1/resources/zabbix_agentd.conf -O /opt/zabbix/conf/zabbix_agentd.conf
+wget http://fcgateway/resources/zabbix_agentd.conf -O /opt/zabbix/conf/zabbix_agentd.conf
 
 systemctl daemon-reload
 systemctl enable zabbix-agent
