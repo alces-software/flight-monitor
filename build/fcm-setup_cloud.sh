@@ -9,7 +9,8 @@ systemctl enable firewalld
 systemctl start firewalld
 firewall-cmd --add-port 22/tcp --permanent #SSH
 firewall-cmd --add-port 80/tcp --permanent #HTTP server for agentd files
-firewall-cmd --add-port 10050/tcp --permanent #Zabbix Agentd Port
+firewall-cmd --add-port 10050/tcp --permanent #Zabbix Port - Incoming from Zabbix Server
+firewall-cmd --add-port 10051/tcp --permanent #Zabbix Port - Incoming from other agents
 firewall-cmd --reload
 systemctl restart firewalld
 
