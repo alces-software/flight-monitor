@@ -1,7 +1,8 @@
 #!/bin/bash
 
 mkdir -p /opt/zabbix/srv/resources
-yum -y -e0 install nginx
+echo "Installing nginx"
+yum -y -e0 install nginx -q
 
 if=$(ip link | awk -F: '$0 !~ "lo|vir|tun|wl|^[^0-9]"{print $2;getline}' |head -1)
 ipaddr=$(ifconfig $if | grep inet | awk '{ print $2 }' | head -1)
@@ -27,3 +28,6 @@ wget https://www.zabbix.com/downloads/4.4.5/zabbix_agent-4.4.5-linux-3.0-amd64-s
 
 systemctl enable nginx
 systemctl start nginx
+
+echo -e "\033[0;32m==== WEBSERVER SETUP COMPLETE ====\033[0m"
+echo "Add this proxy server to Zabbix (via Frontend) and then Enable/Start zabbix-proxy and zabbix-agent"

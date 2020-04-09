@@ -7,10 +7,11 @@
 # Update Firewall Rules
 systemctl enable firewalld
 systemctl start firewalld
-firewall-cmd --add-port 22/tcp --permanent
-firewall-cmd --add-port 80/tcp --permanent
-firewall-cmd --add-port 10050/tcp --permanent
-
+firewall-cmd --add-port 22/tcp --permanent #SSH
+firewall-cmd --add-port 80/tcp --permanent #HTTP server for agentd files
+firewall-cmd --add-port 10050/tcp --permanent #Zabbix Agentd Port
+firewall-cmd --reload
+systemctl restart firewalld
 
 # Packages
 echo "Installing Prerequisites"
@@ -50,6 +51,6 @@ wget https://raw.githubusercontent.com/alces-software/flight-monitor/master/buil
 chmod +x /tmp/fcm-vpnclient.sh
 chmod +x /tmp/fcm-webserver.sh
 
-echo "==== FCM INITIAL SETUP COMPLETE ===="
+echo -e "\033[0;32m==== FCM INITIAL SETUP COMPLETE ====\033[0m"
 echo "Now run script located at /tmp/fcm-vpnclient.sh"
 echo "Once VPN is enabled, run script /tmp/fcm-webserver.sh to complete"

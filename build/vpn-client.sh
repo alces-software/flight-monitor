@@ -1,7 +1,8 @@
 #!/bin/bash
 
-yum install epel-release -y
-yum install openvpn -y
+echo "Installing openvpn"
+yum install epel-release -y -q
+yum install openvpn -y -q
 
 cat << EOF > /etc/openvpn/fcmonitor.conf
 client
@@ -59,3 +60,5 @@ EOF
 chmod 600 /etc/openvpn/auth.fcmonitor
 
 systemctl start openvpn@fcmonitor
+echo -e "\033[0;32m==== VPN SETUP COMPLETE ====\033[0m"
+echo "Now VPN is enabled, run script /tmp/fcm-webserver.sh to setup webserver"
