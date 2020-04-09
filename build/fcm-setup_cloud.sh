@@ -4,9 +4,13 @@
 # Prerequisites
 #
 
-# Firewall
-systemctl stop firewalld
-systemctl disable firewalld
+# Update Firewall Rules
+systemctl enable firewalld
+systemctl start firewalld
+firewall-cmd --add-port 22/tcp --permanent
+firewall-cmd --add-port 80/tcp --permanent
+firewall-cmd --add-port 10050/tcp --permanent
+
 
 # Packages
 echo "Installing Prerequisites"
