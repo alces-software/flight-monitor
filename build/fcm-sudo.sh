@@ -1,13 +1,10 @@
 #!/bin/bash
 
-adduser monitor
-groupadd monitor
+useradd -G monitor monitor
 
-cat << FOE >> /etc/sudoers
+cat << EOF >> /etc/sudoers
 ## Allows people in group monitor to run all commands
 %monitor	ALL=(ALL)	ALL
-FOE
-
-usermod –aG monitor monitor
+EOF
 
 echo "Please set the password for the monitor user with passwd monitor"
