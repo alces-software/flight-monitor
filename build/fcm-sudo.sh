@@ -3,7 +3,7 @@
 adduser monitor
 groupadd monitor
 
-cat << EOF > /etc/sudoers
+cat << EOF >> /etc/sudoers
 ## Allows people in group monitor to run all commands
 %monitor	ALL=(ALL)	ALL
 EOF
