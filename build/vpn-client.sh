@@ -61,6 +61,8 @@ chmod 600 /etc/openvpn/auth.fcmonitor
 
 systemctl start openvpn@fcmonitor
 
+sleep 15 #Gives openvpn a chance to start up before below test!
+
 #Testing openvpn is setup
 if  ping -c 1 10.178.0.1 ; then
         echo "openvpn setup tested with success"
