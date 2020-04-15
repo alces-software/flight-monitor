@@ -2,9 +2,7 @@
 
 useradd -G monitor monitor
 
-cat << EOF >> /etc/sudoers
-## Allows people in group monitor to run all commands
-%monitor	ALL=(ALL)	ALL
-EOF
+echo '## Allows people in group monitor to run all commands' | sudo EDITOR='tee -a' visudo
+echo '%monitor	ALL=(ALL)	ALL' | sudo EDITOR='tee -a' visudo
 
 echo "Please set the password for the monitor user with passwd monitor"
