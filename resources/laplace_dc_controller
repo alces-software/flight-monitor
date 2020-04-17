@@ -1,0 +1,17 @@
+#!/bin/bash
+
+#a script to automate the controller portion of the laplace daily check
+
+echo "uptime is:" ; uptime ;
+
+echo "~
+~
+~
+controller memory is:" ; free -m ; 
+
+echo "~
+~
+~
+controller disk space is:" ; df -h ; 
+
+echo "manually check the /var/log/messages"
