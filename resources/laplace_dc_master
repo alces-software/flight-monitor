@@ -1,0 +1,31 @@
+#!/bin/bash
+#a script for the automation of the master portion of the laplace daily check
+
+ssh master1 ;
+
+echo "uptime is:" ; uptime ;
+
+echo "~
+~
+~
+"memory / swap usage is:" ; free -m ; 
+
+echo "~
+~
+~
+"dirvish check results:" ; /root/check_dirvish ;
+
+echo "~
+~
+~
+"disk space in /opt:" ; df -h /opt ;
+
+echo "~
+~
+~
+"disk space is:" ; df -h ; 
+
+echo "~
+~
+~
+"master RAID status:" ; /opt/MegaRAID/MegaCli/MegaCli64 -ldinfo -lall -aall | grep State ;  
