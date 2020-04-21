@@ -1,0 +1,3 @@
+#!/bin/bash
+
+ssh login01 "echo 'check queue' ; squeue ; "

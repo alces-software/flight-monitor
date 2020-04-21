@@ -1,0 +1,4 @@
+#!/bin/bash
+
+echo 'uptime:' ; pdsh -g infra uptime ;
+echo 'memory and swap usage:' ; pdsh -g infra free -hm ;  

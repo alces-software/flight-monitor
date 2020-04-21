@@ -7,11 +7,14 @@ echo "uptime is:" ; uptime ;
 echo "~
 ~
 ~
-controller memory is:" ; free -m ; 
+controller memory is:" ; free -hm ; 
 
 echo "~
 ~
 ~
 controller disk space is:" ; df -h ; 
 
-echo "manually check the /var/log/messages"
+echo "~
+~
+~
+manually check the /var/log/messages using: cat /var/log/messages | grep -v systemd | grep -v journal | grep -v desktop | grep -v gnome | grep -v megaraid | grep -v tftpd | grep -v dhcpd | grep -v krb5 | grep -v rosalind-module | grep -v fm0_sm"

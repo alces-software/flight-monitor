@@ -1,0 +1,10 @@
+#!/bin/bash
+
+echo 'check RAID status' ; pdsh -f1 -g cn '/opt/MegaRAID/MegaCli/MegaCli64 -ldinfo -lall -aall' | grep State ; 
+echo 'check IB link status' ; pdsh -f1 -g cn 'ibstatus' ; 
+echo 'check compute local disk space' ; pdsh -g cn 'df -h / /tmp /var' ; 
+echo 'check for reboots' ; pdsh -g cn uptime ; 
+echo 'check for zombies' ; ./check_zombie.sh ; 
+echo 'check IPMI messages' ; metal ipmi -g cn -k 'sel elist' ; 
+
+
