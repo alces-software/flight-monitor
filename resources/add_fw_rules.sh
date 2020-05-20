@@ -23,4 +23,5 @@ hosts=(
 for host in "${hosts[@]}"; do
 echo "Host is" $host
 	firewall-cmd --add-rich-rule="rule family='ipv4' source address='$host' reject" --zone external
+	firewall-cmd --direct --add-rule ipv4 filter OUTPUT 0 -d $host  -j REJECT
 done
