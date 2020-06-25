@@ -50,8 +50,8 @@ comp-lzo
 verb 3
 EOF
 
-echo -n "Enter your FlightCenter Monitor Username: "; read CLUSTERNAME
-echo -n "Enter your FlightCenter Montior Password: "; read PASSWORD
+echo -n "Enter your fcops VPN Username: "; read CLUSTERNAME
+echo -n "Enter your fcops VPN Password: "; read PASSWORD
 cat << EOF > /etc/openvpn/auth.fcmonitor
 ${CLUSTERNAME}
 ${PASSWORD}
