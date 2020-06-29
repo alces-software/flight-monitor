@@ -60,6 +60,7 @@ EOF
 chmod 600 /etc/openvpn/auth.fcmonitor
 
 systemctl start openvpn@fcmonitor
+systemctl enable openvpn@fcmonitor
 
 sleep 15 #Gives openvpn a chance to start up before below test!
 
