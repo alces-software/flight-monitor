@@ -20,14 +20,24 @@ server {
 }
 EOF
 
+echo "Downloading ngnix config from flight-monitor github"
+wget https://raw.githubusercontent.com/alces-software/flight-monitor/master/resources/nginx.conf -O /etc/nginx/nginx.conf -q
+wget https://raw.githubusercontent.com/alces-software/flight-monitor/master/client/install_agent.sh -O /opt/zabbix/srv/resources/install_agent.sh -q
+wget https://raw.githubusercontent.com/alces-software/flight-monitor/master/resources/zabbix_agentd.conf -O /opt/zabbix/srv/resources/zabbix_agentd.conf -q
+wget https://www.zabbix.com/downloads/4.4.5/zabbix_agent-4.4.5-linux-3.0-amd64-static.tar.gz -O /opt/zabbix/srv/resources/zabbix_agent.tgz -q
 
-wget https://raw.githubusercontent.com/alces-software/flight-monitor/master/resources/nginx.conf -O /etc/nginx/nginx.conf
-wget https://raw.githubusercontent.com/alces-software/flight-monitor/master/client/install_agent.sh -O /opt/zabbix/srv/resources/install_agent.sh
-wget https://raw.githubusercontent.com/alces-software/flight-monitor/master/resources/zabbix_agentd.conf -O /opt/zabbix/srv/resources/zabbix_agentd.conf
-wget https://www.zabbix.com/downloads/4.4.5/zabbix_agent-4.4.5-linux-3.0-amd64-static.tar.gz -O /opt/zabbix/srv/resources/zabbix_agent.tgz
+#Hostname change when people give u VMs that aren't called fcgateway...
+sed -i s/fcgateway/$(hostname -s)/g /opt/zabbix/srv/resources/*
 
+echo "Starting Nginx Services"
 systemctl enable nginx
 systemctl start nginx
 
+echo "Starting Zabbix Services"
+systemctl start zabbix-proxy.service
+systemctl start zabbix-agent.service
+systemctl enable zabbix-proxy.service
+systemctl enable zabbix-agent.service
+
 echo -e "\033[0;32m==== WEBSERVER SETUP COMPLETE ====\033[0m"
-echo "Add this proxy server to Zabbix (via Frontend) and then Enable/Start zabbix-proxy and zabbix-agent"
+echo "Add this proxy server to Zabbix (via Frontend on ops-hub)"

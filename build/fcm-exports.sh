@@ -5,7 +5,9 @@ yum -q -e0 install nfs-utils
 
 #Setup dirs
 mkdir -p /scripts/{tools,customisations}
+mkdir -p /users
 chmod 775 -R /scripts/
+chmod 775 -R /users/
 
 #Services
 systemctl enable rpcbind
@@ -26,4 +28,5 @@ wget https://raw.githubusercontent.com/alces-software/flight-monitor/master/reso
 #Setup nfs exports
 cat << EOF > /etc/exports
 /scripts	10.10.0.0/16(ro,no_subtree_check,no_root_squash)
+/users  	10.10.0.0/16(ro,no_subtree_check,no_root_squash)
 EOF

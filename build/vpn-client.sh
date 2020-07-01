@@ -50,8 +50,8 @@ comp-lzo
 verb 3
 EOF
 
-echo -n "Enter your FlightCenter Monitor Username: "; read CLUSTERNAME
-echo -n "Enter your FlightCenter Montior Password: "; read PASSWORD
+echo -n "Enter your fcops VPN Username: "; read CLUSTERNAME
+echo -n "Enter your fcops VPN Password: "; read PASSWORD
 cat << EOF > /etc/openvpn/auth.fcmonitor
 ${CLUSTERNAME}
 ${PASSWORD}
@@ -60,6 +60,7 @@ EOF
 chmod 600 /etc/openvpn/auth.fcmonitor
 
 systemctl start openvpn@fcmonitor
+systemctl enable openvpn@fcmonitor
 
 sleep 15 #Gives openvpn a chance to start up before below test!
 
