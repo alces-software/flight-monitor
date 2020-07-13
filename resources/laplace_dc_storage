@@ -1,9 +1,0 @@
-#!/bin/bash
-#a script to automate the storage portion of the laplace daily check
-
-ssh login1 "echo 'hostname is:' ; hostname ; 
-echo 'check user filesystems:' ; df -h /users ;
-echo 'check gridware:' ; df -h /opt/gridware ;
-echo 'check service:' ; df -h /opt/service ;
-echo 'check apps:' ; df -h /opt/apps ;
-echo 'check site' ; df -h /opt/site ; "  

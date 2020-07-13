@@ -1,9 +1,0 @@
-#!/bin/bash
-
-ssh login1 "echo 'users logged in:' ; w ; 
-echo 'uptime is:' ; uptime ; 
-echo 'tmp partition space is:' ; df -h /tmp ; 
-echo 'login memory is:' ; free -hm ;
-echo 'disk space on logins is:' ; df -h ; 
-echo 'var partition space is:' ; df -h /var ; "
-
