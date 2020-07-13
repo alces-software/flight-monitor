@@ -51,7 +51,10 @@ wget https://raw.githubusercontent.com/alces-software/flight-monitor/master/buil
 chmod +x /tmp/fcm-vpnclient.sh
 chmod +x /tmp/fcm-webserver.sh
 
+EXT_IP=$(curl ifconfig.me)
+
 echo -e "\033[0;32m==== FCM INITIAL SETUP COMPLETE ====\033[0m"
 echo "Remember to add new gw to fcops VPN before running next script"
+echo "Add $EXT_IP/32 port 1195 to AWS security group - inbound rules"
 echo "Now run script located at /tmp/fcm-vpnclient.sh"
 echo "Once VPN is enabled, run script /tmp/fcm-webserver.sh to complete installation"
