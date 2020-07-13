@@ -13,4 +13,5 @@ echo -e "${RED}check var log messages:${NC}" ; cat /var/log/messages | grep -v s
 
 echo -e "${RED}check controller memory:${NC}" ; free -hm ; 
 
-echo -e "${RED}check controller disk space:${NC}" ; df -h / /boot ;     
+#Only outputs if usage is above 80% in / or /boot
+echo -e "${RED}check controller disk space:${NC}" ; df -h / /boot |awk '{print $1,$5}' |sed s/%//g |awk '$3>80' |grep -v "Filesystem Use";     
