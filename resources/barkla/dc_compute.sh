@@ -14,4 +14,5 @@ echo -e "${RED}check for reboots${NC}" ; pdsh -g cn "cat /proc/uptime |awk '{pri
 
 echo -e "${RED}check for zombies${NC}" ; ./check_zombie.sh ; 
 
+# Ignores messages which are just notification that SEL has been cleared
 echo -e "${RED}check compute ipmi for any messages${NC}" ; metal ipmi -g cn -k 'sel elist' |grep -v "Log area reset/cleared"; 
