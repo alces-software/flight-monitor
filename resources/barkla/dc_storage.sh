@@ -5,7 +5,8 @@ d=$(date +%d)
 RED='\033[0;31m'
 NC='\033[0m'
 
-echo -e "${RED}check storage uptime/reboots:${NC}" ; pdsh -g storage uptime ;
+# Converts uptime to hours and flags nodes with less than 72 hour uptime
+echo -e "${RED}check for reboots${NC}" ; pdsh -g storage "cat /proc/uptime |awk '{print int(\$1/3600)}'" |awk '$2<72' ; 
 
 ssh login1 "echo 'hostname is:' ; hostname ; 
 
@@ -26,17 +27,7 @@ ssh controller "echo -e '${RED}check disk space available:${NC}' ; pdsh -g stora
 ssh login1 "echo -e '${RED}check volume data1:${NC}' ; df -h /mnt/data1 ;
 
 echo -e '${RED}check volume data2:${NC}' ; df -h /mnt/data2 ; " 
-
-ssh oss1 "echo -e '${RED}check var log messages:${NC}' ; cat /var/log/messages | grep -v systemd | grep -v journal | grep -v desktop | grep -v gnome | grep -v megaraid | grep -v tftpd | grep -v dhcpd | grep -v krb5 | grep -v rosalind-module | grep -v fm0_sm | grep "$d" | grep -vi named | grep -vi oxford | grep -vi 'notice' | grep -vi skipped ; "
-
-ssh oss2 "echo -e '${RED}check var log messages:${NC}' ; cat /var/log/messages | grep -v systemd | grep -v journal | grep -v desktop | grep -v gnome | grep -v megaraid | grep -v tftpd | grep -v dhcpd | grep -v krb5 | grep -v rosalind-module | grep -v fm0_sm | grep "$d" | grep -vi named | grep -vi oxford | grep -vi 'notice' | grep -vi skipped ; "
-
-ssh nfs1 "echo -e '${RED}check var log messages:${NC}' ; cat /var/log/messages | grep -v systemd | grep -v journal | grep -v desktop | grep -v gnome | grep -v megaraid | grep -v tftpd | grep -v dhcpd | grep -v krb5 | grep -v rosalind-module | grep -v fm0_sm | grep "$d" | grep -vi named | grep -vi oxford | grep -vi 'notice' | grep -vi skipped ; "
-
-ssh nfs2 "echo -e '${RED}check var log messages:${NC}' ; cat /var/log/messages | grep -v systemd | grep -v journal | grep -v desktop | grep -v gnome | grep -v megaraid | grep -v tftpd | grep -v dhcpd | grep -v krb5 | grep -v rosalind-module | grep -v fm0_sm | grep "$d" | grep -vi named | grep -vi oxford | grep -vi 'notice' | grep -vi skipped ; "
-
-ssh mds1 "echo -e '${RED}check var log messages:${NC}' ; cat /var/log/messages | grep -v systemd | grep -v journal | grep -v desktop | grep -v gnome | grep -v megaraid | grep -v tftpd | grep -v dhcpd | grep -v krb5 | grep -v rosalind-module | grep -v fm0_sm | grep "$d" | grep -vi named | grep -vi oxford | grep -vi 'notice' | grep -vi skipped ; " 
-
+ 
 ssh controller "echo -e '${RED}check disk status in arrays:${NC}' ; pdsh -g storage '/opt/MegaRAID/MegaCli/MegaCli64 -ldinfo -lall -aall' | grep State ; " 
 
 ssh storage1 "echo -e '${RED}check for users over quota:${NC}' ; repquota -s /export/users " 
