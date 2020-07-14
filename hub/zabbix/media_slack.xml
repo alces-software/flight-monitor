@@ -4,7 +4,7 @@
     <date>2020-07-14T15:24:55Z</date>
     <media_types>
         <media_type>
-            <name>Slack</name>
+            <name>Slack (Multi-Channel)</name>
             <type>WEBHOOK</type>
             <parameters>
                 <parameter>
@@ -224,13 +224,13 @@ function handlerAlarm(params) {&#13;
 			throw resp.error;&#13;
 		}&#13;
 &#13;
-		result.tags.__message_ts = resp.ts;&#13;
-		result.tags.__channel_id = resp.channel;&#13;
+		result.tags['__message_ts_' + params.channel] = resp.ts;&#13;
+		result.tags['__channel_id_' + params.channel] = resp.channel;&#13;
 		//result.tags.__channel_name = params.channel;&#13;
 		//result.tags.__message_link = getPermalink(resp.channel, resp.ts);&#13;
 	&#13;
 	} else if (isEventUpdate(params)) {&#13;
-		fields.thread_ts = getTagValue(params.event_tags, 'message_ts');&#13;
+		fields.thread_ts = getTagValue(params.event_tags, 'message_ts_' + params.channel);&#13;
 		fields.attachments = [&#13;
 			createMessage(&#13;
 				EVENT_STATUS.UPDATE,&#13;
@@ -249,9 +249,9 @@ function handlerAlarm(params) {&#13;
 		}&#13;
 &#13;
 	} else if (isEventResolve(params)) {&#13;
-		fields.channel = getTagValue(params.event_tags, 'channel_id');&#13;
+		fields.channel = getTagValue(params.event_tags, 'channel_id_' + params.channel);&#13;
 		fields.text = '';&#13;
-		fields.ts = getTagValue(params.event_tags, 'message_ts');&#13;
+		fields.ts = getTagValue(params.event_tags, 'message_ts_' + params.channel);&#13;
 		fields.attachments = [&#13;
 			createMessage(&#13;
 				EVENT_STATUS.RESOLVE,&#13;
@@ -291,7 +291,7 @@ function handlerEvent(params) {&#13;
 			throw resp.error;&#13;
 		}&#13;
 &#13;
-		result.tags.__channel_name = params.channel;&#13;
+		result.tags['__channel_name_' + params.channel] = params.channel;&#13;
 		//result.tags.__message_link = getPermalink(resp.channel, resp.ts);&#13;
 	&#13;
 	} else if (isEventUpdate(params)) {&#13;
