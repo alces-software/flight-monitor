@@ -117,7 +117,7 @@ fi
 } 
 
 function user_quotas {
-if user_qt=$(pdsh -w storage1 "repquota -s /export/users | awk '\$2!=\"--\"'") && [ -z "$user_qt"]
+if user_qt=$(pdsh -w storage1 "repquota -s /export/users | awk '\$2!=\"--\"'") && [ -z "$user_qt" ]
 then
         echo "No users are currently over quota"
 else
