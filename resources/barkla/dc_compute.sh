@@ -52,17 +52,17 @@ fi
 
 
 function compute_zombies {
-if cn_zombie=$(bash /root/check_zombie.sh) && [ -z "$cn_zombie"]
+if cn_zombie=$(bash /root/check_zombie.sh) && [ -z "$cn_zombie" ]
 then
         echo "Compute Zombie Check is OK"
 else
         echo "Compute Zobmie Check Failed"
-        echo -e "$cn_failed"
+        echo -e "$cn_zombie"
 fi
 }
 
 function check_ipmi {
-if cn_ipmi=$(metal ipmi -g cn -k 'sel elist' |grep -v "Log area reset/cleared") && [ -z "$cn_ipmi"]
+if cn_ipmi=$(metal ipmi -g cn -k 'sel elist' |grep -v "Log area reset/cleared") && [ -z "$cn_ipmi" ]
 then
         echo "Compute IPMI Check is OK"
 else
