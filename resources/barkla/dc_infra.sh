@@ -7,9 +7,9 @@ NC='\033[0m'
  
  
 function infra_uptime {
-if infra_uptimes=$(pdsh -g infra "cat /proc/uptime |awk '{print int(\$1/3600)}' |awk '\$1<72 { \$1 = \"Uptime is: \" \$1 \" hours\" ; print}'") && [ -z "$infra_uptime" ]
+if infra_uptimes=$(pdsh -g infra "cat /proc/uptime |awk '{print int(\$1/3600)}' |awk '\$1<72 { \$1 = \"Uptime is: \" \$1 \" hours\" ; print}'") && [ -z "$infra_uptimes" ]
 then
-        echo "Infra Uptimes are OK - above 72 hours"
+        echo "Infra Uptime are OK - above 72 hours"
 else
         echo "Infra Uptime Check Failed"
         echo -e "$infra_uptimes"

@@ -5,9 +5,16 @@ d=$(date +%d)
 RED='\033[0;31m'
 NC='\033[0m'
 
-# Converts uptime to hours and flags nodes with less than 72 hour uptime
-echo -e "${RED}check for reboots${NC}" ; pdsh -g storage "cat /proc/uptime |awk '{print int(\$1/3600)}'" |awk '$2<72' ; 
 
+function storage_uptime {
+if storage_uptime=$(pdsh -g storage "cat /proc/uptime |awk '{print int(\$1/3600)}' |awk '\$1<72 { \$1 = \"Uptime is: \" \$1 \" hours\" ; print}'") && [ -z "$storage_uptime" ]
+then
+        echo "Storage Uptimes are OK - above 72 hours"
+else
+        echo "Storage Uptime Check Failed"
+        echo -e "$storage_uptimes"
+fi
+}
 
 
 function check_lustre_capacity {
@@ -19,7 +26,7 @@ else
         echo -e "$lustre_capacity"
 fi
 
-if lustre_capacity_inodes=$(pdsh -w login1 "lfs df -hi |grep -i file |awk '{print \$5}' |grep -v "Use%" |sed s/%//g |awk '\$1>80 { \$1 = \"Lustre filesystem usage is: \" \$1 \"%\" ; print}'") && [ -z "$lustre_capacity" ]
+if lustre_capacity_inodes=$(pdsh -w login1 "lfs df -hi |grep -i file |awk '{print \$5}' |grep -v "Use%" |sed s/%//g |awk '\$1>80 { \$1 = \"Lustre filesystem usage is: \" \$1 \"%\" ; print}'") && [ -z "$lustre_capacity_inodes" ]
 then
         echo "lustre capacity (inodes) is ok - Less than 80%"
 else
@@ -128,6 +135,7 @@ fi
 
 function run_check {
 echo -e "${RED}Running checks${NC}"
+storage_uptime
 check_lustre_capacity
 check_nfs_capacity
 check_storage_disk
