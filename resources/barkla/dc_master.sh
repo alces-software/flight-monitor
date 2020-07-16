@@ -22,7 +22,7 @@ fi
 }
 
 function check_ipmi {
-if master_ipmi=$(pdsh -g masters "ipmitool sel elist |grep -v "Log area reset/cleared"") && [ -z "$master_ipmi" ]
+if master_ipmi=$(pdsh -g masters "ipmitool sel elist |grep -v 'Log area reset/cleared') && [ -z "$master_ipmi" ]
 then
         echo "Masters IPMI Check is OK"
 else
