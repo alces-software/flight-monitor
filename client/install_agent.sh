@@ -7,6 +7,8 @@ mkdir -p /opt/zabbix/run
 chown zabbix /opt/zabbix/run
 mkdir -p /var/log/zabbix
 chown zabbix /var/log/zabbix
+mkdir -p /opt/zabbix/{scripts,logs}
+chown zabbix /opt/zabbix/{scripts,logs}
 
 wget http://fcgateway/resources/zabbix_agent.tgz -O zabbix_agent.tgz
 tar -zxvf zabbix_agent.tgz
