@@ -36,7 +36,7 @@ fi
 }
 
 function check_nfs_capacity {
-if user_capacity=$(pdsh -w login1 "df -h /users |awk '{print \$5}' |grep -v "Use%" |sed s/%//g |awk '\$1>1 { \$1 = \"User filesystem usage is: \" \$1 \"%\" ; print}'") && [ -z "$user_capacity" ]
+if user_capacity=$(pdsh -w login1 "df -h /users |awk '{print \$5}' |grep -v "Use%" |sed s/%//g |awk '\$1>80 { \$1 = \"User filesystem usage is: \" \$1 \"%\" ; print}'") && [ -z "$user_capacity" ]
 then
         echo "/users capacity is ok - Less than 80%"
 else
@@ -44,7 +44,7 @@ else
         echo -e "$user_capacity"
 fi
 
-if gridware_capacity=$(pdsh -w login1 "df -h /opt/gridware |awk '{print \$5}' |grep -v "Use%" |sed s/%//g |awk '\$1>1 { \$1 = \"/opt/gridware filesystem usage is: \" \$1 \"%\" ; print}'") && [ -z "$gridware_capacity" ]
+if gridware_capacity=$(pdsh -w login1 "df -h /opt/gridware |awk '{print \$5}' |grep -v "Use%" |sed s/%//g |awk '\$1>80 { \$1 = \"/opt/gridware filesystem usage is: \" \$1 \"%\" ; print}'") && [ -z "$gridware_capacity" ]
 then
         echo "/opt/gridware capacity is ok - Less than 80%"
 else
@@ -52,7 +52,7 @@ else
         echo -e "$gridware_capacity"
 fi
 
-if service_capacity=$(pdsh -w login1 "df -h /opt/service |awk '{print \$5}' |grep -v "Use%" |sed s/%//g |awk '\$1>1 { \$1 = \"/opt/service filesystem usage is: \" \$1 \"%\" ; print}'") && [ -z "$service_capacity" ]
+if service_capacity=$(pdsh -w login1 "df -h /opt/service |awk '{print \$5}' |grep -v "Use%" |sed s/%//g |awk '\$1>80 { \$1 = \"/opt/service filesystem usage is: \" \$1 \"%\" ; print}'") && [ -z "$service_capacity" ]
 then
         echo "/opt/service capacity is ok - Less than 80%"
 else
@@ -60,7 +60,7 @@ else
         echo -e "$service_capacity"
 fi
 
-if apps_capacity=$(pdsh -w login1 "df -h /opt/apps |awk '{print \$5}' |grep -v "Use%" |sed s/%//g |awk '\$1>1 { \$1 = \"/opt/apps filesystem usage is: \" \$1 \"%\" ; print}'") && [ -z "$apps_capacity" ]
+if apps_capacity=$(pdsh -w login1 "df -h /opt/apps |awk '{print \$5}' |grep -v "Use%" |sed s/%//g |awk '\$1>80 { \$1 = \"/opt/apps filesystem usage is: \" \$1 \"%\" ; print}'") && [ -z "$apps_capacity" ]
 then
         echo "/opt/apps capacity is ok - Less than 80%"
 else
