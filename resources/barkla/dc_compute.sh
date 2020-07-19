@@ -75,25 +75,13 @@ fi
 
 function check_ipmi {
 metal ipmi -g cn -k 'sel elist' > /tmp/cn-ipmistatus
-cat /tmp/cn-powerstatus | while read line 
-do
-   i
-done
-
-"is on" /tmp/cn-powerstatus
-then 
-    echo "Compute Power Status is OK"
-else
-    echo "Compute Power Status Check Failed"
-    cat /tmp/cn-powerstatus |grep -v "is on"
-fi
-
-if cn_ipmi=$(metal ipmi -g cn -k 'sel elist' |grep -v "Log area reset/cleared") && [ -z "$cn_ipmi" ]
+cat /tmp/cn-ipmistatus | grep -qv "Log area reset/cleared" 
+if [ $? = 0 ]
 then
         echo "Compute IPMI Check is OK"
 else
         echo "Compute IPMI Check Failed"
-        echo -e "$cn_ipmi"
+        cat /tmp/cn-powerstatus |grep -v "Log area reset/cleared"
 fi
 }
 
