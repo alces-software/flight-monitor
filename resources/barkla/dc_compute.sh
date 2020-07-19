@@ -3,6 +3,18 @@
 RED='\033[0;31m'
 NC='\033[0m'
 
+function check_power {
+power -g cn status > /tmp/cn-powerstatus
+cat /tmp/cn-powerstatus | grep -q "is on" 
+if [ $? = 0 ]
+        then 
+        echo "Compute Power Status is OK on" $line
+    else
+        echo "Compute Power Status Check Failed"
+        cat /tmp/cn-powerstatus |grep -v "is on"
+fi
+}
+
 function check_ib {
 if compute_ib=$(pdsh -f1 -g cn "ibstatus |grep 'state' "|grep -v 'ACTIVE\|LinkUp') && [ -z "$compute_ib" ]
 then
@@ -62,6 +74,20 @@ fi
 }
 
 function check_ipmi {
+metal ipmi -g cn -k 'sel elist' > /tmp/cn-ipmistatus
+cat /tmp/cn-powerstatus | while read line 
+do
+   i
+done
+
+"is on" /tmp/cn-powerstatus
+then 
+    echo "Compute Power Status is OK"
+else
+    echo "Compute Power Status Check Failed"
+    cat /tmp/cn-powerstatus |grep -v "is on"
+fi
+
 if cn_ipmi=$(metal ipmi -g cn -k 'sel elist' |grep -v "Log area reset/cleared") && [ -z "$cn_ipmi" ]
 then
         echo "Compute IPMI Check is OK"
@@ -73,6 +99,7 @@ fi
 
 function run_check {
 echo -e "${RED}Running checks${NC}"
+check_power
 check_ib
 check_disk_space
 compute_uptime
