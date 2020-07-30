@@ -17,4 +17,4 @@ echo -e "${RED}### check controller memory:${NC}" ; echo '```'$memory'```' ;
 
 export disk=$(df -h / /boot) ;  
 
-echo -e "${RED}### check controller disk space:${NC}" ; echo '```'$disk'```' ;      
+echo -e "${RED}### check controller disk space:${NC}" ; echo '``` '$disk'```' ;      
