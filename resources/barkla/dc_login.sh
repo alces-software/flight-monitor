@@ -11,7 +11,7 @@ echo -e "${RED}check users logged into user-facing nodes:${NC}" ; echo '```'$log
 
 export uptime=$(pdsh -g login uptime ; pdsh -g viz uptime) ; 
 
-echo -e "${RED}uptime is:${NC}" ; pdsh -g login uptime ; echo '```'$uptime'```' ; 
+echo -e "${RED}uptime is:${NC}" ; echo '```'"$uptime"'```' ; 
 
 export tmp=$(pdsh -w login1,login2 df -h /tmp) ; 
 
