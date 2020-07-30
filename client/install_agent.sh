@@ -7,8 +7,8 @@ mkdir -p /opt/zabbix/run
 chown zabbix /opt/zabbix/run
 mkdir -p /var/log/zabbix
 chown zabbix /var/log/zabbix
-mkdir -p /opt/zabbix/{scripts,logs}
-chown zabbix /opt/zabbix/{scripts,logs}
+mkdir -p /opt/zabbix/{scripts,logs,custom_checks}
+chown zabbix /opt/zabbix/{scripts,logs,custom_checks}
 
 wget http://fcgateway/resources/zabbix_agent.tgz -O zabbix_agent.tgz
 tar -zxvf zabbix_agent.tgz
@@ -44,6 +44,16 @@ Group=zabbix
 [Install]
 WantedBy=multi-user.target
 EOF
+
+cat << 'EOF' > /opt/zabbix/custom_checks/user_params.conf
+UserParameter=corosync,bash /opt/nagios/nagios-plugins/check_corosync
+UserParameter=haops,bash /opt/nagios/nagios-plugins/check_ha_ops.sh
+UserParameter=multipath,bash /opt/nagios/nagios-plugins/check_multipath
+UserParameter=psu,bash /opt/nagios/nagios-plugins/check_PSUs
+UserParameter=mdarray,bash /opt/nagios/nagios-plugins/check_dellMDarray
+UserParameter=varlogmessages,bash /opt/nagios/nagios-plugins/check_log
+EOF
+
 
 wget http://fcgateway/resources/zabbix_agentd.conf -O /opt/zabbix/conf/zabbix_agentd.conf
 
