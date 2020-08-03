@@ -57,13 +57,13 @@ else
         echo "OK - $quota_mount is mounted and Quotas are enabled."
         exit 0
     elif [ "$rc" -eq "1" ] && [ "$mount_expected" -eq "1" ]; then
-        echo "Warning - $quota_mount is mounted, Quotas are not enabled, but expected!"
+        echo "WARNING - $quota_mount is mounted, Quotas are not enabled, but expected!"
         exit 1
     elif [ "$rc" -eq "1" ] && [ "$mount_expected" -eq "0" ]; then
         echo "OK - $quota_mount is mounted and quotas are not set, but also not expected!"
         exit 0
     elif [ "$rc" -eq "0" ] && [ "$mount_expected" -eq "0" ]; then
-        echo "Erm..Quotas are set, but not expected!"
+        echo "WARNING - Erm..Quotas are set, but not expected!"
     else
         echo "$0 Unknown error!"    
         exit 3
