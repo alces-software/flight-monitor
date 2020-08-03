@@ -35,10 +35,10 @@ sudo grep "${check_date} ${check_hour}.*warning: Processing failed" /var/log/mes
 rc=$?
 
 if [ "${rc}" -eq "0" ]; then
-    echo "Processing failed op detected"
+    echo "WARNING - Processing failed op detected"
     exit 1 
 else
-    echo "No processing failed op detected"
+    echo "OK - No processing failed op detected"
     exit 0
 fi
 
