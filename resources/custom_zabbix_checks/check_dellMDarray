@@ -35,12 +35,12 @@ else
 fi
 
 if [ "$checkcommand" == "" ] ; then
-   echo "No response from $arrayname array"
+   echo "WARNING - No response from $arrayname array"
    exit 3
 fi
 
 if [ `echo $checkcommand | grep -ic optimal | awk '{print $1}'` -lt 1 ] ; then
-   echo "SAS array warning: `echo $checkcommand | sed 's?\t? ?g'`"
+   echo "WARNING - SAS array warning: `echo $checkcommand | sed 's?\t? ?g'`"
    exit 1
 elif [ "$arrayname" != "" ] ; then
    echo "$arrayname OK"
