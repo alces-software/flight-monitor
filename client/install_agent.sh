@@ -69,7 +69,7 @@ UserParameter=ost3,bash /opt/zabbix/scripts/check_PERC_H7X0 2 1
 UserParameter=ost4,bash /opt/zabbix/scripts/check_PERC_H7X0 3 1
 UserParameter=ost5,bash /opt/zabbix/scripts/check_PERC_H7X0 4 1
 UserParameter=ost6,bash /opt/zabbix/scripts/check_PERC_H7X0 5 1
-UserParameter=xserver,bash /opt/zabbix/scripts/check_procs -c 1 --command X
+UserParameter=xserver,/opt/zabbix/scripts/check_procs -c 1 --command X
 UserParameter=ecc,bash /opt/zabbix/scripts/check_ECC-IPMI
 UserParameter=temps,bash /opt/zabbix/scripts/check_inlettemps.sh
 EOF
@@ -86,6 +86,8 @@ cd
 
 #Ensure permissions are correct
 chown zabbix: /opt/zabbix/ -R
+chmod +x /opt/zabbix/scripts/check_procs
+
 
 wget http://fcgateway/resources/zabbix_agentd.conf -O /opt/zabbix/conf/zabbix_agentd.conf
 
