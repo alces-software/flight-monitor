@@ -74,6 +74,9 @@ UserParameter=ecc,bash /opt/zabbix/scripts/check_ECC-IPMI
 UserParameter=temps,bash bash /opt/zabbix/scripts/check_inlettemps.sh
 EOF
 
+#Download custom scripts from fcgateway
+cd /opt/zabbix/scripts ; wget -r -nH --cut-dirs=3 --no-parent --reject="index.html*" http://fcgateway/resources/custom_zabbix_checks/
+cd
 
 wget http://fcgateway/resources/zabbix_agentd.conf -O /opt/zabbix/conf/zabbix_agentd.conf
 
