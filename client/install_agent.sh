@@ -45,7 +45,7 @@ Group=zabbix
 WantedBy=multi-user.target
 EOF
 
-cat << 'EOF' > /opt/zabbix/custom_checks/user_params.conf
+cat << 'EOF' > /opt/zabbix/conf/custom_checks/user_params.conf
 UserParameter=corosync,bash /opt/zabbix/scripts/check_corosync
 UserParameter=haops,bash /opt/zabbix/scripts/check_ha_ops.sh
 UserParameter=multipath,bash /opt/zabbix/scripts/check_multipath
