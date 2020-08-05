@@ -71,7 +71,7 @@ UserParameter=ost5,bash /opt/zabbix/scripts/check_PERC_H7X0 4 1
 UserParameter=ost6,bash /opt/zabbix/scripts/check_PERC_H7X0 5 1
 UserParameter=xserver,bash /opt/zabbix/scripts/check_procs -c 1 --command X
 UserParameter=ecc,bash /opt/zabbix/scripts/check_ECC-IPMI
-UserParameter=temps,bash bash /opt/zabbix/scripts/check_inlettemps.sh
+UserParameter=temps,bash /opt/zabbix/scripts/check_inlettemps.sh
 EOF
 
 #Setup PSU cron entry
