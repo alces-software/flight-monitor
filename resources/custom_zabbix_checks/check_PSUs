@@ -28,7 +28,7 @@
 
 # check we have output for this node
 if [ ! -x /usr/bin/ipmitool ] ; then
-   echo "No ipmitool utility installed"
+   echo "WARNING - No ipmitool utility installed"
    exit 3
 fi
 
@@ -40,11 +40,11 @@ sudo /usr/bin/ipmitool sensor | egrep "Power Supplies|PS Redundancy|PG FAIL" > $
 if [ `cat $checkcommand | egrep -c "Fully Redundant|OK|Ok" | awk '{print $1}'` -lt 1 ] ; then
 
    if [ `grep "PG FAIL" $checkcommand | grep -v "0x0180" | wc -l | awk '{print $1}'` -gt 0 ] ; then
-           echo "PSU PG FAIL detected"
+           echo "WARNING - PSU PG FAIL detected"
            rm -f $checkcommand
            exit 1
    else
-          echo "No PSU faults detected"
+          echo "OK - No PSU faults detected"
           rm -f $checkcommand
           exit 0
    fi
@@ -55,18 +55,18 @@ if [ `cat $checkcommand | egrep -c "Fully Redundant|OK|Ok" | awk '{print $1}'` -
    okpsus=`grep PS $checkcommand | grep Output | grep -c OK | awk '{print $1}'`
    if [ $totalpsus -gt 0 ] ; then
      if [ $okpsus -lt $totalpsus ] ; then
-        echo "PSU redundancy problem: $okpsus working PSU(s) of $totalpsus"
+        echo "WARNING - PSU redundancy problem: $okpsus working PSU(s) of $totalpsus"
         exit 1
      else
-        echo "PSU redundancy okay ($okpsus PSU(s) report OK)"
+        echo "OK - PSU redundancy okay ($okpsus PSU(s) report OK)"
         exit 0
      fi
    fi
-   echo "PSU redundancy problem: `tail -1 $checkcommand | cut -d\| -f4 | awk '{print $1}'`"
+   echo "WARNING - PSU redundancy problem: `tail -1 $checkcommand | cut -d\| -f4 | awk '{print $1}'`"
    rm -f $checkcommand
    exit 1
 else
-   echo "PSU redundancy ok"
+   echo "OK - PSU redundancy ok"
    rm -f $checkcommand
    exit 0
 fi

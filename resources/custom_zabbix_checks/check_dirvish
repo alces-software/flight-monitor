@@ -1,6 +1,6 @@
 #!/bin/bash
 
-statusfile=/var/spool/nagios/dirvish.out
+statusfile=/opt/zabbix/logs/dirvish.out
 mount_point="$1"
 
 ret_string=""
