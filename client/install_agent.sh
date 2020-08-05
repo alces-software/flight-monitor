@@ -77,7 +77,7 @@ EOF
 #Setup PSU cron entry
 cat << 'EOF' > /etc/cron.d/psu-check
 # run every 3 mins
-*/3 * * * *     root      /opt/zabbix/scripts/check_PSUs > /opt/zabbix/logs/psu.out
+*/3 * * * *     zabbix      bash /opt/zabbix/scripts/check_PSUs > /opt/zabbix/logs/psu.out
 EOF
 
 #Download custom scripts from fcgateway
