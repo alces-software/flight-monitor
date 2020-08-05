@@ -31,7 +31,6 @@ wget https://raw.githubusercontent.com/alces-software/flight-monitor/master/reso
 echo "Downloading Custom Zabbix Conf"
 wget https://github.com/alces-software/flight-monitor/blob/master/resources/zabbix_custom_checks.tar.gz?raw=true -O /opt/zabbix/srv/resources/zabbix_checks.tar.gz -q
 tar -zxvf /opt/zabbix/srv/resources/zabbix_checks.tar.gz
-wget https://raw.githubusercontent.com/alces-software/flight-monitor/master/resources/user_params.conf -O /opt/zabbix/srv/resources/user_params.conf -q
 
 
 #Hostname change when people give u VMs that aren't called fcgateway...
