@@ -60,17 +60,17 @@ if [ ! $remote ] ; then
    done
 
    if [ $cecc -gt 0 ] || [ $uecc -gt 0 ] || [ $fault -gt 0 ] ; then
-      echo "ECC memory $uecc/$cecc/$fault UNC/COR/general fault(s)"
+      echo "WARNING - ECC memory $uecc/$cecc/$fault UNC/COR/general fault(s)"
       exit 1
    else
-      echo "$good nodes report no ECC faults"
+      echo "OK - $good nodes report no ECC faults"
       exit 0
    fi
 fi
 
 # check we have output for this node
 if [ ! -f $checkdir/$remote.ecc.out ] ; then
-   echo "No log information found for $remote"
+   echo "CRITICAL - No log information found for $remote"
    exit 3
 fi
 
@@ -82,18 +82,18 @@ if [ $checkcommand -gt 0 ] ; then
    uecc=`grep -ic " uncorrect" $checkdir/$remote.ecc.out | awk '{print $1}'`
    cecc=`grep -ic " correctable" $checkdir/$remote.ecc.out | awk '{print $1}'`
    if [ $uecc -gt 0 ] ; then
-      echo "Detected $uecc uncorrectable ECC errors on $remote"
+      echo "CRITICAL - Detected $uecc uncorrectable ECC errors on $remote"
       exit 2
    elif [ $cecc -gt 0 ] ; then
-      echo "Detected $cecc correctable ECC errors on $remote"
+      echo "WARNING - Detected $cecc correctable ECC errors on $remote"
       exit 1
    else
-      echo "Detected $checkcommand memory errors on $remote"
+      echo "WARNING - Detected $checkcommand memory errors on $remote"
    fi
    exit 1
 else
    # No faults found
-   echo "No ECC events logged for $remote"
+   echo "OK - No ECC events logged for $remote"
    exit 0
 fi
 
