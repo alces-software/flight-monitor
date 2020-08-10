@@ -31,10 +31,10 @@
 checkcommand=`sudo /usr/sbin/crm_mon -s | head -1`
 
 if [ `echo $checkcommand | egrep -c "OK:" | awk '{print $1}'` -lt 1 ] ; then
-   echo "Corosync HA warning: `echo $checkcommand | sed 's?\t? ?g'`"
+   echo "WARNING - Corosync HA warning: `echo $checkcommand | sed 's?\t? ?g'`"
    exit 1
 else
-   echo "Corosync HA reports ok"
+   echo "OK - Corosync HA reports ok"
    exit 0
 fi
 

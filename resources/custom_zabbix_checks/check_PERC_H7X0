@@ -47,12 +47,12 @@ check_predictive_failure=`/opt/MegaRAID/MegaCli/MegaCli64 -AdpEventLog -GetEvent
 #
 
 if [ `echo $check_optimal | grep -c Optimal | awk '{print $1}'` -lt 1 ] ; then
-   echo "System disk RAID volume warning: `echo $check_optimal | sed 's?\t? ?g'`"
+   echo "CRITICAL - System disk RAID volume warning: `echo $check_optimal | sed 's?\t? ?g'`"
    exit 2
 elif [ `echo $check_predictive_failure | awk '{print $1}'` -gt 0 ] ; then
-   echo "RAID adapter registered $check_predictive_failure predictive failure warnings"
+   echo "WARNING - RAID adapter registered $check_predictive_failure predictive failure warnings"
    exit 1
 else
-   echo "System disk RAID volume OK"
+   echo "OK - System disk RAID volume OK"
    exit 0
 fi
