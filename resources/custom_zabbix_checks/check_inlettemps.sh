@@ -63,11 +63,11 @@ done
 
 
 if [ $critical -gt 0 ] || [ $high -gt 0 ] ; then
-   echo "Temperature alert - $critical machines have critical temperatures, $high machines have warning temperatures, $good machines are OK"
+   echo "WARNING - Temperature alert - $critical machines have critical temperatures, $high machines have warning temperatures, $good machines are OK"
    exit 1
 elif [ $unknown -gt 0 ] ; then
-   echo "Temperature OK ($good OK, $unknown did not report)"
+   echo "OK - Temperature OK ($good OK, $unknown did not report)"
    exit 0
 else
-   echo "Temperature OK on $good servers"
+   echo "OK - Temperature OK on $good servers"
 fi
