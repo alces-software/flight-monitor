@@ -12,7 +12,10 @@ echo ${PASSWORD} | passwd --stdin fcops
 
 #Setup Sudo Rules for fcops user
 
-echo 'fcops ALL=(ALL:ALL) ALL' | sudo EDITOR='tee -a' visudo
+#Setting fcops as sudo user on fcgateway
+cat << 'EOF' > /etc/sudoers.d/fcops
+fcops    ALL=(ALL)       NOPASSWD: ALL
+EOF
 
 su - fcops -c 'mkdir -p /home/fcops/.ssh'
 su - fcops -c 'chmod 700 /home/fcops/.ssh'
