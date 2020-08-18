@@ -14,7 +14,10 @@ echo ${PASSWORD} | passwd --stdin fcops
 echo "Creating Key for passwordless SSH to cluster as fcops user"
 ssh-keygen -t rsa
 
-#Setting 
+#Setting fcops as sudo user on fcgateway
+cat << 'EOF' > /etc/sudoers.d/fcops
+fcops    ALL=(ALL)       NOPASSWD: ALL
+EOF 
 
 sshpass -pReypdac1 ssh -o StrictHostKeyChecking=no fcops@10.10.0.28 hostname
 
