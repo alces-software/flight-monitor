@@ -1,25 +1,25 @@
 #!/bin/bash
 
-useradd zabbix
+#useradd zabbix
 mkdir -p /opt/zabbix
 cd /opt/zabbix
 mkdir -p /opt/zabbix/run
-chown zabbix /opt/zabbix/run
+chown fcops: /opt/zabbix/run
 mkdir -p /var/log/zabbix
-chown zabbix /var/log/zabbix
+chown fcops: /var/log/zabbix
 mkdir -p /opt/zabbix/{scripts,logs,conf/custom_checks}
-chown zabbix /opt/zabbix/{scripts,logs,conf/custom_checks}
+chown fcops: /opt/zabbix/{scripts,logs,conf/custom_checks}
 
 wget http://fcgateway/resources/zabbix_agent.tgz -O zabbix_agent.tgz
 tar -zxvf zabbix_agent.tgz
 
 
 #Add zabbix user to sudoers
-touch /etc/sudoers.d/zabbix
-cat << 'EOF' > /etc/sudoers.d/zabbix
-Cmnd_Alias ZABBIX = /opt/MegaRAID/MegaCli/MegaCli64 -ldinfo *, /usr/sbin/crm_mon -s, /usr/sbin/multipath -ll, /usr/bin/ipmitool sensor, /usr/bin/SMcli -d -v, /usr/bin/ipmitool sel elist, /usr/sbin/nvme, /usr/bin/grep *, /usr/sbin/repquota, /usr/bin/sinfo *, /usr/sbin/lnetctl route show -v
-zabbix    ALL=(ALL)       NOPASSWD: ZABBIX
-EOF
+#touch /etc/sudoers.d/zabbix
+#cat << 'EOF' > /etc/sudoers.d/zabbix
+#Cmnd_Alias ZABBIX = /opt/MegaRAID/MegaCli/MegaCli64 -ldinfo *, /usr/sbin/crm_mon -s, /usr/sbin/multipath -ll, /usr/bin/ipmitool sensor, /usr/bin/SMcli -d -v, /usr/bin/ipmitool sel elist, /usr/sbin/nvme, /usr/bin/grep *, /usr/sbin/repquota, /usr/bin/sinfo *, /usr/sbin/lnetctl route show -v
+#zabbix    ALL=(ALL)       NOPASSWD: ZABBIX
+#EOF
 
 
 cat << 'EOF' > /usr/lib/systemd/system/zabbix-agent.service
@@ -38,8 +38,8 @@ KillMode=control-group
 ExecStart=/opt/zabbix/sbin/zabbix_agentd -c $CONFFILE
 ExecStop=/bin/kill -SIGTERM $MAINPID
 RestartSec=10s
-User=zabbix
-Group=zabbix
+User=fcops
+Group=fcops
 
 [Install]
 WantedBy=multi-user.target
@@ -77,7 +77,7 @@ EOF
 #Setup PSU cron entry
 cat << 'EOF' > /etc/cron.d/psu-check
 # run every 3 mins
-*/3 * * * *     zabbix      bash /opt/zabbix/scripts/check_PSUs > /opt/zabbix/logs/psu.out
+*/3 * * * *     fcops      bash /opt/zabbix/scripts/check_PSUs > /opt/zabbix/logs/psu.out
 EOF
 
 #Download custom scripts from fcgateway
@@ -85,7 +85,7 @@ cd /opt/zabbix/scripts ; wget -r -nH --cut-dirs=3 --no-parent --reject="index.ht
 cd
 
 #Ensure permissions are correct
-chown zabbix: /opt/zabbix/ -R
+chown fcops: /opt/zabbix/ -R
 chmod +x /opt/zabbix/scripts/check_procs
 
 
