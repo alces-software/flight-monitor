@@ -18,7 +18,7 @@ systemctl restart firewalld
 # Packages
 echo "Installing Prerequisites"
 yum install -y -e0 vim git epel-release wget -q
-yum install -y -e0 s3cmd awscli -q 
+yum install -y -e0 s3cmd awscli ipmitool -q 
 yum install -y -e0 httpd yum-plugin-priorities yum-utils createrepo -q
 
 #
