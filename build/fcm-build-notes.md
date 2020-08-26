@@ -1,7 +1,7 @@
 # Build Scripts + Purpose
-* fcm-pdsh.sh - Setup pdsh + genders for maint
+* fcm-flight-suite.sh - [WIP] Configure and Setup necessary 'flight' commands
 * fcm-setup_cloud.sh - Initial Setup
-* fcm-sudo.sh - 
-* fcm-webserver.sh - Nginx Setup
-* fcops.sh - 
+* fcm-fcops-user.sh - Setup 'fcops' user on fcgateway
+* fcm-webserver.sh - Nginx + Resources Setup
 * vpn-client.sh - Join Ops VPN -> Ops Hub
+
