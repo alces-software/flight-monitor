@@ -19,7 +19,5 @@ cat << 'EOF' > /etc/sudoers.d/fcops
 fcops    ALL=(ALL)       NOPASSWD: ALL
 EOF 
 
-sshpass -pReypdac1 ssh -o StrictHostKeyChecking=no fcops@10.10.0.28 hostname
-
 
 echo "Add ~fcops/.ssh/id_rsa.pub key to auth keys on ops-hub"
