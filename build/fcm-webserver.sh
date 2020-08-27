@@ -25,7 +25,6 @@ wget https://raw.githubusercontent.com/alces-software/flight-monitor/master/reso
 wget https://raw.githubusercontent.com/alces-software/flight-monitor/master/client/install_agent.sh -O /opt/zabbix/srv/resources/install_agent.sh -q
 wget https://raw.githubusercontent.com/alces-software/flight-monitor/master/resources/zabbix_agentd.conf -O /opt/zabbix/srv/resources/zabbix_agentd.conf -q
 wget https://www.zabbix.com/downloads/4.4.5/zabbix_agent-4.4.5-linux-3.0-amd64-static.tar.gz -O /opt/zabbix/srv/resources/zabbix_agent.tgz -q
-wget https://raw.githubusercontent.com/alces-software/flight-monitor/master/resources/zabbix_sudo.sh -O /opt/zabbix/srv/resources/zabbix_sudo.sh -q
 
 
 echo "Downloading Custom Zabbix Conf"
