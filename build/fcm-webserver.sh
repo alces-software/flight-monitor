@@ -47,3 +47,4 @@ systemctl enable zabbix-agent.service
 
 echo -e "\033[0;32m==== WEBSERVER SETUP COMPLETE ====\033[0m"
 echo "Add this proxy server to Zabbix (via Frontend on ops-hub)"
+echo "Create the fcops user for fcgateway with /tmp/fcm-fcops-user.sh"
