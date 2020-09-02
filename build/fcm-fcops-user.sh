@@ -12,10 +12,10 @@ echo ${PASSWORD} | passwd --stdin fcops
 
 #Setup Pub key for fcops
 echo "Creating Key for passwordless SSH to cluster as fcops user"
-ssh-keygen -t rsa
+su fcops -c "ssh-keygen -t rsa"
 
 #Setting fcops as sudo user on fcgateway
-cat << 'EOF' > /etc/sudoers.d/fcops
+cat << EOF > /etc/sudoers.d/fcops
 fcops    ALL=(ALL)       NOPASSWD: ALL
 EOF 
 
