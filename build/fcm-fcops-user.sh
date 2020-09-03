@@ -31,5 +31,8 @@ echo "Will need to update ~/.git-credentials appropriately"
 #Setting fcops as sudo user on fcgateway
 echo "fcops    ALL=(ALL)       NOPASSWD: ALL" > /etc/sudoers.d/fcops
 
+#Install / Configure pdsh/genders
+yum install -y -e0 genders pdsh
+
 
 echo "Add ~fcops/.ssh/id_rsa.pub key to auth keys on ops-hub"
