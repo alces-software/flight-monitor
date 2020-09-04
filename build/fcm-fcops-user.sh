@@ -32,7 +32,10 @@ echo "Will need to update ~/.git-credentials appropriately"
 echo "fcops    ALL=(ALL)       NOPASSWD: ALL" > /etc/sudoers.d/fcops
 
 #Install / Configure pdsh/genders
-yum install -y -e0 genders pdsh
-
+yum install -y -e0 genders pdsh pdsh-mod-genders
+touch /etc/genders
+echo "StrictHostKeyChecking no" >> ~fcops/.ssh/config
+chown fcops: ~fcops/.ssh/config
+chmod 600 ~fcops/.ssh/config
 
 echo "Add ~fcops/.ssh/id_rsa.pub key to auth keys on ops-hub"
