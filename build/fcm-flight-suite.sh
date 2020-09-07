@@ -33,7 +33,7 @@ echo "ipmitool -U admin -P XXXX -H ${name}.bmc -I lanplus chassis power cycle" >
 echo "ipmitool -U admin -P XXXX -H ${name}.bmc -I lanplus chassis power off" >> /opt/flight/opt/action-api/libexec/power-off/ipmi.sh
 echo "ipmitool -U admin -P XXXX -H ${name}.bmc -I lanplus chassis power on" >> /opt/flight/opt/action-api/libexec/power-on/ipmi.sh
 mkdir /opt/flight/opt/action-api/libexec/power-sel
-echo "ipmitool -U admin -P XXXX -H ${name}.bmc -I lanplus chassis power status" >> /opt/flight/opt/action-api/libexec/power-sel/ipmi.sh
+echo "ipmitool -U admin -P XXXX -H ${name}.bmc -I lanplus chassis sel list" >> /opt/flight/opt/action-api/libexec/power-sel/ipmi.sh
 
 for node in {001..170} ;do echo -e "node$node:\n    ranks: [ipmi]" ;done >> /opt/flight/opt/action-api/config/nodes.yaml
 
