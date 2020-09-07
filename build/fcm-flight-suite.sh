@@ -25,7 +25,21 @@ flight service start action-api
 flight service start www
 
 #Change ports on www service with
- sudo /opt/flight/bin/flight service configure www
+sudo /opt/flight/bin/flight service configure www
 
+
+echo "ipmitool -U admin -P XXXX -H ${name}.bmc -I lanplus chassis power status" >> /opt/flight/opt/action-api/libexec/power-status/ipmi.sh
+echo "ipmitool -U admin -P XXXX -H ${name}.bmc -I lanplus chassis power cycle" >> /opt/flight/opt/action-api/libexec/power-cycle/ipmi.sh
+echo "ipmitool -U admin -P XXXX -H ${name}.bmc -I lanplus chassis power off" >> /opt/flight/opt/action-api/libexec/power-off/ipmi.sh
+echo "ipmitool -U admin -P XXXX -H ${name}.bmc -I lanplus chassis power on" >> /opt/flight/opt/action-api/libexec/power-on/ipmi.sh
+mkdir /opt/flight/opt/action-api/libexec/power-sel
+echo "ipmitool -U admin -P XXXX -H ${name}.bmc -I lanplus chassis power status" >> /opt/flight/opt/action-api/libexec/power-sel/ipmi.sh
+
+for node in {001..170} ;do echo -e "node$node:\n    ranks: [ipmi]" ;done >> /opt/flight/opt/action-api/config/nodes.yaml
+
+
+for node in {1..9} ;do echo "10.11.100.$node    node00$node.bmc" ;done >> /etc/hosts
+for node in {10..99} ;do echo "10.11.100.$node    node0$node.bmc" ;done >> /etc/hosts
+for node in {100..170} ;do echo "10.11.100.$node    node$node.bmc" ;done >> /etc/hosts
 
 yum install -y flight-power
