@@ -19,10 +19,10 @@ token=$(date | md5sum | cut -c 1-16)
 
 su fcops -c "sed -i s/38acabfe21af73892d8876e3c01fd107/$token/g /opt/flight/opt/action-api/config/application.yaml" 
 
-flight service enable action-api
-flight service enable www
-flight service start action-api
-flight service start www
+/opt/flight/bin/flight service enable action-api
+/opt/flight/bin/flight service enable www
+/opt/flight/bin/flight service start action-api
+/opt/flight/bin/flight service start www
 
 #Change ports on www service with
 sudo /opt/flight/bin/flight service configure www
