@@ -33,7 +33,7 @@ echo "ipmitool -U admin -P XXXX -H ${name}.bmc -I lanplus chassis power cycle" >
 echo "ipmitool -U admin -P XXXX -H ${name}.bmc -I lanplus chassis power off" >> /opt/flight/opt/action-api/libexec/power-off/ipmi.sh
 echo "ipmitool -U admin -P XXXX -H ${name}.bmc -I lanplus chassis power on" >> /opt/flight/opt/action-api/libexec/power-on/ipmi.sh
 mkdir /opt/flight/opt/action-api/libexec/power-sel
-echo "ipmitool -U admin -P XXXX -H ${name}.bmc -I lanplus chassis sel list" >> /opt/flight/opt/action-api/libexec/power-sel/ipmi.sh
+echo "ipmitool -U admin -P XXXX -H ${name}.bmc -I lanplus sel list" >> /opt/flight/opt/action-api/libexec/power-sel/ipmi.sh
 
 #Add compute nodes BMC addr to /etc/hosts of fcgateway - run below from controller
 for i in $(nodeattr -n compute) ; do ping -c 1 $i.bmc ; done |grep PING |awk '{print $3, $2}' |sed 's/(//g' |sed 's/)//g' |sed 's/\.bmc.*/.bmc/g'
