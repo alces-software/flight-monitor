@@ -35,11 +35,8 @@ echo "ipmitool -U admin -P XXXX -H ${name}.bmc -I lanplus chassis power on" >> /
 mkdir /opt/flight/opt/action-api/libexec/power-sel
 echo "ipmitool -U admin -P XXXX -H ${name}.bmc -I lanplus chassis sel list" >> /opt/flight/opt/action-api/libexec/power-sel/ipmi.sh
 
-for node in {001..170} ;do echo -e "node$node:\n    ranks: [ipmi]" ;done >> /opt/flight/opt/action-api/config/nodes.yaml
+#Add compute nodes BMC addr to /etc/hosts of fcgateway - run below from controller
+for i in $(nodeattr -n compute) ; do ping -c 1 $i.bmc ; done |grep PING |awk '{print $3, $2}' |sed 's/(//g' |sed 's/)//g'
 
-
-for node in {1..9} ;do echo "10.11.100.$node    node00$node.bmc" ;done >> /etc/hosts
-for node in {10..99} ;do echo "10.11.100.$node    node0$node.bmc" ;done >> /etc/hosts
-for node in {100..170} ;do echo "10.11.100.$node    node$node.bmc" ;done >> /etc/hosts
 
 yum install -y flight-power
