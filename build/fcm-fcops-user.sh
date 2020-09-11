@@ -16,6 +16,7 @@ su fcops -c "ssh-keygen -t rsa"
 
 #Bit of git config
 mkdir /users/fcops/git
+chown fcops: /users/fcops/git
 cat << EOF > /users/fcops/.gitconfig
 [user]
 	name = Dan Shaw
