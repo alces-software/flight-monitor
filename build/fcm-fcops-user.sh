@@ -33,7 +33,7 @@ echo "Will need to update ~/.git-credentials appropriately"
 echo "fcops    ALL=(ALL)       NOPASSWD: ALL" > /etc/sudoers.d/fcops
 
 #Install / Configure pdsh/genders
-yum install -y -e0 genders pdsh pdsh-mod-genders
+yum install -y -e0 genders pdsh pdsh-mod-genders -q
 touch /etc/genders
 echo "StrictHostKeyChecking no" >> ~fcops/.ssh/config
 chown fcops: ~fcops/.ssh/config
