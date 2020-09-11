@@ -16,7 +16,7 @@ su fcops -c "ssh-keygen -t rsa"
 
 #Bit of git config
 mkdir /users/fcops/git
-cat < EOF > /users/fcops/.gitconfig
+cat << EOF > /users/fcops/.gitconfig
 [user]
 	name = Dan Shaw
 	email = dan.shaw@alces-flight.com
@@ -24,7 +24,7 @@ cat < EOF > /users/fcops/.gitconfig
 	helper = store
 EOF
 
-echo "https://USER:PASS@github.com" > ~/.git-credentials
+echo "https://USER:PASS@github.com" > /users/fcops/.git-credentials
 
 echo "Will need to update ~/.git-credentials appropriately"
 
