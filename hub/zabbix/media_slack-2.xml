@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>4.4</version>
-    <date>2020-07-14T15:24:55Z</date>
+    <date>2020-10-01T13:48:28Z</date>
     <media_types>
         <media_type>
-            <name>Slack (Multi-Channel)</name>
+            <name>Slack3 (Multi-Channel)</name>
             <type>WEBHOOK</type>
             <parameters>
                 <parameter>
@@ -341,56 +341,21 @@ function createMessage(&#13;
 	) {&#13;
 	var message = {&#13;
 		'fallback': '{0}: {1}'.format(status, params.event_name),&#13;
-		'title': '{0}: {1}'.format(status, params.event_name),&#13;
+		'title': '{0}: {1} - {2}'.format(status, params.host_name, params.event_name),&#13;
 		'color': eventSeverityColor,&#13;
 		'title_link': problemURL,&#13;
 		'pretext': messageText || '',&#13;
 		&#13;
 		'fields': [&#13;
 			{&#13;
-				'title': 'Host',&#13;
-				'value': '{0} [{1}]'.format(params.host_name, params.host_ip),&#13;
+				'value': 'Current Data: {0}'.format(params.event_opdata),&#13;
 				'short': true&#13;
 			},&#13;
 			{&#13;
-				'title': 'Event time',&#13;
-				'value': '{0} {1}'.format(eventDate, eventTime),&#13;
-				'short': true&#13;
-			},&#13;
-			{&#13;
-				'title': 'Severity',&#13;
-				'value': params.event_severity,&#13;
-				'short': true&#13;
-			},&#13;
-			{&#13;
-				'title': 'Opdata',&#13;
-				'value': params.event_opdata,&#13;
+				'value': 'Event Time: {0}  ({1})'.format(eventTime, eventDate),&#13;
 				'short': true&#13;
 			}&#13;
 		],&#13;
-	};&#13;
-&#13;
-	if (!isShort) {&#13;
-		message['actions'] = [&#13;
-			{&#13;
-                &quot;type&quot;: &quot;button&quot;,&#13;
-                &quot;text&quot;: &quot;Open in Zabbix&quot;,&#13;
-                &quot;url&quot;: problemURL&#13;
-            }&#13;
-		];&#13;
-&#13;
-		message.fields.push(&#13;
-			{&#13;
-				'title': 'Event tags',&#13;
-				'value': params.event_tags.replace(/__.+?:(.+?,|.+)/g, '') || 'None',&#13;
-				'short': false&#13;
-			},&#13;
-			{&#13;
-				'title': 'Trigger description',&#13;
-				'value': params.trigger_description,&#13;
-				'short': false&#13;
-			}&#13;
-			)&#13;
 	}&#13;
 &#13;
 	return message;&#13;
