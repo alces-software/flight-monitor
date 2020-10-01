@@ -75,10 +75,10 @@ UserParameter=temps,bash /opt/zabbix/scripts/check_inlettemps.sh
 EOF
 
 #Setup PSU cron entry
-cat << 'EOF' > /etc/cron.d/psu-check
+#cat << 'EOF' > /etc/cron.d/psu-check
 # run every 3 mins
-*/3 * * * *     fcops      bash /opt/zabbix/scripts/check_PSUs > /opt/zabbix/logs/psu.out
-EOF
+#*/3 * * * *     fcops      bash /opt/zabbix/scripts/check_PSUs > /opt/zabbix/logs/psu.out
+#EOF
 
 #Download custom scripts from fcgateway
 cd /opt/zabbix/scripts ; wget -r -nH --cut-dirs=3 --no-parent --reject="index.html*" http://fcgateway/resources/custom_zabbix_checks/
