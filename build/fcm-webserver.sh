@@ -28,7 +28,7 @@ wget https://www.zabbix.com/downloads/4.4.5/zabbix_agent-4.4.5-linux-3.0-amd64-s
 
 
 echo "Downloading Custom Zabbix Conf"
-wget https://github.com/alces-software/flight-monitor/blob/master/resources/zabbix_custom_checks.tar.gz?raw=true -O /opt/zabbix/srv/resources/zabbix_checks.tar.gz -q
+wget https://github.com/alces-software/flight-monitor/blob/master/resources/zabbix_custom_checks.tar.gz?raw=true -O /opt/zabbix/srv/resources/zabbix_checks.tar.gz -q --no-check-certificate
 tar -zxvf /opt/zabbix/srv/resources/zabbix_checks.tar.gz -C /opt/zabbix/srv/resources/
 
 
