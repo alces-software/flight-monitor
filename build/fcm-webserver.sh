@@ -1,6 +1,7 @@
 #!/bin/bash
 
 mkdir -p /opt/zabbix/srv/resources/{maint_scripts,apps_scripts,zabbix}
+chown fcops: /opt/zabbix/srv/resources/ -R
 echo "Installing nginx"
 yum -y -e0 install nginx -q
 
