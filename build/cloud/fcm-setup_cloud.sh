@@ -4,6 +4,9 @@
 # Prerequisites
 #
 
+echo -n "Enter your fcops VPN Username: "; read CLUSTERNAME
+echo -n "Enter your fcops VPN Password: "; read PASSWORD
+
 # Update Firewall Rules
 echo "Updating local firewall rules"
 systemctl enable firewalld
@@ -102,10 +105,6 @@ comp-lzo
 verb 3
 EOF
 
-sleep 2
-
-echo -n "Enter your fcops VPN Username: "; read CLUSTERNAME
-echo -n "Enter your fcops VPN Password: "; read PASSWORD
 cat << EOF > /etc/openvpn/auth.fcmonitor
 ${CLUSTERNAME}
 ${PASSWORD}
