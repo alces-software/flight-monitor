@@ -58,6 +58,18 @@ LoadPlugin rrdtool
 	WritesPerSecond 50
 </Plugin>
 
+
+#Basic network conf - needs more thought here.
+<Plugin network>
+#       # client setup:
+        <Server "10.10.13.136" "25826">
+        </Server>
+#       # server setup:
+        <Listen "10.10.21.6" "25826">
+        </Listen>
+</Plugin>
+
+
 Include "/etc/collectd.d"
 EOF
 
