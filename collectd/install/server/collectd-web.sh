@@ -1,5 +1,6 @@
 #!/bin/bash
 #Clone collectd-web from git repo
+yum install -e0 -y git
 cd /usr/local/
 git clone https://github.com/httpdss/collectd-web.git
 cd collectd-web/

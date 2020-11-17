@@ -5,10 +5,13 @@ yum install -e0 -y epel-release
 yum install -e0 -y collectd
 yum install -e0 -y rrdtool rrdtool-devel rrdtool-perl perl-HTML-Parser perl-JSON collectd-rrdtool
 
+#Grab FQDN for conf
+hostvar=$(hostname)
+
 #Setup config
 cat << 'EOF' > /etc/collectd.conf
 
-Hostname    "mds1"
+Hostname    "$hostvar"
 FQDNLookup   true
 BaseDir     "/var/lib/collectd"
 PIDFile     "/var/run/collectd.pid"
@@ -45,7 +48,7 @@ LoadPlugin users
 	</Server>
 </Plugin>
 <Plugin rrdtool>
-	DataDir "/var/lib/collectd/rrd"
+	DataDir "/opt/collectd/rrd/"
 	CreateFilesAsync false
 	CacheTimeout 120
 	CacheFlush   900
