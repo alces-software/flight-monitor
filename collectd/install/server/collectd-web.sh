@@ -19,6 +19,7 @@ systemctl start collectd
 yum install -e0 -y rrdtool rrdtool-devel rrdtool-perl perl-HTML-Parser perl-JSON perl-CGIq
 
 #Configure basic collectd config
+cp /etc/collectd.conf /etc/collectd.bkp.conf
 cat <<'EOF' > /etc/collectd.conf
 Hostname    "localhost"
 FQDNLookup   true
@@ -61,6 +62,7 @@ Include "/etc/collectd.d"
 EOF
 
 #Tell collectd-web where to look for rrd data
+mkdir /etc/collectd
 touch /etc/collectd/collection.conf
 echo 'datadir: "/var/lib/collectd/rrd"' > /etc/collectd/collection.conf
 
