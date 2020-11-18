@@ -1,9 +1,9 @@
 #!/bin/bash
 
 #Install collectd and deps
-yum install -e0 -y epel-release
-yum install -e0 -y collectd
-yum install -e0 -y rrdtool rrdtool-devel rrdtool-perl perl-HTML-Parser perl-JSON collectd-rrdtool
+yum install -e0 -y epel-release -q
+yum install -e0 -y collectd -q 
+yum install -e0 -y rrdtool rrdtool-devel rrdtool-perl perl-HTML-Parser perl-JSON collectd-rrdtool -q
 
 
 #Setup config
@@ -41,10 +41,15 @@ LoadPlugin rrdtool
 LoadPlugin uptime
 LoadPlugin users
 
-<Plugin network>
-	<Server "10.10.0.2" "25826">
-	</Server>
+#<Plugin network>
+#	<Server "10.178.0.65" "25826">
+#	</Server>
+#</Plugin>
+
+<Plugin "network">
+  Server "10.10.0.2"
 </Plugin>
+
 <Plugin rrdtool>
 	DataDir "/opt/collectd/rrd/"
 	CreateFilesAsync false
@@ -53,10 +58,10 @@ LoadPlugin users
 	WritesPerSecond 50
 </Plugin>
 
-LoadPlugin exec
-<Plugin exec>
-        Exec "fcops" "/usr/local/bin/lustre-stats-wrapper-collectd.sh"
-</Plugin>
+#LoadPlugin exec
+#<Plugin exec>
+#        Exec "fcops" "/usr/local/bin/lustre-stats-wrapper-collectd.sh"
+#</Plugin>
 Include "/etc/collectd.d"
 EOF
 
