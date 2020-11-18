@@ -61,3 +61,6 @@ Include "/etc/collectd.d"
 EOF
 
 sed -i s/insert_hostname/$(hostname)/g /etc/collectd.conf
+
+systemctl enable collectd
+systemctl start collectd
