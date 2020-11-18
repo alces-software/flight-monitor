@@ -55,7 +55,7 @@ LoadPlugin users
 
 LoadPlugin exec
 <Plugin exec>
-        Exec "flight" "/usr/local/bin/lustre-stats-wrapper-collectd.sh"
+        Exec "fcops" "/usr/local/bin/lustre-stats-wrapper-collectd.sh"
 </Plugin>
 Include "/etc/collectd.d"
 EOF
