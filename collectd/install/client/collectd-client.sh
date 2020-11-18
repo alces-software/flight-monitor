@@ -5,13 +5,11 @@ yum install -e0 -y epel-release
 yum install -e0 -y collectd
 yum install -e0 -y rrdtool rrdtool-devel rrdtool-perl perl-HTML-Parser perl-JSON collectd-rrdtool
 
-#Grab FQDN for conf
-hostvar=$(hostname)
 
 #Setup config
 cat << 'EOF' > /etc/collectd.conf
 
-Hostname    "$hostvar"
+Hostname    "insert_hostname"
 FQDNLookup   true
 BaseDir     "/var/lib/collectd"
 PIDFile     "/var/run/collectd.pid"
@@ -61,3 +59,5 @@ LoadPlugin exec
 </Plugin>
 Include "/etc/collectd.d"
 EOF
+
+sed -i s/insert_hostname/$(hostname)/g /etc/collectd.conf
