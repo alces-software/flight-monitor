@@ -16,7 +16,7 @@ yum install -e0 -y collectd-rrdtool
 systemctl start collectd
 
 #Grab deps for rrd stuff
-yum install -e0 -y rrdtool rrdtool-devel rrdtool-perl perl-HTML-Parser perl-JSON perl-CGIq
+yum install -e0 -y rrdtool rrdtool-devel rrdtool-perl perl-HTML-Parser perl-JSON perl-CGI
 
 #Configure basic collectd config
 cp /etc/collectd.conf /etc/collectd.bkp.conf
