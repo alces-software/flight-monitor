@@ -44,7 +44,7 @@ LoadPlugin uptime
 LoadPlugin users
 
 <Plugin network>
-	<Server "10.10.13.136" "25826">
+	<Server "10.178.0.65" "25826">
 	</Server>
 </Plugin>
 <Plugin rrdtool>
