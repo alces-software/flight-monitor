@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>4.4</version>
+    <date>2020-11-24T16:52:41Z</date>
+    <groups>
+        <group>
+            <name>Templates</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <template>Lustre OSS_OST DS</template>
+            <name>Lustre OSS_OST DS</name>
+            <groups>
+                <group>
+                    <name>Templates</name>
+                </group>
+            </groups>
+            <items>
+                <item>
+                    <name>OSS Write Bytes - OST0000</name>
+                    <key>vfs.file.regexp[/proc/fs/lustre/obdfilter/lustre-OST0000/stats,&quot;^write_bytes (([0-9]*)?\s){15}&quot;,,,,\1]</key>
+                    <value_type>FLOAT</value_type>
+                    <preprocessing>
+                        <step>
+                            <type>SIMPLE_CHANGE</type>
+                            <params/>
+                        </step>
+                    </preprocessing>
+                </item>
+                                <item>
+                    <name>OSS Read Bytes - OST0000</name>
+                    <key>vfs.file.regexp[/proc/fs/lustre/obdfilter/lustre-OST0000/stats,&quot;^read_bytes (([0-9]*)?\s){16}&quot;,,,,\1]</key>
+                    <value_type>FLOAT</value_type>
+                    <preprocessing>
+                        <step>
+                            <type>SIMPLE_CHANGE</type>
+                            <params/>
+                        </step>
+                    </preprocessing>
+                </item>
+                                <item>
+                    <name>OSS Write Bytes - OST0001</name>
+                    <key>vfs.file.regexp[/proc/fs/lustre/obdfilter/lustre-OST0001/stats,&quot;^write_bytes (([0-9]*)?\s){15}&quot;,,,,\1]</key>
+                    <value_type>FLOAT</value_type>
+                    <preprocessing>
+                        <step>
+                            <type>SIMPLE_CHANGE</type>
+                            <params/>
+                        </step>
+                    </preprocessing>
+                </item>
+                                <item>
+                    <name>OSS Read Bytes - OST0001</name>
+                    <key>vfs.file.regexp[/proc/fs/lustre/obdfilter/lustre-OST0001/stats,&quot;^read_bytes (([0-9]*)?\s){16}&quot;,,,,\1]</key>
+                    <value_type>FLOAT</value_type>
+                    <preprocessing>
+                        <step>
+                            <type>SIMPLE_CHANGE</type>
+                            <params/>
+                        </step>
+                    </preprocessing>
+                </item>
+                                <item>
+                    <name>OSS Write Bytes - OST0002</name>
+                    <key>vfs.file.regexp[/proc/fs/lustre/obdfilter/lustre-OST0002/stats,&quot;^write_bytes (([0-9]*)?\s){15}&quot;,,,,\1]</key>
+                    <value_type>FLOAT</value_type>
+                    <preprocessing>
+                        <step>
+                            <type>SIMPLE_CHANGE</type>
+                            <params/>
+                        </step>
+                    </preprocessing>
+                </item>
+                                <item>
+                    <name>OSS Read Bytes - OST0002</name>
+                    <key>vfs.file.regexp[/proc/fs/lustre/obdfilter/lustre-OST0002/stats,&quot;^read_bytes (([0-9]*)?\s){16}&quot;,,,,\1]</key>
+                    <value_type>FLOAT</value_type>
+                    <preprocessing>
+                        <step>
+                            <type>SIMPLE_CHANGE</type>
+                            <params/>
+                        </step>
+                    </preprocessing>
+                </item>
+                                <item>
+                    <name>OSS Write Bytes - OST0003</name>
+                    <key>vfs.file.regexp[/proc/fs/lustre/obdfilter/lustre-OST0003/stats,&quot;^write_bytes (([0-9]*)?\s){15}&quot;,,,,\1]</key>
+                    <value_type>FLOAT</value_type>
+                    <preprocessing>
+                        <step>
+                            <type>SIMPLE_CHANGE</type>
+                            <params/>
+                        </step>
+                    </preprocessing>
+                </item>
+                                <item>
+                    <name>OSS Read Bytes - OST0003</name>
+                    <key>vfs.file.regexp[/proc/fs/lustre/obdfilter/lustre-OST0003/stats,&quot;^read_bytes (([0-9]*)?\s){16}&quot;,,,,\1]</key>
+                    <value_type>FLOAT</value_type>
+                    <preprocessing>
+                        <step>
+                            <type>SIMPLE_CHANGE</type>
+                            <params/>
+                        </step>
+                    </preprocessing>
+                </item>
+                                <item>
+                    <name>OSS Write Bytes - OST0004</name>
+                    <key>vfs.file.regexp[/proc/fs/lustre/obdfilter/lustre-OST0004/stats,&quot;^write_bytes (([0-9]*)?\s){15}&quot;,,,,\1]</key>
+                    <value_type>FLOAT</value_type>
+                    <preprocessing>
+                        <step>
+                            <type>SIMPLE_CHANGE</type>
+                            <params/>
+                        </step>
+                    </preprocessing>
+                </item>
+                                <item>
+                    <name>OSS Read Bytes - OST0004</name>
+                    <key>vfs.file.regexp[/proc/fs/lustre/obdfilter/lustre-OST0004/stats,&quot;^read_bytes (([0-9]*)?\s){16}&quot;,,,,\1]</key>
+                    <value_type>FLOAT</value_type>
+                    <preprocessing>
+                        <step>
+                            <type>SIMPLE_CHANGE</type>
+                            <params/>
+                        </step>
+                    </preprocessing>
+                </item>
+                                <item>
+                    <name>OSS Write Bytes - OST0005</name>
+                    <key>vfs.file.regexp[/proc/fs/lustre/obdfilter/lustre-OST0005/stats,&quot;^write_bytes (([0-9]*)?\s){15}&quot;,,,,\1]</key>
+                    <value_type>FLOAT</value_type>
+                    <preprocessing>
+                        <step>
+                            <type>SIMPLE_CHANGE</type>
+                            <params/>
+                        </step>
+                    </preprocessing>
+                </item>
+                                <item>
+                    <name>OSS Read Bytes - OST0005</name>
+                    <key>vfs.file.regexp[/proc/fs/lustre/obdfilter/lustre-OST0005/stats,&quot;^read_bytes (([0-9]*)?\s){16}&quot;,,,,\1]</key>
+                    <value_type>FLOAT</value_type>
+                    <preprocessing>
+                        <step>
+                            <type>SIMPLE_CHANGE</type>
+                            <params/>
+                        </step>
+                    </preprocessing>
+                </item>
+                                                <item>
+                    <name>OSS Write Bytes - OST0006</name>
+                    <key>vfs.file.regexp[/proc/fs/lustre/obdfilter/lustre-OST0006/stats,&quot;^write_bytes (([0-9]*)?\s){15}&quot;,,,,\1]</key>
+                    <value_type>FLOAT</value_type>
+                    <preprocessing>
+                        <step>
+                            <type>SIMPLE_CHANGE</type>
+                            <params/>
+                        </step>
+                    </preprocessing>
+                </item>
+                                <item>
+                    <name>OSS Read Bytes - OST0006</name>
+                    <key>vfs.file.regexp[/proc/fs/lustre/obdfilter/lustre-OST0006/stats,&quot;^read_bytes (([0-9]*)?\s){16}&quot;,,,,\1]</key>
+                    <value_type>FLOAT</value_type>
+                    <preprocessing>
+                        <step>
+                            <type>SIMPLE_CHANGE</type>
+                            <params/>
+                        </step>
+                    </preprocessing>
+                </item>
+                                                <item>
+                    <name>OSS Write Bytes - OST0007</name>
+                    <key>vfs.file.regexp[/proc/fs/lustre/obdfilter/lustre-OST0007/stats,&quot;^write_bytes (([0-9]*)?\s){15}&quot;,,,,\1]</key>
+                    <value_type>FLOAT</value_type>
+                    <preprocessing>
+                        <step>
+                            <type>SIMPLE_CHANGE</type>
+                            <params/>
+                        </step>
+                    </preprocessing>
+                </item>
+                                <item>
+                    <name>OSS Read Bytes - OST0007</name>
+                    <key>vfs.file.regexp[/proc/fs/lustre/obdfilter/lustre-OST0007/stats,&quot;^read_bytes (([0-9]*)?\s){16}&quot;,,,,\1]</key>
+                    <value_type>FLOAT</value_type>
+                    <preprocessing>
+                        <step>
+                            <type>SIMPLE_CHANGE</type>
+                            <params/>
+                        </step>
+                    </preprocessing>
+                </item>
+                                                <item>
+                    <name>OSS Write Bytes - OST0008</name>
+                    <key>vfs.file.regexp[/proc/fs/lustre/obdfilter/lustre-OST0008/stats,&quot;^write_bytes (([0-9]*)?\s){15}&quot;,,,,\1]</key>
+                    <value_type>FLOAT</value_type>
+                    <preprocessing>
+                        <step>
+                            <type>SIMPLE_CHANGE</type>
+                            <params/>
+                        </step>
+                    </preprocessing>
+                </item>
+                                <item>
+                    <name>OSS Read Bytes - OST0008</name>
+                    <key>vfs.file.regexp[/proc/fs/lustre/obdfilter/lustre-OST0008/stats,&quot;^read_bytes (([0-9]*)?\s){16}&quot;,,,,\1]</key>
+                    <value_type>FLOAT</value_type>
+                    <preprocessing>
+                        <step>
+                            <type>SIMPLE_CHANGE</type>
+                            <params/>
+                        </step>
+                    </preprocessing>
+                </item>
+                                                <item>
+                    <name>OSS Write Bytes - OST0009</name>
+                    <key>vfs.file.regexp[/proc/fs/lustre/obdfilter/lustre-OST0009/stats,&quot;^write_bytes (([0-9]*)?\s){15}&quot;,,,,\1]</key>
+                    <value_type>FLOAT</value_type>
+                    <preprocessing>
+                        <step>
+                            <type>SIMPLE_CHANGE</type>
+                            <params/>
+                        </step>
+                    </preprocessing>
+                </item>
+                                <item>
+                    <name>OSS Read Bytes - OST0009</name>
+                    <key>vfs.file.regexp[/proc/fs/lustre/obdfilter/lustre-OST0009/stats,&quot;^read_bytes (([0-9]*)?\s){16}&quot;,,,,\1]</key>
+                    <value_type>FLOAT</value_type>
+                    <preprocessing>
+                        <step>
+                            <type>SIMPLE_CHANGE</type>
+                            <params/>
+                        </step>
+                    </preprocessing>
+                </item>
+                                                <item>
+                    <name>OSS Write Bytes - OST000a</name>
+                    <key>vfs.file.regexp[/proc/fs/lustre/obdfilter/lustre-OST000a/stats,&quot;^write_bytes (([0-9]*)?\s){15}&quot;,,,,\1]</key>
+                    <value_type>FLOAT</value_type>
+                    <preprocessing>
+                        <step>
+                            <type>SIMPLE_CHANGE</type>
+                            <params/>
+                        </step>
+                    </preprocessing>
+                </item>
+                                <item>
+                    <name>OSS Read Bytes - OST000a</name>
+                    <key>vfs.file.regexp[/proc/fs/lustre/obdfilter/lustre-OST000a/stats,&quot;^read_bytes (([0-9]*)?\s){16}&quot;,,,,\1]</key>
+                    <value_type>FLOAT</value_type>
+                    <preprocessing>
+                        <step>
+                            <type>SIMPLE_CHANGE</type>
+                            <params/>
+                        </step>
+                    </preprocessing>
+                </item>
+                                                <item>
+                    <name>OSS Write Bytes - OST000b</name>
+                    <key>vfs.file.regexp[/proc/fs/lustre/obdfilter/lustre-OST000b/stats,&quot;^write_bytes (([0-9]*)?\s){15}&quot;,,,,\1]</key>
+                    <value_type>FLOAT</value_type>
+                    <preprocessing>
+                        <step>
+                            <type>SIMPLE_CHANGE</type>
+                            <params/>
+                        </step>
+                    </preprocessing>
+                </item>
+                                <item>
+                    <name>OSS Read Bytes - OST000b</name>
+                    <key>vfs.file.regexp[/proc/fs/lustre/obdfilter/lustre-OST000b/stats,&quot;^read_bytes (([0-9]*)?\s){16}&quot;,,,,\1]</key>
+                    <value_type>FLOAT</value_type>
+                    <preprocessing>
+                        <step>
+                            <type>SIMPLE_CHANGE</type>
+                            <params/>
+                        </step>
+                    </preprocessing>
+                </item>
+            </items>
+            <discovery_rules>
+                <discovery_rule>
+                    <name>lustre OST discovery</name>
+                    <key>system.run[ls /proc/fs/lustre/obdfilter/]</key>
+                    <description>Discovers lustre-OST* based on contents of /proc/fs/lustre/obdfilter/ (maybe)</description>
+                </discovery_rule>
+            </discovery_rules>
+        </template>
+    </templates>
+</zabbix_export>
