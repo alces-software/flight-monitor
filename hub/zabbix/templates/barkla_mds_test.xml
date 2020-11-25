@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>4.4</version>
+    <date>2020-11-24T16:52:41Z</date>
+    <groups>
+        <group>
+            <name>Templates</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <template>Lustre MDS DS</template>
+            <name>Lustre MDS DS</name>
+            <groups>
+                <group>
+                    <name>Templates</name>
+                </group>
+            </groups>
+            <items>
+                <item>
+                    <name>MDT Open - MDT0000</name>
+                    <key>vfs.file.regexp[/proc/fs/lustre/mdt/lustre-MDT0000/md_stats,&quot;^open (([0-9]*)?\s){22}&quot;,,,,\1]</key>
+                    <value_type>FLOAT</value_type>
+                    <preprocessing>
+                        <step>
+                            <type>SIMPLE_CHANGE</type>
+                            <params/>
+                        </step>
+                    </preprocessing>
+                </item>
+                  <item>
+                    <name>MDT Close - MDT0000</name>
+                    <key>vfs.file.regexp[/proc/fs/lustre/mdt/lustre-MDT0000/md_stats,&quot;^close (([0-9]*)?\s){21}&quot;,,,,\1]</key>
+                    <value_type>FLOAT</value_type>
+                    <preprocessing>
+                        <step>
+                            <type>SIMPLE_CHANGE</type>
+                            <params/>
+                        </step>
+                    </preprocessing>
+                </item>
+                <item>
+                    <name>MDT mknod - MDT0000</name>
+                    <key>vfs.file.regexp[/proc/fs/lustre/mdt/lustre-MDT0000/md_stats,&quot;^mknod (([0-9]*)?\s){21}&quot;,,,,\1]</key>
+                    <value_type>FLOAT</value_type>
+                    <preprocessing>
+                        <step>
+                            <type>SIMPLE_CHANGE</type>
+                            <params/>
+                        </step>
+                    </preprocessing>
+                </item>
+                <item>
+                    <name>MDT Link - MDT0000</name>
+                    <key>vfs.file.regexp[/proc/fs/lustre/mdt/lustre-MDT0000/md_stats,&quot;^link (([0-9]*)?\s){22}&quot;,,,,\1]</key>
+                    <value_type>FLOAT</value_type>
+                    <preprocessing>
+                        <step>
+                            <type>SIMPLE_CHANGE</type>
+                            <params/>
+                        </step>
+                    </preprocessing>
+                </item>
+                <item>
+                    <name>MDT unlink - MDT0000</name>
+                    <key>vfs.file.regexp[/proc/fs/lustre/mdt/lustre-MDT0000/md_stats,&quot;^unlink (([0-9]*)?\s){20}&quot;,,,,\1]</key>
+                    <value_type>FLOAT</value_type>
+                    <preprocessing>
+                        <step>
+                            <type>SIMPLE_CHANGE</type>
+                            <params/>
+                        </step>
+                    </preprocessing>
+                </item>
+                <item>
+                    <name>MDT mkdir - MDT0000</name>
+                    <key>vfs.file.regexp[/proc/fs/lustre/mdt/lustre-MDT0000/md_stats,&quot;^mkdir (([0-9]*)?\s){21}&quot;,,,,\1]</key>
+                    <value_type>FLOAT</value_type>
+                    <preprocessing>
+                        <step>
+                            <type>SIMPLE_CHANGE</type>
+                            <params/>
+                        </step>
+                    </preprocessing>
+                </item>
+                <item>
+                    <name>MDT rmdir - MDT0000</name>
+                    <key>vfs.file.regexp[/proc/fs/lustre/mdt/lustre-MDT0000/md_stats,&quot;^rmdir (([0-9]*)?\s){21}&quot;,,,,\1]</key>
+                    <value_type>FLOAT</value_type>
+                    <preprocessing>
+                        <step>
+                            <type>SIMPLE_CHANGE</type>
+                            <params/>
+                        </step>
+                    </preprocessing>
+                </item>
+                <item>
+                    <name>MDT rename - MDT0000</name>
+                    <key>vfs.file.regexp[/proc/fs/lustre/mdt/lustre-MDT0000/md_stats,&quot;^rename (([0-9]*)?\s){20}&quot;,,,,\1]</key>
+                    <value_type>FLOAT</value_type>
+                    <preprocessing>
+                        <step>
+                            <type>SIMPLE_CHANGE</type>
+                            <params/>
+                        </step>
+                    </preprocessing>
+                </item>
+                <item>
+                    <name>MDT getattr - MDT0000</name>
+                    <key>vfs.file.regexp[/proc/fs/lustre/mdt/lustre-MDT0000/md_stats,&quot;^getattr (([0-9]*)?\s){19}&quot;,,,,\1]</key>
+                    <value_type>FLOAT</value_type>
+                    <preprocessing>
+                        <step>
+                            <type>SIMPLE_CHANGE</type>
+                            <params/>
+                        </step>
+                    </preprocessing>
+                </item>
+                <item>
+                    <name>MDT setattr - MDT0000</name>
+                    <key>vfs.file.regexp[/proc/fs/lustre/mdt/lustre-MDT0000/md_stats,&quot;^setattr (([0-9]*)?\s){19}&quot;,,,,\1]</key>
+                    <value_type>FLOAT</value_type>
+                    <preprocessing>
+                        <step>
+                            <type>SIMPLE_CHANGE</type>
+                            <params/>
+                        </step>
+                    </preprocessing>
+                </item>
+                <item>
+                    <name>MDT getxattr - MDT0000</name>
+                    <key>vfs.file.regexp[/proc/fs/lustre/mdt/lustre-MDT0000/md_stats,&quot;^getxattr (([0-9]*)?\s){18}&quot;,,,,\1]</key>
+                    <value_type>FLOAT</value_type>
+                    <preprocessing>
+                        <step>
+                            <type>SIMPLE_CHANGE</type>
+                            <params/>
+                        </step>
+                    </preprocessing>
+                </item>
+                <item>
+                    <name>MDT setxattr - MDT0000</name>
+                    <key>vfs.file.regexp[/proc/fs/lustre/mdt/lustre-MDT0000/md_stats,&quot;^setxattr (([0-9]*)?\s){18}&quot;,,,,\1]</key>
+                    <value_type>FLOAT</value_type>
+                    <preprocessing>
+                        <step>
+                            <type>SIMPLE_CHANGE</type>
+                            <params/>
+                        </step>
+                    </preprocessing>
+                </item>
+                <item>
+                    <name>MDT statfs - MDT0000</name>
+                    <key>vfs.file.regexp[/proc/fs/lustre/mdt/lustre-MDT0000/md_stats,&quot;^statfs (([0-9]*)?\s){20}&quot;,,,,\1]</key>
+                    <value_type>FLOAT</value_type>
+                    <preprocessing>
+                        <step>
+                            <type>SIMPLE_CHANGE</type>
+                            <params/>
+                        </step>
+                    </preprocessing>
+                </item>
+                        <item>
+                    <name>MDT sync - MDT0000</name>
+                    <key>vfs.file.regexp[/proc/fs/lustre/mdt/lustre-MDT0000/md_stats,&quot;^sync (([0-9]*)?\s){22}&quot;,,,,\1]</key>
+                    <value_type>FLOAT</value_type>
+                    <preprocessing>
+                        <step>
+                            <type>SIMPLE_CHANGE</type>
+                            <params/>
+                        </step>
+                    </preprocessing>
+                </item>
+                    <item>
+                    <name>MDT samedir_rename - MDT0000</name>
+                    <key>vfs.file.regexp[/proc/fs/lustre/mdt/lustre-MDT0000/md_stats,&quot;^samedir_rename (([0-9]*)?\s){12}&quot;,,,,\1]</key>
+                    <value_type>FLOAT</value_type>
+                    <preprocessing>
+                        <step>
+                            <type>SIMPLE_CHANGE</type>
+                            <params/>
+                        </step>
+                    </preprocessing>
+                </item>
+                <item>
+                    <name>MDT crossdir_rename - MDT0000</name>
+                    <key>vfs.file.regexp[/proc/fs/lustre/mdt/lustre-MDT0000/md_stats,&quot;^crossdir_rename (([0-9]*)?\s){11}&quot;,,,,\1]</key>
+                    <value_type>FLOAT</value_type>
+                    <preprocessing>
+                        <step>
+                            <type>SIMPLE_CHANGE</type>
+                            <params/>
+                        </step>
+                    </preprocessing>
+                </item>
+            </items>
+            <discovery_rules>
+            </discovery_rules>
+        </template>
+    </templates>
+</zabbix_export>
