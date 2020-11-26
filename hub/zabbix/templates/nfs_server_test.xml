@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>4.4</version>
+    <date>2020-11-25T16:10:19Z</date>
+    <groups>
+        <group>
+            <name>Templates</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <template>DS NFS Server Test</template>
+            <name>DS NFS Server Test</name>
+            <groups>
+                <group>
+                    <name>Templates</name>
+                </group>
+            </groups>
+            <items>
+                <item>
+                    <name>Reply cache - hits</name>
+                    <key>vfs.file.regexp[/proc/net/rpc/nfsd,&quot;^rc((\s([0-9]*))){1}&quot;,,,,\1]</key>
+                    <value_type>FLOAT</value_type>
+                    <preprocessing>
+                        <step>
+                            <type>SIMPLE_CHANGE</type>
+                            <params/>
+                        </step>
+                    </preprocessing>
+                </item>
+                <item>
+                    <name>Reply cache - misses</name>
+                    <key>vfs.file.regexp[/proc/net/rpc/nfsd,&quot;^rc((\s([0-9]*))){2}&quot;,,,,\1]</key>
+                    <value_type>FLOAT</value_type>
+                    <preprocessing>
+                        <step>
+                            <type>SIMPLE_CHANGE</type>
+                            <params/>
+                        </step>
+                    </preprocessing>
+                </item>
+                <item>
+                    <name>Reply cache - nocache</name>
+                    <key>vfs.file.regexp[/proc/net/rpc/nfsd,&quot;^rc((\s([0-9]*))){3}&quot;,,,,\1]</key>
+                    <value_type>FLOAT</value_type>
+                    <preprocessing>
+                        <step>
+                            <type>SIMPLE_CHANGE</type>
+                            <params/>
+                        </step>
+                    </preprocessing>
+                </item>
+                <item>
+                    <name>File Handles - stale</name>
+                    <key>vfs.file.regexp[/proc/net/rpc/nfsd,&quot;fh((\s([0-9]*))){1}&quot;,,,,\1]</key>
+                    <value_type>FLOAT</value_type>
+                    <preprocessing>
+                        <step>
+                            <type>SIMPLE_CHANGE</type>
+                            <params/>
+                        </step>
+                    </preprocessing>
+                </item>
+                <item>
+                    <name>IO - Read</name>
+                    <key>vfs.file.regexp[/proc/net/rpc/nfsd,&quot;^io((\s([0-9]*))){1}&quot;,,,,\1]</key>
+                    <value_type>FLOAT</value_type>
+                    <preprocessing>
+                        <step>
+                            <type>SIMPLE_CHANGE</type>
+                            <params/>
+                        </step>
+                    </preprocessing>
+                </item>
+                  <item>
+                    <name>IO - Write</name>
+                    <key>vfs.file.regexp[/proc/net/rpc/nfsd,&quot;^io((\s([0-9]*))){2}&quot;,,,,\1]</key>
+                    <value_type>FLOAT</value_type>
+                    <preprocessing>
+                        <step>
+                            <type>SIMPLE_CHANGE</type>
+                            <params/>
+                        </step>
+                    </preprocessing>
+                </item>
+                    <item>
+                    <name>RPC - count</name>
+                    <key>vfs.file.regexp[/proc/net/rpc/nfsd,&quot;^rpc((\s([0-9]*))){1}&quot;,,,,\1]</key>
+                    <value_type>FLOAT</value_type>
+                    <preprocessing>
+                        <step>
+                            <type>SIMPLE_CHANGE</type>
+                            <params/>
+                        </step>
+                    </preprocessing>
+                </item>
+            </items>
+        </template>
+    </templates>
+</zabbix_export>
