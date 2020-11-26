@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>4.4</version>
+    <date>2020-11-26T14:30:51Z</date>
+    <groups>
+        <group>
+            <name>Templates</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <template>Lustre OSS_OST - Auto Discovery</template>
+            <name>Lustre OSS_OST - Auto Discovery</name>
+            <groups>
+                <group>
+                    <name>Templates</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>Lustre</name>
+                </application>
+            </applications>
+            <discovery_rules>
+                <discovery_rule>
+                    <name>lustre OST discovery</name>
+                    <key>lustre.ost.discovery</key>
+                    <lifetime>0d</lifetime>
+                    <description>Discovers lustre-OST* based on contents of /proc/fs/lustre/obdfilter/ (maybe)</description>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>{#OST_NAME} - Read Bytes - Disco Test</name>
+                            <key>vfs.file.regexp[/proc/fs/lustre/obdfilter/{#OST_NAME}/stats,&quot;^read_bytes (([0-9]*)?\s){16}&quot;,,,,\1]</key>
+                            <value_type>FLOAT</value_type>
+                            <applications>
+                                <application>
+                                    <name>Lustre</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>SIMPLE_CHANGE</type>
+                                    <params/>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>{#OST_NAME} - Write Bytes - Disco Test</name>
+                            <key>vfs.file.regexp[/proc/fs/lustre/obdfilter/{#OST_NAME}/stats,&quot;^write_bytes (([0-9]*)?\s){15}&quot;,,,,\1]</key>
+                            <value_type>FLOAT</value_type>
+                            <applications>
+                                <application>
+                                    <name>Lustre</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>SIMPLE_CHANGE</type>
+                                    <params/>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                    </item_prototypes>
+                    <graph_prototypes>
+                        <graph_prototype>
+                            <name>Lustre IO Read/Write</name>
+                            <graph_items>
+                                <graph_item>
+                                    <color>199C0D</color>
+                                    <item>
+                                        <host>Lustre OSS_OST - Auto Discovery</host>
+                                        <key>vfs.file.regexp[/proc/fs/lustre/obdfilter/{#OST_NAME}/stats,&quot;^read_bytes (([0-9]*)?\s){16}&quot;,,,,\1]</key>
+                                    </item>
+                                </graph_item>
+                                <graph_item>
+                                    <sortorder>1</sortorder>
+                                    <color>F63100</color>
+                                    <item>
+                                        <host>Lustre OSS_OST - Auto Discovery</host>
+                                        <key>vfs.file.regexp[/proc/fs/lustre/obdfilter/{#OST_NAME}/stats,&quot;^write_bytes (([0-9]*)?\s){15}&quot;,,,,\1]</key>
+                                    </item>
+                                </graph_item>
+                            </graph_items>
+                        </graph_prototype>
+                    </graph_prototypes>
+                </discovery_rule>
+            </discovery_rules>
+        </template>
+    </templates>
+</zabbix_export>
