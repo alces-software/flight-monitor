@@ -17,6 +17,16 @@ else
 	fi
 fi
 
+#Check for config file which needs to exist on cfcgateway
+# Config file should contain ssh keys, slack tokens, zabbix auth keys etc (For that cluster obvs)
+CONFIG_FILE=/opt/zabbix/srv/resources/maint_scripts/adopt_config
+
+if [ ! -f "$CONFIG_FILE" ]; then
+    echo "File not found!"
+else
+    echo "Config found - continuing with adoption"
+fi
+
 NEW_NODE=$1
 
 # Should run fcops setup first
