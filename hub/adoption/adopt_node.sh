@@ -21,6 +21,8 @@ fi
 # Config file should contain ssh keys, slack tokens, zabbix auth keys etc (For that cluster obvs)
 CONFIG_FILE=/opt/zabbix/srv/resources/maint_scripts/adopt_config
 
+# Could we get script to add/remove from FC with API bits too ?
+
 if [ ! -f "$CONFIG_FILE" ]; then
     echo "Config file not found - Let's set one up"
     echo -n "Enter your fcops user public ssh key: "; read SSH_KEY
