@@ -22,9 +22,20 @@ fi
 CONFIG_FILE=/opt/zabbix/srv/resources/maint_scripts/adopt_config
 
 if [ ! -f "$CONFIG_FILE" ]; then
-    echo "File not found!"
+    echo "Config file not found - Let's set one up"
+    echo -n "Enter your fcops user public ssh key: "; read SSH_KEY
+    echo -n "Enter your slack bot auth token: "; read SLACK_TOKEN
+    echo -n "Enter your zabbix user auth token: "; read ZABBIX_AUTH
+    echo -n "Enter your fcops user password for this cluster"; read FCOPS_PASS
+	##
+	cat << EOF > $CONFIG_IP
+	ssh_key: ${SSH_KEY}
+	slack_token: ${SLACK_TOKEN}
+	zabbix_auth: ${ZABBIX_AUTH}
+	fcops_pass: ${FCOPS_PASS}
+	EOF 
 else
-    echo "Config found - continuing with adoption"
+    echo "Config found - Continuing with adoption"
 fi
 
 NEW_NODE=$1
