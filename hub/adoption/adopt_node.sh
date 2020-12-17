@@ -32,8 +32,8 @@ EOF
 bash /opt/zabbix/srv/resources/zabbix/zabbix_setup.sh "$NEW_NODE"
 
 # Then ensure checks will run on this new node
-#by adding node to /etc/genders 
 
-# Possibly also have a slack alert once this has run sucessfully ?
+bash /opt/zabbix/srv/resources/zabbix/check_setup.sh "$NEW_NODE"
+
 
 
