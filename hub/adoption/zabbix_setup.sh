@@ -5,6 +5,7 @@
 
 ZABBIX_AUTH=$(cat /opt/zabbix/srv/resources/maint_scripts/adopt_config |grep zabbix_auth |awk '{print $2}')
 NEW_NODE=$1
+CLUSTER_NAME=$(echo $NEW_NODE |cut -d"." -f4)
 
 #Setup Json Request Logic
 function json_request {
@@ -31,17 +32,26 @@ cat << EOF > /tmp/hosts.txt
 }
 EOF
 
-#Try and find if the host is on zabbix currently
-if json_request /tmp/hosts.txt |grep $NEW_NODE >/dev/null ;then
-	echo "Node already in Zabbix - Enabling"
-	enable_node $NEW_NODE
-else
-	echo "Node not present in Zabbix - Adopting"
-	zabbix_addition $NEW_NODE
-fi
+#Setup json group get request file
+cat << EOF > /tmp/get_group.txt
+{
+    "jsonrpc": "2.0",
+    "method": "hostgroup.get",
+    "params": {
+        "output": "extend",
+        "filter": {
+            "name": [
+                "$CLUSTER_NAME"
+            ]
+        }
+    },
+    "auth": "$ZABBIX_AUTH",
+    "id": 1
+}
+EOF
 
 function enable_node{
-host_id=$(json_request /tmp/hosts.txt |grep $hostname -B 1 |grep hostid |awk '{print $3}' |sed 's/"//g' |sed 's/,//g')
+host_id=$(json_request /tmp/hosts.txt |grep $NEW_NODE -B 1 |grep hostid |awk '{print $3}' |sed 's/"//g' |sed 's/,//g')
 
 cat << EOF > /tmp/enable_node.txt
 {
@@ -59,4 +69,61 @@ EOF
 json_request /tmp/enable_node.txt
 
 }
+
+
+function zabbix_addition{
+
+#New host vars
+NEW_NODE_IP=$(ping $NEW_NODE -c 1 |grep -m1 $NEW_NODE |awk '{print $3}' |sed 's/(//g' |sed 's/)//g')
+GROUP_ID=$(json_request /tmp/get_group.txt |grep groupid |cut -d'"' -f4)
+#Hardcoded Template IDs at the moment for our generic cloud node templates: Linux NFS v3 Client, Template OS Linux by Zabbix agent
+TEMPLATE_ID_1=12523 #Linux NFS v3 Client
+TEMPLATE_ID_2=10001 #Template OS Linux by Zabbix agent
+
+cat << EOF > /tmp/zabbix_addition.txt
+{
+    "jsonrpc": "2.0",
+    "method": "host.create",
+    "params": {
+        "host": "$NEW_NODE",
+        "interfaces": [
+            {
+                "type": 1,
+                "main": 1,
+                "useip": 1,
+                "ip": "$NEW_NODE_IP",
+                "dns": "",
+                "port": "10050"
+            }
+        ],
+        "groups": [
+            {
+                "groupid": "$GROUP_ID"
+            }
+        ],
+        "templates": [
+            {
+                "templateid": "$TEMPLATE_ID_1",
+                "templateid": "$TEMPLATE_ID_2"
+            }
+        ],
+    },
+    "auth": "$ZABBIX_AUTH",
+    "id": 1
+}
+EOF
+
+json_request /tmp/zabbix_addition.txt
+
+}
+
+#Try and find if the host is on zabbix currently
+if json_request /tmp/hosts.txt |grep $NEW_NODE >/dev/null ;then
+        echo "Node already in Zabbix - Enabling"
+        enable_node
+else
+        echo "Node not present in Zabbix - Adopting"
+        zabbix_addition
+fi
+
 
