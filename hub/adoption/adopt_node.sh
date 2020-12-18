@@ -58,5 +58,7 @@ bash /opt/zabbix/srv/resources/zabbix/zabbix_setup.sh "$NEW_NODE"
 
 bash /opt/zabbix/srv/resources/zabbix/check_setup.sh "$NEW_NODE"
 
+# Also ensure any necessary RPMs have been installed
 
+bash /opt/zabbix/srv/resources/zabbix/rpm_setup.sh "$NEW_NODE"
 
