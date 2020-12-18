@@ -40,12 +40,15 @@ else
 	zabbix_addition $NEW_NODE
 fi
 
+function enable_node{
+host_id=$(json_request /tmp/hosts.txt |grep $hostname -B 1 |grep hostid |awk '{print $3}' |sed 's/"//g' |sed 's/,//g')
+
 cat << EOF > /tmp/enable_node.txt
 {
     "jsonrpc": "2.0",
     "method": "host.update",
     "params": {
-        "hostid": "replace_me",
+        "hostid": "$host_id",
         "status": 0
     },
     "auth": "$ZABBIX_AUTH",
@@ -53,7 +56,7 @@ cat << EOF > /tmp/enable_node.txt
 }
 EOF
 
-enable_node{
+json_request /tmp/enable_node.txt
 
 }
 
