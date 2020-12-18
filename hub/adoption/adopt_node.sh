@@ -41,6 +41,7 @@ else
 fi
 
 NEW_NODE=$1
+NEW_NODE_SHORT=$(echo $NEW_NODE |cut -d"." -f1)
 
 # Should run fcops setup first
 
@@ -53,6 +54,9 @@ EOF
 # Then Zabbix install / setup / config
 
 bash /opt/zabbix/srv/resources/zabbix/zabbix_setup.sh "$NEW_NODE"
+
+# Assume adoption script is used for compute nodes then:
+echo "$NEW_NODE_SHORT   compute,cn,all" >> /etc/genders
 
 # Then ensure checks will run on this new node
 
