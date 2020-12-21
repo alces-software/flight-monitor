@@ -1,6 +1,6 @@
 #!/bin/bash
 # A wrapper script for adopting new nodes [CLOUD]
-# This script should run from the associated cfcgateway
+# This script should run from the associated fcgateway
 
 if [ $# -eq 0 ] ; then
 	echo "Please provide a hostname"
@@ -17,7 +17,7 @@ else
 	fi
 fi
 
-#Check for config file which needs to exist on cfcgateway
+#Check for config file which needs to exist on fcgateway
 # Config file should contain ssh keys, slack tokens, zabbix auth keys etc (For that cluster obvs)
 CONFIG_FILE=/opt/zabbix/srv/resources/maint_scripts/adopt_config
 
@@ -45,9 +45,9 @@ NEW_NODE_SHORT=$(echo $NEW_NODE |cut -d"." -f1)
 
 # Should run fcops setup first
 
-# Runs from chead1 of cloud cluster - keys from fcops@cfcgateway -> root@chead1 should exist
-ssh root@chead1 <<-'EOF'
-curl http://cfcgateway/resources/maint_scripts/fcops_setup.sh "$NEW_NODE" |/bin/bash
+# Runs from controller of cloud cluster - keys from fcops@fcgateway -> root@controller should exist
+ssh root@controller <<-'EOF'
+curl http://fcgateway/resources/maint_scripts/fcops_setup.sh "$NEW_NODE" |/bin/bash
 exit
 EOF
 
