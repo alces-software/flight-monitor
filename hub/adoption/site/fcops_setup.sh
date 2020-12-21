@@ -1,9 +1,9 @@
 #!/bin/bash
 #Script to setup the fcops user on a cluster
-#This script will be launched from cfcgateway but run on chead1
+#This script will be launched from fcgateway but run on controller
 #Requires SSH KEY + FCOPS PASSWORD variables
-FCOPS_PASSWORD=$(curl -s http://cfcgateway/resources/maint_scripts/adopt_config |grep fcops_pass |awk '{print $2}')
-PUB_SSH_KEY=$(curl -s http://cfcgateway/resources/maint_scripts/adopt_config |grep ssh_key |awk '{print $2,$3,$4}')
+FCOPS_PASSWORD=$(curl -s http://fcgateway/resources/maint_scripts/adopt_config |grep fcops_pass |awk '{print $2}')
+PUB_SSH_KEY=$(curl -s http://fcgateway/resources/maint_scripts/adopt_config |grep ssh_key |awk '{print $2,$3,$4}')
 
 pdsh -w $1 "
 groupadd -g 64646 fcops ; 
