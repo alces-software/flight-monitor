@@ -131,10 +131,9 @@ fi
 # Need to run install as root user - connect to chead1 again 
 
 ssh root@chead1 <<-'EOF'
-pdsh -w $NEW_NODE "curl http://cfcgateway/resources/zabbix/install_agent.sh"
+pdsh -w $NEW_NODE "curl http://cfcgateway/resources/zabbix/install_agent.sh |/bin/bash"
 exit
 EOF
-
 
 
 
