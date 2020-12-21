@@ -128,10 +128,10 @@ fi
 
 # That's the zabbix frontend stuff done (thru API) now for the actuall zabbix install on node - in theory if we run the install script on a node with it already installed then it just restarts the agent :eyes:
 
-# Need to run install as root user - connect to chead1 again 
+# Need to run install as root user - connect to controller again 
 
-ssh root@chead1 <<-'EOF'
-pdsh -w $NEW_NODE "curl http://cfcgateway/resources/zabbix/install_agent.sh |/bin/bash"
+ssh root@controller <<-'EOF'
+pdsh -w $NEW_NODE "curl http://fcgateway/resources/zabbix/install_agent.sh |/bin/bash"
 exit
 EOF
 
