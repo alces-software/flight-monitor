@@ -53,7 +53,8 @@ sudo cp ~/community-rules/* /etc/snort/rules
 sudo sed -i 's/include \$RULE\_PATH/#include \$RULE\_PATH/' /etc/snort/snort.conf
 
 #First /etc/snort/snort.conf changes listed below
-ipvar HOME_NET 34.243.215.71/32
+#ipvar HOME_NET 34.243.215.71/32
+ipvar HOME_NET 10.10.0.0/16
 ipvar EXTERNAL_NET any
 
 var RULE_PATH /etc/snort/rules
@@ -71,4 +72,9 @@ include $RULE_PATH/community.rules
 #Test the config
 sudo snort -T -c /etc/snort/snort.conf
 
+#Setup snort startup script
+wget https://www.snort.org/documents/snort-startup-script-for-centos -O ~/snortd
+sudo chmod 755 ~/snortd && sudo mv ~/snortd /etc/init.d/
+sudo systemctl daemon-reload
+sudo systemctl start snortd
 
