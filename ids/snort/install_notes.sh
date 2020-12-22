@@ -66,6 +66,8 @@ var BLACK_LIST_PATH /etc/snort/rules
 
 output unified2: filename snort.log, limit 128
 
+output log_tcpdump: tcpdump.log
+
 include $RULE_PATH/local.rules
 include $RULE_PATH/community.rules
 
