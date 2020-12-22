@@ -52,4 +52,23 @@ sudo cp ~/community-rules/* /etc/snort/rules
 #By default, Snort on CentOS expects to find a number of different rule files which are not included in the community rules. Comment out the unnecessary lines using the next command.
 sudo sed -i 's/include \$RULE\_PATH/#include \$RULE\_PATH/' /etc/snort/snort.conf
 
+#First /etc/snort/snort.conf changes listed below
+ipvar HOME_NET 34.243.215.71/32
+ipvar EXTERNAL_NET any
+
+var RULE_PATH /etc/snort/rules
+var SO_RULE_PATH /etc/snort/so_rules
+var PREPROC_RULE_PATH /etc/snort/preproc_rules
+
+var WHITE_LIST_PATH /etc/snort/rules
+var BLACK_LIST_PATH /etc/snort/rules
+
+output unified2: filename snort.log, limit 128
+
+include $RULE_PATH/local.rules
+include $RULE_PATH/community.rules
+
+#Test the config
+sudo snort -T -c /etc/snort/snort.conf
+
 
