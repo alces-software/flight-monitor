@@ -29,12 +29,14 @@ if [ ! -f "$CONFIG_FILE" ]; then
     echo -n "Enter your slack bot auth token: "; read SLACK_TOKEN
     echo -n "Enter your zabbix user auth token: "; read ZABBIX_AUTH
     echo -n "Enter your fcops user password for this cluster"; read FCOPS_PASS
+    echo -n "Enter your machine with root keys setup on this cluster"; read HEADNODE
 	##
 	cat << EOF > $CONFIG_IP
 	ssh_key: ${SSH_KEY}
 	slack_token: ${SLACK_TOKEN}
 	zabbix_auth: ${ZABBIX_AUTH}
 	fcops_pass: ${FCOPS_PASS}
+	headnode: ${HEADNODE}
 	EOF 
 else
     echo "Config found - Continuing with adoption"
@@ -46,7 +48,8 @@ NEW_NODE_SHORT=$(echo $NEW_NODE |cut -d"." -f1)
 # Should run fcops setup first
 
 # Runs from controller of cloud cluster - keys from fcops@fcgateway -> root@controller should exist
-ssh root@controller <<-'EOF'
+HEADNODE=$(grep headnode /opt/zabbix/srv/resources/maint_scripts/adopt_config |awk '{print $2}')
+ssh root@"$HEADNODE" <<-'EOF'
 curl http://fcgateway/resources/maint_scripts/fcops_setup.sh "$NEW_NODE" |/bin/bash
 exit
 EOF
