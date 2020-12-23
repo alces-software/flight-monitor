@@ -42,6 +42,13 @@ else
     echo "Config found - Continuing with adoption"
 fi
 
+#Create temporary config file for genders etc
+echo -n "Enter the new node's gender group (Eg. compute, login etc): "; read GENDER
+cat << EOF >
+gender: ${GENDER}
+EOF
+
+
 NEW_NODE=$1
 NEW_NODE_SHORT=$(echo $NEW_NODE |cut -d"." -f1)
 
