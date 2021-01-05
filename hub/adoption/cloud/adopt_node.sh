@@ -21,7 +21,7 @@ fi
 # Config file should contain ssh keys, slack tokens, zabbix auth keys etc (For that cluster obvs)
 CONFIG_FILE=/opt/zabbix/srv/resources/maint_scripts/adopt_config
 
-function setup_config{
+function setup_config {
     echo "Config file not found - Let's set one up"
     echo -n "Enter your fcops user public ssh key: "; read SSH_KEY
     echo -n "Enter your slack bot auth token: "; read SLACK_TOKEN
