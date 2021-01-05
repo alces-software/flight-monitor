@@ -23,19 +23,19 @@ fi
 CONFIG_FILE=/opt/zabbix/srv/resources/maint_scripts/adopt_config
 
 function setup_config {
-    echo -n "Config file not found - Let's set one up:"
-    echo -n "Enter your fcops user public ssh key: "; read SSH_KEY
-    echo -n "Enter your slack bot auth token: "; read SLACK_TOKEN
-    echo -n "Enter your zabbix user auth token: "; read ZABBIX_AUTH
-    echo -n "Enter your fcops user password for this cluster"; read FCOPS_PASS
-cat << EOF > $CONFIG_FILE
+echo -n "Config file not found - Let's set one up:"
+echo -n "Enter your fcops user public ssh key: "; read SSH_KEY
+echo -n "Enter your slack bot auth token: "; read SLACK_TOKEN
+echo -n "Enter your zabbix user auth token: "; read ZABBIX_AUTH
+echo -n "Enter your fcops user password for this cluster"; read FCOPS_PASS
+cat << EOF > /opt/zabbix/srv/resources/maint_scripts/adopt_config
 ssh_key: ${SSH_KEY}
 slack_token: ${SLACK_TOKEN}
 zabbix_auth: ${ZABBIX_AUTH}
 fcops_pass: ${FCOPS_PASS}
-EOF 
+EOF
 }
-
+ 
 # Could we get script to add/remove from FC with API bits too ?
 
 if [ ! -f "$CONFIG_FILE" ]; then
