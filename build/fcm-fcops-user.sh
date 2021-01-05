@@ -25,9 +25,18 @@ cat << EOF > /users/fcops/.gitconfig
 	helper = store
 EOF
 
-echo "https://USER:PASS@github.com" > /users/fcops/.git-credentials
+#Ask the user for Dan's git credentials 
+echo -n "Please provide your git username: " ; read GUSER
+echo -n "Please provide your git password: " ; read GPASS
 
-echo "Will need to update ~/.git-credentials appropriately"
+echo "https://$GUSER:$GPASS@github.com" > /users/fcops/.git-credentials
+
+#Pull necessary git repos to /users/fcops/git dir
+cd /users/fcops/git
+git clone https://github.com/alces-software/flight-monitor.git
+git clone https://github.com/alces-software/flight-monitor-resources.git
+cd
+
 
 #Setting fcops as sudo user on fcgateway
 echo "fcops    ALL=(ALL)       NOPASSWD: ALL" > /etc/sudoers.d/fcops
