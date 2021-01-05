@@ -28,7 +28,7 @@ function setup_config{
     echo -n "Enter your zabbix user auth token: "; read ZABBIX_AUTH
     echo -n "Enter your fcops user password for this cluster"; read FCOPS_PASS
 	##
-	cat << EOF > $CONFIG_IP
+	cat << EOF > $CONFIG_FILE
 	ssh_key: ${SSH_KEY}
 	slack_token: ${SLACK_TOKEN}
 	zabbix_auth: ${ZABBIX_AUTH}
