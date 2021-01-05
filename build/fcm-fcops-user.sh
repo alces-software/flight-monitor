@@ -37,6 +37,8 @@ git clone https://github.com/alces-software/flight-monitor.git
 git clone https://github.com/alces-software/flight-monitor-resources.git
 cd
 
+#Copy adoption scripts to nginx resource location
+rsync -auv /users/fcops/git/flight-monitor/hub/adoption/cloud/ /opt/srv/resources/zabbix/
 
 #Setting fcops as sudo user on fcgateway
 echo "fcops    ALL=(ALL)       NOPASSWD: ALL" > /etc/sudoers.d/fcops
