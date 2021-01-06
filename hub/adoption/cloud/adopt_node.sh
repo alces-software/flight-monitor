@@ -50,10 +50,7 @@ NEW_NODE_SHORT=$(echo $NEW_NODE |cut -d"." -f1)
 # Should run fcops setup first
 
 # Runs from chead1 of cloud cluster - keys from fcops@cfcgateway -> root@chead1 should exist
-ssh -tt root@chead1 <<-'EOF'
-curl http://cfcgateway/resources/adoption/fcops_setup.sh "$NEW_NODE" |/bin/bash
-exit
-EOF
+ssh root@chead1 'curl http://cfcgateway/resources/adoption/fcops_setup.sh "$NEW_NODE" |/bin/bash'
 
 # Then Zabbix install / setup / config
 
