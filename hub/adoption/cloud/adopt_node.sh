@@ -50,7 +50,7 @@ NEW_NODE_SHORT=$(echo $NEW_NODE |cut -d"." -f1)
 # Should run fcops setup first
 
 # Runs from chead1 of cloud cluster - keys from fcops@cfcgateway -> root@chead1 should exist
-ssh root@chead1 <<-'EOF'
+ssh -tt root@chead1 <<-'EOF'
 curl http://cfcgateway/resources/maint_scripts/fcops_setup.sh "$NEW_NODE" |/bin/bash
 exit
 EOF
