@@ -57,15 +57,15 @@ EOF
 
 # Then Zabbix install / setup / config
 
-bash /opt/zabbix/srv/resources/zabbix/zabbix_setup.sh "$NEW_NODE"
+bash /opt/zabbix/srv/resources/adoption/zabbix_setup.sh "$NEW_NODE"
 
 # Assume adoption script is used for compute nodes then:
 echo "$NEW_NODE_SHORT   compute,cn,all" >> /etc/genders
 
 # Then ensure checks will run on this new node
 
-bash /opt/zabbix/srv/resources/zabbix/check_setup.sh "$NEW_NODE"
+bash /opt/zabbix/srv/resources/adoption/check_setup.sh "$NEW_NODE"
 
 # Also ensure any necessary RPMs have been installed
 
-bash /opt/zabbix/srv/resources/zabbix/rpm_setup.sh "$NEW_NODE"
+bash /opt/zabbix/srv/resources/adoption/rpm_setup.sh "$NEW_NODE"
