@@ -14,6 +14,9 @@ function json_request {
 	curl -s -X POST -H 'Content-Type: application/json' $zaburl -d "$zabrequest" |json_pp
 }
 
+
+host_id=$(json_request /tmp/hosts.txt |grep "$NEW_NODE" -B 1 |grep hostid |awk '{print $3}' |sed 's/"//g' |sed 's/,//g')
+
 #Decide whether node already exists in zabbix
 
 # Setup json host request file
@@ -50,9 +53,7 @@ cat << EOF > /tmp/get_group.txt
 }
 EOF
 
-function enable_node{
-host_id=$(json_request /tmp/hosts.txt |grep "$NEW_NODE" -B 1 |grep hostid |awk '{print $3}' |sed 's/"//g' |sed 's/,//g')
-
+function enable_node {
 cat << EOF > /tmp/enable_node.txt
 {
     "jsonrpc": "2.0",
@@ -71,7 +72,7 @@ json_request /tmp/enable_node.txt
 }
 
 
-function zabbix_addition{
+function zabbix_addition {
 
 #New host vars
 NEW_NODE_IP=$(ping $NEW_NODE -c 1 |grep -m1 $NEW_NODE |awk '{print $3}' |sed 's/(//g' |sed 's/)//g')
@@ -128,7 +129,6 @@ fi
 
 # That's the zabbix frontend stuff done (thru API) now for the actuall zabbix install on node - in theory if we run the install script on a node with it already installed then it just restarts the agent :eyes:
 
-# Need to run install as root user - connect to chead1 again 
+# Need to run install as root user - connect to chead1 again
 
 ssh root@chead1 "pdsh -w "$NEW_NODE" 'curl http://cfcgateway/resources/zabbix/install_agent.sh |/bin/bash'"
-
