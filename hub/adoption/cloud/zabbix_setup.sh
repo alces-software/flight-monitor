@@ -6,13 +6,7 @@
 ZABBIX_AUTH=$(cat /opt/zabbix/srv/resources/maint_scripts/adopt_config |grep zabbix_auth |awk '{print $2}')
 NEW_NODE=$1
 CLUSTER_NAME=$(echo $NEW_NODE |cut -d"." -f4)
-
-#Setup Json Request Logic
-function json_request {
-	zaburl=https://hub.fcops.alces-flight.com/api_jsonrpc.php
-	zabrequest=$(cat $1)
-	curl -s -X POST -H 'Content-Type: application/json' $zaburl -d "$zabrequest" |json_pp
-}
+JSON_REQ_PATH="/opt/zabbix/srv/resources/adoption/"
 
 #Decide whether node already exists in zabbix
 
@@ -51,7 +45,7 @@ cat << EOF > /tmp/get_group.txt
 EOF
 
 function enable_node{
-host_id=$(json_request /tmp/hosts.txt |grep "$NEW_NODE" -B 1 |grep hostid |awk '{print $3}' |sed 's/"//g' |sed 's/,//g')
+host_id=$("$JSON_REQ_PATH"/json_req.sh /tmp/hosts.txt |grep "$NEW_NODE" -B 1 |grep hostid |awk '{print $3}' |sed 's/"//g' |sed 's/,//g')
 
 cat << EOF > /tmp/enable_node.txt
 {
@@ -66,7 +60,7 @@ cat << EOF > /tmp/enable_node.txt
 }
 EOF
 
-json_request /tmp/enable_node.txt
+"$JSON_REQ_PATH"/json_req.sh /tmp/enable_node.txt
 
 }
 
@@ -75,7 +69,7 @@ function zabbix_addition{
 
 #New host vars
 NEW_NODE_IP=$(ping $NEW_NODE -c 1 |grep -m1 $NEW_NODE |awk '{print $3}' |sed 's/(//g' |sed 's/)//g')
-GROUP_ID=$(json_request /tmp/get_group.txt |grep groupid |cut -d'"' -f4)
+GROUP_ID=$("$JSON_REQ_PATH"/json_req.sh /tmp/get_group.txt |grep groupid |cut -d'"' -f4)
 #Hardcoded Template IDs at the moment for our generic cloud node templates: Linux NFS v3 Client, Template OS Linux by Zabbix agent
 TEMPLATE_ID_1=12523 #Linux NFS v3 Client
 TEMPLATE_ID_2=10001 #Template OS Linux by Zabbix agent
@@ -113,7 +107,7 @@ cat << EOF > /tmp/zabbix_addition.txt
 }
 EOF
 
-json_request /tmp/zabbix_addition.txt
+"$JSON_REQ_PATH"/json_req.sh /tmp/zabbix_addition.txt
 
 }
 
