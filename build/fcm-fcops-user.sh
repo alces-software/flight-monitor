@@ -35,6 +35,7 @@ echo "https://$GUSER:$GPASS@github.com" > /users/fcops/.git-credentials
 cd /users/fcops/git
 git clone https://github.com/alces-software/flight-monitor.git
 git clone https://github.com/alces-software/flight-monitor-resources.git
+chown fcops: -R /users/fcops/git
 cd
 
 #Copy adoption scripts to nginx resource location
