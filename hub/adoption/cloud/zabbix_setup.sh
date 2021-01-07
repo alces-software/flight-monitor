@@ -45,7 +45,7 @@ cat << EOF > /tmp/get_group.txt
 EOF
 
 function enable_node{
-host_id=$("$JSON_REQ_PATH"/json_req.sh /tmp/hosts.txt |grep "$NEW_NODE" -B 1 |grep hostid |awk '{print $3}' |sed 's/"//g' |sed 's/,//g')
+host_id=$(bash "$JSON_REQ_PATH"/json_req.sh /tmp/hosts.txt |grep "$NEW_NODE" -B 1 |grep hostid |awk '{print $3}' |sed 's/"//g' |sed 's/,//g')
 
 cat << EOF > /tmp/enable_node.txt
 {
@@ -60,7 +60,7 @@ cat << EOF > /tmp/enable_node.txt
 }
 EOF
 
-"$JSON_REQ_PATH"/json_req.sh /tmp/enable_node.txt
+bash "$JSON_REQ_PATH"/json_req.sh /tmp/enable_node.txt
 
 }
 
@@ -69,7 +69,7 @@ function zabbix_addition{
 
 #New host vars
 NEW_NODE_IP=$(ping $NEW_NODE -c 1 |grep -m1 $NEW_NODE |awk '{print $3}' |sed 's/(//g' |sed 's/)//g')
-GROUP_ID=$("$JSON_REQ_PATH"/json_req.sh /tmp/get_group.txt |grep groupid |cut -d'"' -f4)
+GROUP_ID=$(bash "$JSON_REQ_PATH"/json_req.sh /tmp/get_group.txt |grep groupid |cut -d'"' -f4)
 #Hardcoded Template IDs at the moment for our generic cloud node templates: Linux NFS v3 Client, Template OS Linux by Zabbix agent
 TEMPLATE_ID_1=12523 #Linux NFS v3 Client
 TEMPLATE_ID_2=10001 #Template OS Linux by Zabbix agent
@@ -107,7 +107,7 @@ cat << EOF > /tmp/zabbix_addition.txt
 }
 EOF
 
-"$JSON_REQ_PATH"/json_req.sh /tmp/zabbix_addition.txt
+bash "$JSON_REQ_PATH"/json_req.sh /tmp/zabbix_addition.txt
 
 }
 
