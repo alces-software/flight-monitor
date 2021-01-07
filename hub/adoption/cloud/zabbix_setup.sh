@@ -51,7 +51,7 @@ cat << EOF > /tmp/get_group.txt
 EOF
 
 function enable_node{
-host_id=$(json_request /tmp/hosts.txt |grep $NEW_NODE -B 1 |grep hostid |awk '{print $3}' |sed 's/"//g' |sed 's/,//g')
+host_id=$(json_request /tmp/hosts.txt |grep "$NEW_NODE" -B 1 |grep hostid |awk '{print $3}' |sed 's/"//g' |sed 's/,//g')
 
 cat << EOF > /tmp/enable_node.txt
 {
