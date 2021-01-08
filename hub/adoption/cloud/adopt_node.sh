@@ -57,7 +57,7 @@ ssh root@chead1 "curl http://cfcgateway/resources/adoption/fcops_setup.sh |bash 
 bash /opt/zabbix/srv/resources/adoption/zabbix_setup.sh "$NEW_NODE"
 
 # Assume adoption script is used for compute nodes then:
-echo "$NEW_NODE_SHORT   compute,cn,all" >> /etc/genders
+sudo echo "$NEW_NODE_SHORT   compute,cn,all" >> /etc/genders
 
 # Then ensure checks will run on this new node
 
