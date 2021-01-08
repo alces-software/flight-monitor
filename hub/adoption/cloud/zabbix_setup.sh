@@ -150,14 +150,14 @@ EOF
 
 #Get new node hostid
 
-host_id=$(json_request /tmp/hosts.txt |grep -w "$NEW_NODE" -B 1 |grep hostid |awk '{print $3}' |sed 's/"//g' |sed 's/,//g')
+NEW_NODE_ID=$(json_request /tmp/hosts.txt |grep -w "$NEW_NODE" -B 1 |grep hostid |awk '{print $3}' |sed 's/"//g' |sed 's/,//g')
 
 #Get id of proxy for this cluster
 #Doing this based on it running on the gw which should be configured as a proxy
 
 PROXY_NAME=$(hostname)
 
-proxy_id=$(json_request /tmp/proxy_get.txt |egrep "host|proxyid" |grep "$PROXY_NAME" -B 1 |grep proxyid |awk '{print $3}' |sed 's/"//g' |sed 's/,//g')
+PROXY_ID=$(json_request /tmp/proxy_get.txt |egrep "host|proxyid" |grep "$PROXY_NAME" -B 1 |grep proxyid |awk '{print $3}' |sed 's/"//g' |sed 's/,//g')
 
 
 #Create proxy json
@@ -175,4 +175,7 @@ cat << EOF > /tmp/proxy.txt
     "id": 1
 }
 EOF
+
+echo "Adding "NEW_NODE" to be monitored by "$PROXY_NAME""
+json_request /tmp/proxy.txt
 
