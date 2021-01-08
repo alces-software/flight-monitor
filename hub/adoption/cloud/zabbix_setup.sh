@@ -157,7 +157,7 @@ host_id=$(json_request /tmp/hosts.txt |grep -w "$NEW_NODE" -B 1 |grep hostid |aw
 
 PROXY_NAME=$(hostname)
 
-proxy_id=$(json_request /tmp/proxy_get.txt |egrep "host|proxyid" |grep "$PROXY_NAME" -B 1 |grep hostid |awk '{print $3}' |sed 's/"//g' |sed 's/,//g')
+proxy_id=$(json_request /tmp/proxy_get.txt |egrep "host|proxyid" |grep "$PROXY_NAME" -B 1 |grep proxyid |awk '{print $3}' |sed 's/"//g' |sed 's/,//g')
 
 
 #Create proxy json
