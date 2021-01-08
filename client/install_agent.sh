@@ -10,7 +10,7 @@ chown fcops: /var/log/zabbix
 mkdir -p /opt/zabbix/{scripts,logs,conf/custom_checks}
 chown fcops: /opt/zabbix/{scripts,logs,conf/custom_checks}
 
-wget http://fcgateway/resources/zabbix_agent.tgz -O zabbix_agent.tgz
+wget http://fcgateway/resources/zabbix/zabbix_agent.tgz -O zabbix_agent.tgz
 tar -zxvf zabbix_agent.tgz
 
 
@@ -81,7 +81,7 @@ EOF
 #EOF
 
 #Download custom scripts from fcgateway
-cd /opt/zabbix/scripts ; wget -r -nH --cut-dirs=3 --no-parent --reject="index.html*" http://fcgateway/resources/custom_zabbix_checks/
+cd /opt/zabbix/scripts ; wget -r -nH --cut-dirs=3 --no-parent --reject="index.html*" http://fcgateway/resources/zabbix/custom_zabbix_checks/
 cd
 
 #Ensure permissions are correct
@@ -89,7 +89,7 @@ chown fcops: /opt/zabbix/ -R
 chmod +x /opt/zabbix/scripts/check_procs
 
 
-wget http://fcgateway/resources/zabbix_agentd.conf -O /opt/zabbix/conf/zabbix_agentd.conf
+wget http://fcgateway/resources/zabbix/zabbix_agentd.conf -O /opt/zabbix/conf/zabbix_agentd.conf
 
 systemctl daemon-reload
 systemctl enable zabbix-agent
