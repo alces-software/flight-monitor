@@ -23,14 +23,14 @@ EOF
 
 echo "Downloading ngnix config from flight-monitor github"
 wget https://raw.githubusercontent.com/alces-software/flight-monitor/master/resources/nginx.conf -O /etc/nginx/nginx.conf --no-check-certificate -q
-wget https://raw.githubusercontent.com/alces-software/flight-monitor/master/client/install_agent.sh -O /opt/zabbix/srv/resources/install_agent.sh --no-check-certificate -q
-wget https://raw.githubusercontent.com/alces-software/flight-monitor/master/resources/zabbix_agentd.conf -O /opt/zabbix/srv/resources/zabbix_agentd.conf --no-check-certificate -q
-wget https://www.zabbix.com/downloads/4.4.5/zabbix_agent-4.4.5-linux-3.0-amd64-static.tar.gz -O /opt/zabbix/srv/resources/zabbix_agent.tgz -q
+wget https://raw.githubusercontent.com/alces-software/flight-monitor/master/client/install_agent.sh -O /opt/zabbix/srv/resources/zabbix/install_agent.sh --no-check-certificate -q
+wget https://raw.githubusercontent.com/alces-software/flight-monitor/master/resources/zabbix_agentd.conf -O /opt/zabbix/srv/resources/zabbix/zabbix_agentd.conf --no-check-certificate -q
+wget https://www.zabbix.com/downloads/4.4.5/zabbix_agent-4.4.5-linux-3.0-amd64-static.tar.gz -O /opt/zabbix/srv/resources/zabbix/zabbix_agent.tgz -q
 
 
 echo "Downloading Custom Zabbix Conf"
-wget https://github.com/alces-software/flight-monitor/blob/master/resources/zabbix_custom_checks.tar.gz?raw=true -O /opt/zabbix/srv/resources/zabbix_checks.tar.gz -q --no-check-certificate
-tar -zxvf /opt/zabbix/srv/resources/zabbix_checks.tar.gz -C /opt/zabbix/srv/resources/
+wget https://github.com/alces-software/flight-monitor/blob/master/resources/zabbix_custom_checks.tar.gz?raw=true -O /opt/zabbix/srv/resources/zabbix/zabbix_checks.tar.gz -q --no-check-certificate
+tar -zxvf /opt/zabbix/srv/resources/zabbix_checks.tar.gz -C /opt/zabbix/srv/resources/zabbix/
 
 
 #Hostname change when people give u VMs that aren't called fcgateway...
