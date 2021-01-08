@@ -5,7 +5,7 @@
 
 ZABBIX_AUTH=$(cat /opt/zabbix/srv/resources/maint_scripts/adopt_config |grep zabbix_auth |awk '{print $2}')
 NEW_NODE=$1
-CLUSTER_NAME=$(echo $NEW_NODE |cut -d"." -f4)
+CLUSTER_NAME=$(echo $NEW_NODE |cut -d"." -f4) #This may need to change to 3 when testing with stu clusters :) 
 
 #Setup Json Request Logic
 function json_request {
@@ -107,7 +107,7 @@ cat << EOF > /tmp/zabbix_addition.txt
                 "templateid": "$TEMPLATE_ID_1",
                 "templateid": "$TEMPLATE_ID_2"
             }
-        ],
+        ]
     },
     "auth": "$ZABBIX_AUTH",
     "id": 1
