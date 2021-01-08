@@ -3,6 +3,13 @@
 #Alert to slack either way?
 
 
+#Add some checks -- zabbix checks? 
+#Is node there, enabled, with templates etc?
+#Is node pdsh'able? (Would check genders + fcops conf)
+
+
+
+
 
 msg="
 "$NEW_NODE" has been adopted into the ops team processes sucessfully!
