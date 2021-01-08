@@ -12,6 +12,7 @@ SLACK_TOKEN=$(cat /opt/zabbix/srv/resources/maint_scripts/adopt_config |grep sla
 
 
 
+
 msg="
 "$NEW_NODE" has been adopted into the ops team processes sucessfully!
 "
