@@ -132,3 +132,31 @@ fi
 # Need to run install as root user - connect to chead1 again
 
 ssh root@chead1 "pdsh -w "$NEW_NODE" 'curl http://cfcgateway/resources/zabbix/install_agent.sh |/bin/bash'"
+
+# For Zabbix additions (ie. new nodes) - Once the node has been installed and setup on zabbix - will need to ensure the correct proxy is monitoring it
+
+#Get new node hostid
+
+host_id=$(json_request /tmp/hosts.txt |grep -w "$NEW_NODE" -B 1 |grep hostid |awk '{print $3}' |sed 's/"//g' |sed 's/,//g')
+
+#Get id of proxy for this cluster
+#Doing this based on it running on the gw which should be configured as a proxy
+
+
+
+#Create proxy json
+cat << EOF > /tmp/proxy.txt
+{
+    "jsonrpc": "2.0",
+    "method": "proxy.update",
+    "params": {
+        "proxyid": "$PROXY_ID",
+        "hosts": [
+            "$NEW_NODE_ID",
+        ]
+    },
+    "auth": "$ZABBIX_AUTH",
+    "id": 1
+}
+EOF
+
