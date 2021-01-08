@@ -168,7 +168,7 @@ cat << EOF > /tmp/proxy.txt
     "params": {
         "proxyid": "$PROXY_ID",
         "hosts": [
-            "$NEW_NODE_ID",
+            "$NEW_NODE_ID"
         ]
     },
     "auth": "$ZABBIX_AUTH",
