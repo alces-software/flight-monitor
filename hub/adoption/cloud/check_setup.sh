@@ -9,6 +9,19 @@ SLACK_TOKEN=$(cat /opt/zabbix/srv/resources/maint_scripts/adopt_config |grep sla
 #Is node there, enabled, with templates etc?
 #Is node pdsh'able? (Would check genders + fcops conf)
 
+PDSH_CHECK="pdsh -w "$NEW_NODE" uptime"
+if $PDSH_CHECK ; then
+	echo "PDSH Check is good - continuing with checks"
+else
+	echo "PDSH Check failed - exiting"
+	exit 1
+fi
+
+
+
+
+
+
 
 
 
