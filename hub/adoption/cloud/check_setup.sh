@@ -17,10 +17,13 @@ else
 	exit 1
 fi
 
-
-
-
-
+ZABBIX_CHECK=""
+if $ZABBIX_CHECK ; then
+        echo "ZABBIX Check is good - continuing with checks"
+else
+        echo "ZABBIX Check failed - exiting"
+        exit 1
+fi
 
 
 

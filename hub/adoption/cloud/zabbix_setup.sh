@@ -152,6 +152,9 @@ EOF
 
 NEW_NODE_ID=$(json_request /tmp/hosts.txt |grep -w "$NEW_NODE" -B 1 |grep hostid |awk '{print $3}' |sed 's/"//g' |sed 's/,//g')
 
+#Also echo NEW_NODE_ID to a file for use in checks
+echo $NEW_NODE_ID > /tmp/new_node_host_id.txt
+
 #Get id of proxy for this cluster
 #Doing this based on it running on the gw which should be configured as a proxy
 
