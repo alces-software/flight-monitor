@@ -31,7 +31,7 @@ wget https://cdn.zabbix.com/zabbix/binaries/stable/4.4/4.4.5/zabbix_agent-4.4.5-
 
 echo "Downloading Custom Zabbix Conf"
 wget https://github.com/alces-software/flight-monitor/blob/master/resources/zabbix_custom_checks.tar.gz?raw=true -O /opt/zabbix/srv/resources/zabbix/zabbix_checks.tar.gz -q --no-check-certificate
-tar -zxvf /opt/zabbix/srv/resources/zabbix_checks.tar.gz -C /opt/zabbix/srv/resources/zabbix/
+tar -zxvf /opt/zabbix/srv/resources/zabbix/zabbix_checks.tar.gz -C /opt/zabbix/srv/resources/zabbix/
 
 
 #Hostname change when people give u VMs that aren't called fcgateway...
