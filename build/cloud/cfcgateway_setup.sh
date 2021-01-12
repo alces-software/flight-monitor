@@ -16,3 +16,7 @@ bash /tmp/fcm-fcops-user.sh
 #Sets up Nginx + Zabbix Proxy/Agent
 bash /tmp/fcm-webserver.sh
 
+#Setup /etc/hosts line + configure hostname
+echo "Please add a localhost entry line similar to: 10.10.0.2 cfcgateway.cloud.pri.opsteam.alces.network cfcgateway to /etc/hosts"
+echo "Please set the hostname of this gw correctly: hostnamectl set-hostname cfcgateway.cloud.pri.XXXXX.alces.network"
+echo "Once above steps have been completed - please restart this gateway"
