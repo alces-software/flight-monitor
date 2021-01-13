@@ -2,6 +2,8 @@
 # Script to setup privileged fcops user
 
 PASSWORD=$1
+GUSER=$2
+GPASS=$3
 
 mkdir /users
 
@@ -28,8 +30,8 @@ cat << EOF > /users/fcops/.gitconfig
 EOF
 
 #Ask the user for Dan's git credentials 
-echo -n "Please provide your git username: " ; read GUSER
-echo -n "Please provide your git password: " ; read GPASS
+#echo -n "Please provide your git username: " ; read GUSER
+#echo -n "Please provide your git password: " ; read GPASS
 
 echo "https://$GUSER:$GPASS@github.com" > /users/fcops/.git-credentials
 
