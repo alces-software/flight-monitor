@@ -16,7 +16,7 @@ curl https://raw.githubusercontent.com/alces-software/flight-monitor/master/buil
 bash /tmp/fcm-vpnclient.sh
 
 #Sets up fcops user - this should be run bofore webserver bc permissions
-bash /tmp/fcm-fcops-user.sh "$PASSWORD"
+bash /tmp/fcm-fcops-user.sh
 
 #Sets up Nginx + Zabbix Proxy/Agent
 bash /tmp/fcm-webserver.sh
