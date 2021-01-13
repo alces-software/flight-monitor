@@ -2,6 +2,11 @@
 # A wrapper script to install necessary things + create a cfcgateway
 # This wrapper script assumes that you have setup necessary VPN stuff
 
+#Get vars
+echo -n "Enter new fcops user password: "; read PASSWORD
+echo -n "Please provide your git username: " ; read GUSER
+echo -n "Please provide your git password: " ; read GPASS
+
 #Curl + Run original cloud setup script
 curl https://raw.githubusercontent.com/alces-software/flight-monitor/master/build/cloud/fcm-setup_cloud.sh | /bin/bash
 

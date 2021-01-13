@@ -1,12 +1,14 @@
 #!/bin/bash
 # Script to setup privileged fcops user
 
+PASSWORD=$1
+
 mkdir /users
 
 #Add user
 useradd -d /users/fcops -s /bin/bash fcops
 
-echo -n "Enter new fcops user password: "; read PASSWORD
+#echo -n "Enter new fcops user password: "; read PASSWORD
 echo ${PASSWORD} | passwd --stdin fcops
 
 
