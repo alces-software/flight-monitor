@@ -58,7 +58,7 @@ bash /opt/zabbix/srv/resources/adoption/zabbix_setup.sh "$NEW_NODE"
 
 # Assume adoption script is used for compute nodes then:
 sudo chown fcops: /etc/genders
-sudo echo '"$NEW_NODE_SHORT"   compute,cn,all' >> /etc/genders
+echo ""$NEW_NODE_SHORT"   compute,cn,all" >> /etc/genders
 
 # Then ensure checks will run on this new node
 
