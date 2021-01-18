@@ -38,6 +38,9 @@ git clone https://github.com/alces-software/flight-monitor-resources.git
 chown fcops: -R /users/fcops/git
 cd
 
+mkdir -p /opt/zabbix/srv/resources/{maint_scripts,apps_scripts,zabbix}
+chown fcops: /opt/zabbix/srv/resources/ -R
+
 #Copy adoption scripts to nginx resource location
 rsync -auv /users/fcops/git/flight-monitor/hub/adoption/cloud/ /opt/zabbix/srv/resources/adoption/
 
