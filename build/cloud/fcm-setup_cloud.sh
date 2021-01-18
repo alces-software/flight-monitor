@@ -15,6 +15,10 @@ firewall-cmd --add-port 10051/tcp --permanent #Zabbix Port - Incoming from other
 firewall-cmd --reload
 systemctl restart firewalld
 
+#Add necessary localhost entry lines
+echo "10.178.0.1       hub.fcops hub hub.fcops.alces-flight.com" >> /etc/hosts
+
+
 # Packages
 echo "Installing Prerequisites"
 yum install -y -e0 vim git epel-release wget -q
