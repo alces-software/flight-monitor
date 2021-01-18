@@ -163,36 +163,7 @@ fi
 
 ssh root@chead1 "pdsh -w "$NEW_NODE" 'curl http://cfcgateway/resources/zabbix/install_agent.sh |/bin/bash'"
 
-# For Zabbix additions (ie. new nodes) - Once the node has been installed and setup on zabbix - will need to ensure the correct proxy is monitoring it
-
-#Create proxy_get json
-cat << EOF > /tmp/proxy_get.txt
-{
-    "jsonrpc": "2.0",
-    "method": "proxy.get",
-    "params": {
-        "output": "extend"
-    },
-    "auth": "$ZABBIX_AUTH",
-    "id": 1
-}
-EOF
-
 #Get new node hostid
-
 NEW_NODE_ID=$(json_request /tmp/hosts.txt |grep -w "$NEW_NODE" -B 1 |grep hostid |awk '{print $3}' |sed 's/"//g' |sed 's/,//g')
-
 #Also echo NEW_NODE_ID to a file for use in checks
 echo $NEW_NODE_ID > /tmp/new_node_host_id.txt
-
-#Get id of proxy for this cluster
-#Doing this based on it running on the gw which should be configured as a proxy
-
-PROXY_NAME=$(hostname)
-
-PROXY_ID=$(json_request /tmp/proxy_get.txt |egrep "host|proxyid" |grep "$PROXY_NAME" -B 1 |grep proxyid |awk '{print $3}' |sed 's/"//g' |sed 's/,//g')
-
-
-echo "Adding "$NEW_NODE" to be monitored by "$PROXY_NAME""
-json_request /tmp/proxy.txt
-
