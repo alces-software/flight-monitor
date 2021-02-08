@@ -10,42 +10,44 @@ else
 	if [ $1 == "-help" ] ; then
 		echo "Usage: ./adopt_node.sh hostname"
         	echo "Please use FQDN, eg:"
-        	echo "Hostname format: cnode01.cloud.pri.cluster.alces.network"
+        	echo "Hostname format: node01.pri.cluster.alces.network"
         	exit 0
 	else
 		echo "Adopting $1"
 	fi
 fi
 
-#Check for config file which needs to exist on fcgateway
-# Config file should contain ssh keys, slack tokens, zabbix auth keys etc (For that cluster obvs)
+#Check for config file which needs to exist on cfcgateway
+#Config file should contain ssh keys, slack tokens, zabbix auth keys etc (For that cluster obvs)
+
 CONFIG_FILE=/opt/zabbix/srv/resources/maint_scripts/adopt_config
 
+function setup_config {
+echo -n "Config file not found - Let's set one up:"
+echo -n "Enter your fcops user public ssh key: "; read SSH_KEY
+echo -n "Enter your slack bot auth token: "; read SLACK_TOKEN
+echo -n "Enter your zabbix user auth token: "; read ZABBIX_AUTH
+echo -n "Enter your fcops user password for this cluster: "; read FCOPS_PASS
+cat << EOF > /opt/zabbix/srv/resources/maint_scripts/adopt_config
+ssh_key: ${SSH_KEY}
+slack_token: ${SLACK_TOKEN}
+zabbix_auth: ${ZABBIX_AUTH}
+fcops_pass: ${FCOPS_PASS}
+EOF
+}
+ 
 # Could we get script to add/remove from FC with API bits too ?
 
 if [ ! -f "$CONFIG_FILE" ]; then
-    echo "Config file not found - Let's set one up"
-    echo -n "Enter your fcops user public ssh key: "; read SSH_KEY
-    echo -n "Enter your slack bot auth token: "; read SLACK_TOKEN
-    echo -n "Enter your zabbix user auth token: "; read ZABBIX_AUTH
-    echo -n "Enter your fcops user password for this cluster"; read FCOPS_PASS
-    echo -n "Enter your machine with root keys setup on this cluster"; read HEADNODE
-	##
-	cat << EOF > $CONFIG_IP
-	ssh_key: ${SSH_KEY}
-	slack_token: ${SLACK_TOKEN}
-	zabbix_auth: ${ZABBIX_AUTH}
-	fcops_pass: ${FCOPS_PASS}
-	headnode: ${HEADNODE}
-	EOF 
+    setup_config
 else
     echo "Config found - Continuing with adoption"
 fi
 
 #Create temporary config file for genders etc
-echo -n "Enter the new node's gender group (Eg. compute, login etc): "; read GENDER
-cat << EOF >
-gender: ${GENDER}
+echo -n "Enter the new node's gender group(s) (Eg. compute, login etc): "; read GENDER
+cat << EOF > /tmp/new_node_gender.txt
+${GENDER}
 EOF
 
 
@@ -66,7 +68,7 @@ EOF
 bash /opt/zabbix/srv/resources/zabbix/zabbix_setup.sh "$NEW_NODE"
 
 # Assume adoption script is used for compute nodes then:
-echo "$NEW_NODE_SHORT   compute,cn,all" >> /etc/genders
+echo "$NEW_NODE_SHORT   $(cat /tmp/new_node_gender.txt)" >> /etc/genders
 
 # Then ensure checks will run on this new node
 
