@@ -161,7 +161,7 @@ fi
 
 # Need to run install as root user - connect to controller again 
 
-ssh root@controller "pdsh -w "$NEW_NODE" 'curl http://cfcgateway/resources/zabbix/install_agent.sh |/bin/bash'"
+ssh root@controller "pdsh -w "$NEW_NODE" 'curl http://fcgateway/resources/zabbix/install_agent.sh |/bin/bash'"
 
 #Get new node hostid
 NEW_NODE_ID=$(json_request /tmp/hosts.txt |grep -w "$NEW_NODE" -B 1 |grep hostid |awk '{print $3}' |sed 's/"//g' |sed 's/,//g')
