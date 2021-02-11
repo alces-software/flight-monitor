@@ -61,7 +61,7 @@ ssh root@controller "curl http://fcgateway/resources/adoption/fcops_setup.sh |ba
 
 # Then Zabbix install / setup / config
 
-bash /opt/zabbix/srv/resources/zabbix/zabbix_setup.sh "$NEW_NODE"
+bash /opt/zabbix/srv/resources/adoption/zabbix_setup.sh "$NEW_NODE"
 
 # Assume adoption script is used for compute nodes then:
 sudo chown fcops: /etc/genders
