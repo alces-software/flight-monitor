@@ -57,24 +57,20 @@ NEW_NODE_SHORT=$(echo $NEW_NODE |cut -d"." -f1)
 # Should run fcops setup first
 
 # Runs from controller of cloud cluster - keys from fcops@fcgateway -> root@controller should exist
-HEADNODE=$(grep headnode /opt/zabbix/srv/resources/maint_scripts/adopt_config |awk '{print $2}')
-ssh root@"$HEADNODE" <<-'EOF'
-curl http://fcgateway/resources/maint_scripts/fcops_setup.sh "$NEW_NODE" |/bin/bash
-exit
-EOF
+ssh root@controller "curl http://cfcgateway/resources/adoption/fcops_setup.sh |bash -s "$NEW_NODE""
 
 # Then Zabbix install / setup / config
 
 bash /opt/zabbix/srv/resources/zabbix/zabbix_setup.sh "$NEW_NODE"
 
 # Assume adoption script is used for compute nodes then:
+sudo chown fcops: /etc/genders
 echo "$NEW_NODE_SHORT   $(cat /tmp/new_node_gender.txt)" >> /etc/genders
 
 # Then ensure checks will run on this new node
 
-bash /opt/zabbix/srv/resources/zabbix/check_setup.sh "$NEW_NODE"
+bash /opt/zabbix/srv/resources/adoption/check_setup.sh "$NEW_NODE"
 
 # Also ensure any necessary RPMs have been installed
 
-bash /opt/zabbix/srv/resources/zabbix/rpm_setup.sh "$NEW_NODE"
-
+bash /opt/zabbix/srv/resources/adoption/rpm_setup.sh "$NEW_NODE"
