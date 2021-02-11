@@ -14,6 +14,9 @@ function json_request {
 	curl -s -X POST -H 'Content-Type: application/json' $zaburl -d "$zabrequest" |json_pp
 }
 
+
+host_id=$(json_request /tmp/hosts.txt |grep "$NEW_NODE" -B 1 |grep hostid |awk '{print $3}' |sed 's/"//g' |sed 's/,//g')
+
 #Decide whether node already exists in zabbix
 
 # Setup json host request file
@@ -50,9 +53,7 @@ cat << EOF > /tmp/get_group.txt
 }
 EOF
 
-function enable_node{
-host_id=$(json_request /tmp/hosts.txt |grep $NEW_NODE -B 1 |grep hostid |awk '{print $3}' |sed 's/"//g' |sed 's/,//g')
-
+function enable_node {
 cat << EOF > /tmp/enable_node.txt
 {
     "jsonrpc": "2.0",
@@ -70,8 +71,37 @@ json_request /tmp/enable_node.txt
 
 }
 
+# For Zabbix additions (ie. new nodes) - Once the node has been installed and setup on zabbix - will need to ensure the correct proxy is monitoring it
 
-function zabbix_addition{
+#Create proxy_get json
+cat << EOF > /tmp/proxy_get.txt
+{
+    "jsonrpc": "2.0",
+    "method": "proxy.get",
+    "params": {
+        "output": "extend"
+    },
+    "auth": "$ZABBIX_AUTH",
+    "id": 1
+}
+EOF
+
+#Get new node hostid
+
+#NEW_NODE_ID=$(json_request /tmp/hosts.txt |grep -w "$NEW_NODE" -B 1 |grep hostid |awk '{print $3}' |sed 's/"//g' |sed 's/,//g')
+
+#Also echo NEW_NODE_ID to a file for use in checks
+#echo $NEW_NODE_ID > /tmp/new_node_host_id.txt
+
+#Get id of proxy for this cluster
+#Doing this based on it running on the gw which should be configured as a proxy
+
+PROXY_NAME=$(hostname)
+
+PROXY_ID=$(json_request /tmp/proxy_get.txt |egrep "host|proxyid" |grep "$PROXY_NAME" -B 1 |grep proxyid |awk '{print $3}' |sed 's/"//g' |sed 's/,//g')
+
+
+function zabbix_addition {
 
 #New host vars
 NEW_NODE_IP=$(ping $NEW_NODE -c 1 |grep -m1 $NEW_NODE |awk '{print $3}' |sed 's/(//g' |sed 's/)//g')
@@ -106,7 +136,8 @@ cat << EOF > /tmp/zabbix_addition.txt
                 "templateid": "$TEMPLATE_ID_1",
                 "templateid": "$TEMPLATE_ID_2"
             }
-        ],
+          ],
+       "proxy_hostid" : "$PROXY_ID" 
     },
     "auth": "$ZABBIX_AUTH",
     "id": 1
@@ -130,19 +161,9 @@ fi
 
 # Need to run install as root user - connect to controller again 
 
-ssh root@controller <<-'EOF'
-pdsh -w $NEW_NODE "curl http://fcgateway/resources/zabbix/install_agent.sh |/bin/bash"
-exit
-EOF
+ssh root@controller "pdsh -w "$NEW_NODE" 'curl http://cfcgateway/resources/zabbix/install_agent.sh |/bin/bash'"
 
-
-
-
-
-
-
-
-
-
-
-
+#Get new node hostid
+NEW_NODE_ID=$(json_request /tmp/hosts.txt |grep -w "$NEW_NODE" -B 1 |grep hostid |awk '{print $3}' |sed 's/"//g' |sed 's/,//g')
+#Also echo NEW_NODE_ID to a file for use in checks
+echo $NEW_NODE_ID > /tmp/new_node_host_id.txt
