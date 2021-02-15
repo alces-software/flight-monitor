@@ -5,7 +5,7 @@
 
 ZABBIX_AUTH=$(cat /opt/zabbix/srv/resources/maint_scripts/adopt_config |grep zabbix_auth |awk '{print $2}')
 NEW_NODE=$1
-CLUSTER_NAME=$(echo $NEW_NODE |cut -d"." -f4)
+CLUSTER_NAME=$(echo $NEW_NODE |cut -d"." -f3) #Changed from 4 bc site not cloud
 
 #Setup Json Request Logic
 function json_request {
@@ -15,7 +15,8 @@ function json_request {
 }
 
 
-host_id=$(json_request /tmp/hosts.txt |grep "$NEW_NODE" -B 1 |grep hostid |awk '{print $3}' |sed 's/"//g' |sed 's/,//g')
+#If node only needs enabling - this will work + is needed to enable but piping to /dev/null bc output fails when new node and is scary
+host_id=$(json_request /tmp/hosts.txt |grep "$NEW_NODE" -B 1 |grep hostid |awk '{print $3}' |sed 's/"//g' |sed 's/,//g') >> /dev/null
 
 #Decide whether node already exists in zabbix
 
