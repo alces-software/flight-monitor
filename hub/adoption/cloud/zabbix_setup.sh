@@ -167,3 +167,6 @@ ssh root@chead1 "pdsh -w "$NEW_NODE" 'curl http://cfcgateway/resources/zabbix/in
 NEW_NODE_ID=$(json_request /tmp/hosts.txt |grep -w "$NEW_NODE" -B 1 |grep hostid |awk '{print $3}' |sed 's/"//g' |sed 's/,//g')
 #Also echo NEW_NODE_ID to a file for use in checks
 echo $NEW_NODE_ID > /tmp/new_node_host_id.txt
+
+#Now that zabbix stuff has been setup on frontend - pull latest config
+sudo zabbix_proxy -c /etc/zabbix/zabbix_proxy.conf -R config_cache_reload
