@@ -2,6 +2,8 @@
 #Script to ensure node is setup sucessfully + in genders file on cfcgateway
 #Alert to slack either way?
 
+NEW_NODE=$1
+
 SLACK=$(grep slack_token /opt/zabbix/srv/resources/maint_scripts/adopt_config |awk '{print $2}')
 
 msg="
