@@ -3,7 +3,8 @@
 # This script should probably be called with whether or not it is a new node to zabbix or whether it is a node which just needs enabling?
 # If node is already in zabbix then should enable - setup if statement and do with functions
 
-ZABBIX_AUTH=$(cat /opt/zabbix/srv/resources/maint_scripts/adopt_config |grep zabbix_auth |awk '{print $2}')
+CONFIG_FILE=/opt/zabbix/API/.config
+ZABBIX_AUTH=$(cat $CONFIG_FILE |grep zabbix_auth |awk '{print $2}')
 NEW_NODE=$1
 CLUSTER_NAME=$(echo $NEW_NODE |cut -d"." -f4) #This may need to change to 3 when testing with stu clusters :) 
 
@@ -29,7 +30,7 @@ else
 	fi
 fi
 
-CONFIG_FILE=/opt/zabbix/API/config
+CONFIG_FILE=/opt/zabbix/API/.config
 
 function setup_config {
 echo -n "Config file not found - Let's set one up:"
