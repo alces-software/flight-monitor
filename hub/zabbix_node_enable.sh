@@ -81,7 +81,24 @@ json_request /tmp/enable_node.txt
 
 }
 
-#Try and find if the host is on zabbix currently
+function slack_notif {
+SLACK_TOKEN=$(cat $CONFIG_FILE |grep slack_token  |awk '{print $2}')
+#Take a gamble on cluster name being the slack channel name?
+
+msg="
+"$NEW_NODE" has been adopted into the ops team processes sucessfully!
+"
+
+cat <<EOF | curl --silent --output /dev/null --data @- -X POST -H "Authorization: Bearer $SLACK_TOKEN" -H 'Content-Type: application/json' https://slack.com/api/chat.postMessage
+{
+  "text": "$msg",
+  "channel": "$CLUSTER_NAME",
+  "as_user": true
+}
+EOF
+}
+
+#Actually enable node in zabbix if you can find it
 if json_request /tmp/hosts.txt |grep $NEW_NODE >/dev/null ;then
         echo "Node in Zabbix as expected - Enabling"
         enable_node
@@ -92,3 +109,5 @@ fi
 
 #Now that zabbix stuff has been setup on frontend - pull latest config
 #sudo zabbix_proxy -c /etc/zabbix/zabbix_proxy.conf -R config_cache_reload
+
+
