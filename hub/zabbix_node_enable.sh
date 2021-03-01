@@ -14,6 +14,38 @@ function json_request {
 	curl -s -X POST -H 'Content-Type: application/json' $zaburl -d "$zabrequest" |json_pp
 }
 
+if [ $# -eq 0 ] ; then
+	echo "Please provide a hostname"
+	echo "See -help for further info"
+	exit 1
+else
+	if [ $1 == "-help" ] ; then
+		echo "Usage: ./adopt_node.sh hostname"
+        	echo "Please use FQDN, eg:"
+        	echo "Hostname format: cnode01.cloud.pri.cluster.alces.network"
+        	exit 0
+	else
+		echo "Enabling $1"
+	fi
+fi
+
+CONFIG_FILE=/opt/zabbix/API/config
+
+function setup_config {
+echo -n "Config file not found - Let's set one up:"
+echo -n "Enter your slack bot auth token: "; read SLACK_TOKEN
+echo -n "Enter your zabbix user auth token: "; read ZABBIX_AUTH
+cat << EOF > $CONFIG_FILE
+slack_token: ${SLACK_TOKEN}
+zabbix_auth: ${ZABBIX_AUTH}
+EOF
+}
+
+if [ ! -f "$CONFIG_FILE" ]; then
+    setup_config
+else
+    echo "Config file found - Continuing"
+fi
 
 host_id=$(json_request /tmp/hosts.txt |grep "$NEW_NODE" -B 1 |grep hostid |awk '{print $3}' |sed 's/"//g' |sed 's/,//g')
 
