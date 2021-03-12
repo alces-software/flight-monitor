@@ -62,6 +62,10 @@ chmod 600 /etc/openvpn/auth.fcmonitor
 systemctl start openvpn@fcmonitor
 systemctl enable openvpn@fcmonitor
 
+#Add hub to local hosts
+echo "10.178.0.1   hub.fcops.alces-flight.com hub" >> /etc/hosts
+
+
 sleep 15 #Gives openvpn a chance to start up before below test!
 
 #Testing openvpn is setup
