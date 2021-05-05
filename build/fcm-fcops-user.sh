@@ -12,7 +12,7 @@ echo ${PASSWORD} | passwd --stdin fcops
 
 #Setup Pub key for fcops
 echo "Creating Key for passwordless SSH to cluster as fcops user"
-su fcops -c "ssh-keygen -t rsa"
+su fcops -c "ssh-keygen -t rsa -f ~/.ssh/id_fcops -C 'Alces Flight Operations Team'"
 
 #Bit of git config
 mkdir /users/fcops/git
