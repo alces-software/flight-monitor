@@ -18,22 +18,18 @@ echo ${PASSWORD} | passwd --stdin fcops
 echo "Creating Key for passwordless SSH to cluster as fcops user"
 su fcops -c "ssh-keygen -t rsa -f ~/.ssh/id_fcops -C 'Alces Flight Operations Team'"
 
-#Bit of git config
-mkdir /users/fcops/git
-chown fcops: /users/fcops/git
-cat << EOF > /users/fcops/.gitconfig
-[user]
-	name = Dan Shaw
-	email = dan.shaw@alces-flight.com
-[credential]
-	helper = store
+#Configure git + use ssh auth
+curl https://hub.fcops.alces-flight.com/resources/keys/gitkey_rsa -o ~fcops/.ssh/
+curl https://hub.fcops.alces-flight.com/resources/keys/gitkey_rsa.pub ~fcops/.ssh/
+
+chown fcops: ~fcops/.ssh/ -R
+
+cat < EOF >> /users/fcops/.ssh/config
+Host github.com
+  User git
+  Hostname github.com
+  IdentityFile ~/.ssh/gitkey_rsa
 EOF
-
-#Ask the user for Dan's git credentials
-echo -n "Please provide your git username: " ; read GUSER
-echo -n "Please provide your git password: " ; read GPASS
-
-echo "https://$GUSER:$GPASS@github.com" > /users/fcops/.git-credentials
 
 #Pull necessary git repos to /users/fcops/git dir
 cd /users/fcops/git
@@ -56,8 +52,6 @@ chown fcops: ~fcops/.ssh/config
 chmod 600 ~fcops/.ssh/config
 
 echo "Add ~fcops/.ssh/id_rsa.pub key to auth keys on ops-hub"
-
-
 
 #Webserver install start 
 chown fcops: /opt/zabbix/srv/resources/ -R
