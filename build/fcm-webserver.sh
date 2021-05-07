@@ -35,7 +35,7 @@ tar -zxvf /opt/zabbix/srv/resources/zabbix/zabbix_checks.tar.gz -C /opt/zabbix/s
 
 
 #Hostname change when people give u VMs that aren't called fcgateway...
-sed -i s/fcgateway/$(hostname -s)/g /opt/zabbix/srv/resources/*
+for file in $(ls /opt/zabbix/srv/resources/) ; do sed -i s/fcgateway/$(hostname -s)/g $file ; done
 
 echo "Starting Nginx Services"
 systemctl enable nginx
