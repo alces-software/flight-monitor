@@ -5,6 +5,7 @@
 # Script to setup privileged fcops user
 
 mkdir /users
+mkdir -p /opt/zabbix/srv/resources/{maint_scripts,apps_scripts,zabbix} #Setup Zabbix directories
 
 #Add user
 useradd -d /users/fcops -s /bin/bash fcops
@@ -59,8 +60,6 @@ echo "Add ~fcops/.ssh/id_rsa.pub key to auth keys on ops-hub"
 
 
 #Webserver install start 
-
-mkdir -p /opt/zabbix/srv/resources/{maint_scripts,apps_scripts,zabbix}
 chown fcops: /opt/zabbix/srv/resources/ -R
 echo "Installing nginx"
 yum -y -e0 install nginx -q
@@ -95,7 +94,7 @@ tar -zxvf /opt/zabbix/srv/resources/zabbix/zabbix_checks.tar.gz -C /opt/zabbix/s
 
 
 #Hostname change when people give u VMs that aren't called fcgateway...
-for file in $(ls /opt/zabbix/srv/resources/) ; do sed -i s/fcgateway/$(hostname -s)/g $file ; done
+for file in $(ls /opt/zabbix/srv/resources/*/) ; do sed -i s/fcgateway/$(hostname -s)/g $file ; done
 
 echo "Starting Nginx Services"
 systemctl enable nginx
@@ -109,4 +108,3 @@ systemctl enable zabbix-agent.service
 
 echo -e "\033[0;32m==== WEBSERVER SETUP COMPLETE ====\033[0m"
 echo "Add this proxy server to Zabbix (via Frontend on ops-hub)"
-echo "Create the fcops user for fcgateway with /tmp/fcm-fcops-user.sh"
