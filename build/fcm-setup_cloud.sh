@@ -46,6 +46,14 @@ echo "grant all privileges on zabbix_proxy.* to zabbixuser@localhost identified 
 echo "flush privileges;" | mysql -uroot
 zcat /usr/share/doc/zabbix-proxy-mysql-4.4.5/schema.sql.gz | mysql -u zabbixuser zabbix_proxy -ppassword
 
+
+#
+# Configure Salt Installation
+#
+
+curl -L https://bootstrap.saltstack.com -o /tmp/install_salt.sh
+sudo sh /tmp/install_salt.sh -M
+
 echo "Downloading scripts from flight-monitor github"
 wget https://raw.githubusercontent.com/alces-software/flight-monitor/master/resources/zabbix_proxy.conf -O /etc/zabbix/zabbix_proxy.conf --no-check-certificate
 wget https://raw.githubusercontent.com/alces-software/flight-monitor/master/resources/zabbix_agentd.monitor.conf -O /etc/zabbix/zabbix_agentd.conf --no-check-certificate
