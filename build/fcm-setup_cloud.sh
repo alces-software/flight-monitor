@@ -19,7 +19,14 @@ systemctl restart firewalld
 # Packages
 echo "Installing Prerequisites"
 yum install -y -e0 vim git epel-release wget -q
-yum groupinstall -y -e0 "GNOME Desktop" -q 
+
+if [ $1 = "--no-desktop"]; then	
+	echo "Skipping GNOME Desktop install"
+else
+	echo "Installing GNOME Desktop as normal"
+	yum groupinstall -y -e0 "GNOME Desktop" -q
+fi
+
 yum install -y -e0 s3cmd awscli ipmitool -q 
 yum install -y -e0 httpd yum-plugin-priorities yum-utils createrepo -q
 yum install -y -e0 net-snmp net-snmp-utils -q #Install snmp utils for snmp disco
