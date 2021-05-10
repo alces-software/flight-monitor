@@ -72,7 +72,7 @@ sleep 15 #Gives openvpn a chance to start up before below test!
 if  ping -c 1 10.178.0.1 ; then
         echo "openvpn setup tested with success"
 	echo -e "\033[0;32m==== VPN SETUP COMPLETE ====\033[0m"
-	echo "Now VPN is enabled, run script /tmp/fcm-fcops-user.sh and then /tmp/fcm-webserver.sh to setup webserver"
+	echo "Now VPN is enabled, please run script /tmp/fcm-fcops_webserver.sh to complete setup"
 else
 	echo -e "\033[0;31m==== VPN SETUP INCOMPLETE ====\033[0m"
 	echo "please re-run script and check credentials"
