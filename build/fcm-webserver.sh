@@ -20,7 +20,7 @@ su fcops -c "ssh-keygen -t rsa -f ~/.ssh/id_fcops -C 'Alces Flight Operations Te
 
 #Configure git + use ssh auth
 curl https://hub.fcops.alces-flight.com/resources/keys/gitkey_rsa -o ~fcops/.ssh/gitkey_rsa
-curl https://hub.fcops.alces-flight.com/resources/keys/gitkey_rsa.pub ~fcops/.ssh/gitkey_rsa.pub
+curl https://hub.fcops.alces-flight.com/resources/keys/gitkey_rsa.pub -o ~fcops/.ssh/gitkey_rsa.pub
 
 chown fcops: ~fcops/.ssh/ -R
 chmod 600 ~fcops/.ssh/gitkey_rsa
