@@ -1,4 +1,4 @@
-#!/bin/bash
+#/bin/bash
 
 #Copy and paste from fcops user generation
 
@@ -106,5 +106,14 @@ systemctl start zabbix-agent.service
 systemctl enable zabbix-proxy.service
 systemctl enable zabbix-agent.service
 
+echo "Updating hostname and /etc/hosts"
+DOMAIN=$(hostname |cut -d . -f2-)
+CLUSTER_IP=$(ifconfig |grep 10.10 |awk '{print $2}')
+VPN_IP=$(ifconfig |grep 10.178 |awk '{print $2}')
+hostnamectl set-hostname fcgateway.$DOMAIN
+
+echo "$CLUSTER_IP       fcgateway.$DOMAIN fcgateway" >> /etc/hosts
+
 echo -e "\033[0;32m==== WEBSERVER SETUP COMPLETE ====\033[0m"
+echo "This gateways VPN IP is: "$VPN_IP
 echo "Add this proxy server to Zabbix (via Frontend on ops-hub)"
