@@ -62,11 +62,9 @@ wget https://raw.githubusercontent.com/alces-software/flight-monitor/master/reso
 wget https://raw.githubusercontent.com/alces-software/flight-monitor/master/resources/zabbix_agentd.monitor.conf -O /etc/zabbix/zabbix_agentd.conf --no-check-certificate
 wget https://raw.githubusercontent.com/alces-software/flight-monitor/master/build/vpn-client.sh -O /tmp/fcm-vpnclient.sh --no-check-certificate
 wget https://raw.githubusercontent.com/alces-software/flight-monitor/master/build/fcm-webserver.sh -O /tmp/fcm-webserver.sh --no-check-certificate
-wget https://raw.githubusercontent.com/alces-software/flight-monitor/master/build/fcm-fcops-user.sh -O /tmp/fcm-fcops-user.sh --no-check-certificate
 
 chmod +x /tmp/fcm-vpnclient.sh
 chmod +x /tmp/fcm-webserver.sh
-chmod +x /tmp/fcm-fcops-user.sh
 
 EXT_IP=$(curl ifconfig.me)
 
