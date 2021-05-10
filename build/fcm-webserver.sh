@@ -42,11 +42,9 @@ git config --global user.email dan.shaw@alces-flight.com
 
 #Pull necessary git repos to /users/fcops/git dir
 mkdir /users/fcops/git
-cd /users/fcops/git
-#git remote set-url origin git@github.com:alces-software/flight-monitor-resources.git
-#git remote set-url origin git@github.com:alces-software/flight-monitor.git
-git clone https://github.com/alces-software/flight-monitor.git
-git clone https://github.com/alces-software/flight-monitor-resources.git
+chown fcops: -R /users/fcops/git
+su fcops -c "cd /users/fcops/git ; git clone ssh://github.com/alces-software/flight-monitor.git"
+su fcops -c "cd /users/fcops/git ; git clone ssh://github.com/alces-software/flight-monitor-resources.git"
 chown fcops: -R /users/fcops/git
 cd
 
