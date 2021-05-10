@@ -38,7 +38,10 @@ EOF
 chmod 600 /users/fcops/.ssh/config
 
 #Pull necessary git repos to /users/fcops/git dir
+mkdir /users/fcops/git
 cd /users/fcops/git
+git remote set-url origin git@github.com:alces-software/flight-monitor-resources.git
+git remote set-url origin git@github.com:alces-software/flight-monitor.git
 git clone https://github.com/alces-software/flight-monitor.git
 git clone https://github.com/alces-software/flight-monitor-resources.git
 chown fcops: -R /users/fcops/git
