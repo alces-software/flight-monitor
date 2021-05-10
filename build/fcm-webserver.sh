@@ -37,11 +37,14 @@ EOF
 
 chmod 600 /users/fcops/.ssh/config
 
+git config --global user.name "dshaw29" 
+git config --global user.email dan.shaw@alces-flight.com
+
 #Pull necessary git repos to /users/fcops/git dir
 mkdir /users/fcops/git
 cd /users/fcops/git
-git remote set-url origin git@github.com:alces-software/flight-monitor-resources.git
-git remote set-url origin git@github.com:alces-software/flight-monitor.git
+#git remote set-url origin git@github.com:alces-software/flight-monitor-resources.git
+#git remote set-url origin git@github.com:alces-software/flight-monitor.git
 git clone https://github.com/alces-software/flight-monitor.git
 git clone https://github.com/alces-software/flight-monitor-resources.git
 chown fcops: -R /users/fcops/git
@@ -94,10 +97,6 @@ wget https://cdn.zabbix.com/zabbix/binaries/stable/4.4/4.4.5/zabbix_agent-4.4.5-
 echo "Downloading Custom Zabbix Conf"
 wget https://github.com/alces-software/flight-monitor/blob/master/resources/zabbix_custom_checks.tar.gz?raw=true -O /opt/zabbix/srv/resources/zabbix/zabbix_checks.tar.gz -q --no-check-certificate
 tar -zxvf /opt/zabbix/srv/resources/zabbix/zabbix_checks.tar.gz -C /opt/zabbix/srv/resources/zabbix/
-
-
-#Hostname change when people give u VMs that aren't called fcgateway...
-for file in $(ls /opt/zabbix/srv/resources/*/) ; do sed -i s/fcgateway/$(hostname -s)/g $file ; done
 
 echo "Starting Nginx Services"
 systemctl enable nginx
