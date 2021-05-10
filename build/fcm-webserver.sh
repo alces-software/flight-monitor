@@ -28,7 +28,7 @@ chmod 664 ~fcops/.ssh/gitkey_rsa.pub
 
 touch /users/fcops/.ssh/config
 
-cat < EOF >> /users/fcops/.ssh/config
+cat << EOF >> /users/fcops/.ssh/config
 Host github.com
   User git
   Hostname github.com
