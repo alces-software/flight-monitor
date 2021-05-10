@@ -19,10 +19,14 @@ echo "Creating Key for passwordless SSH to cluster as fcops user"
 su fcops -c "ssh-keygen -t rsa -f ~/.ssh/id_fcops -C 'Alces Flight Operations Team'"
 
 #Configure git + use ssh auth
-curl https://hub.fcops.alces-flight.com/resources/keys/gitkey_rsa -o ~fcops/.ssh/
-curl https://hub.fcops.alces-flight.com/resources/keys/gitkey_rsa.pub ~fcops/.ssh/
+curl https://hub.fcops.alces-flight.com/resources/keys/gitkey_rsa -o ~fcops/.ssh/gitkey_rsa
+curl https://hub.fcops.alces-flight.com/resources/keys/gitkey_rsa.pub ~fcops/.ssh/gitkey_rsa.pub
 
 chown fcops: ~fcops/.ssh/ -R
+chmod 600 ~fcops/.ssh/gitkey_rsa
+chmod 664 ~fcops/.ssh/gitkey_rsa.pub
+
+touch /users/fcops/.ssh/config
 
 cat < EOF >> /users/fcops/.ssh/config
 Host github.com
@@ -30,6 +34,8 @@ Host github.com
   Hostname github.com
   IdentityFile ~/.ssh/gitkey_rsa
 EOF
+
+chmod 600 /users/fcops/.ssh/config
 
 #Pull necessary git repos to /users/fcops/git dir
 cd /users/fcops/git
