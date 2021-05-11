@@ -40,6 +40,9 @@ chmod 600 /users/fcops/.ssh/config
 git config --global user.name "dshaw29" 
 git config --global user.email dan.shaw@alces-flight.com
 
+#Test connection to git // authenticate 
+su fcops -c "ssh -T git@github.com"
+
 #Pull necessary git repos to /users/fcops/git dir
 mkdir /users/fcops/git
 chown fcops: -R /users/fcops/git
