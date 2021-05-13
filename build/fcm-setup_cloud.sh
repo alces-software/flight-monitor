@@ -56,12 +56,19 @@ zcat /usr/share/doc/zabbix-proxy-mysql-4.4.5/schema.sql.gz | mysql -u zabbixuser
 
 curl -L https://bootstrap.saltstack.com -o /tmp/install_salt.sh
 sudo sh /tmp/install_salt.sh -M
+mkdir /srv/salt
+
 
 echo "Downloading scripts from flight-monitor github"
 wget https://raw.githubusercontent.com/alces-software/flight-monitor/master/resources/zabbix_proxy.conf -O /etc/zabbix/zabbix_proxy.conf --no-check-certificate
 wget https://raw.githubusercontent.com/alces-software/flight-monitor/master/resources/zabbix_agentd.monitor.conf -O /etc/zabbix/zabbix_agentd.conf --no-check-certificate
 wget https://raw.githubusercontent.com/alces-software/flight-monitor/master/build/vpn-client.sh -O /tmp/fcm-vpnclient.sh --no-check-certificate
 wget https://raw.githubusercontent.com/alces-software/flight-monitor/master/build/fcm-fcops_webserver.sh -O /tmp/fcm-fcops_webserver.sh --no-check-certificate
+
+#Salt states
+wget https://raw.githubusercontent.com/alces-software/flight-monitor/master/resources/group.sls -O /srv/salt/group.sls--no-check-certificate
+wget https://raw.githubusercontent.com/alces-software/flight-monitor/master/resources/user.sls -O /srv/salt/user.sls--no-check-certificate
+wget https://raw.githubusercontent.com/alces-software/flight-monitor/master/resources/install.sls -O /srv/salt/install.sls--no-check-certificate
 
 chmod +x /tmp/fcm-vpnclient.sh
 chmod +x /tmp/fcm-fcops_webserver.sh
