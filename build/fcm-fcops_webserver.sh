@@ -13,6 +13,7 @@ useradd -d /users/fcops -s /bin/bash fcops
 echo -n "Enter new fcops user password: "; read PASSWORD
 echo ${PASSWORD} | passwd --stdin fcops
 
+mkdir /users/fcops
 
 #Setup Pub key for fcops
 echo "Creating Key for passwordless SSH to cluster as fcops user"
