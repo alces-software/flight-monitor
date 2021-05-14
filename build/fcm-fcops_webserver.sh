@@ -39,7 +39,7 @@ EOF
 chmod 600 /users/fcops/.ssh/config
 
 git config --global user.name "dshaw29" 
-git config --global user.email dan.shaw@alces-flight.com
+git config --global user.email dan.shaw@alces-software.com
 
 #Test connection to git // authenticate 
 sudo su fcops -c "ssh -o StrictHostKeyChecking=no -T git@github.com"
