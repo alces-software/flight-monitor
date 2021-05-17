@@ -1,3 +1,31 @@
+/opt/zabbix:
+  file.directory:
+    - user: fcops
+    - group: fcops
+/opt/zabbix/run:
+  file.directory:
+    - user: fcops
+    - group: fcops
+/opt/zabbix/scripts:
+  file.directory:
+    - user: fcops
+    - group: fcops
+/opt/zabbix/logs:
+  file.directory:
+    - user: fcops
+    - group: fcops
+/opt/zabbix/conf:
+  file.directory:
+    - user: fcops
+    - group: fcops
+/opt/zabbix/conf/custom_checks:
+  file.directory:
+    - user: fcops
+    - group: fcops
+/var/log/zabbix:
+  file.directory:
+    - user: fcops
+    - group: fcops
 zabbix_agent:
   file.managed:
     - name: /opt/zabbix/zabbix_agent.tgz
@@ -22,3 +50,7 @@ agentd:
     - name: /opt/zabbix/conf/zabbix_agentd.conf
     - source: salt://zabbix_agentd.conf
     - makedirs: True
+
+
+
+
