@@ -1,4 +1,4 @@
-fcops:
+fcops user:
   user.present:
     - fullname: fcops
     - shell: /bin/bash
