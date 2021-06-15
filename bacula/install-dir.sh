@@ -8,7 +8,7 @@ rm -f Bacula-4096-Distribution-Verification-key.asc
 cat << EOF >> /etc/yum.repos.d/Bacula.repo
 [Bacula-Community]
 name=CentOS - Bacula - Community
-baseurl=https://www.bacula.org/packages/60bdee807161f/rpms/11.0.2/el7/x86_64/
+baseurl=https://www.bacula.org/packages/60bdee807161f/rpms/11.0.5/el7/
 enabled=1
 protect=0
 gpgcheck=1
@@ -18,7 +18,8 @@ yum install postgresql-server -e0 -y
 postgresql-setup initdb
 systemctl enable postgresql.service
 #Install bacula packages
-yum install bacula-postgresql -y -e0
+yum install --disablerepo=centos-7-base --enablerepo=Bacula-Community bacula-libs -y -e0
+yum install --disablerepo=centos-7-base --enablerepo=Bacula-Community bacula-postgresql -y -e0
 #Start postgres
 systemctl start postgresql.service
 #Setup DB + Services
