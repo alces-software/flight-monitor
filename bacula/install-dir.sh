@@ -29,3 +29,5 @@ sudo su - postgres -c "/opt/bacula/scripts/create_postgresql_database ; /opt/bac
 systemctl start bacula-fd.service
 systemctl start bacula-sd.service
 systemctl start bacula-dir.service
+mkdir /opt/bacula/log
+touch /opt/bacula/log/bacula.log
