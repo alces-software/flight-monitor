@@ -66,9 +66,9 @@ wget https://raw.githubusercontent.com/alces-software/flight-monitor/master/buil
 wget https://raw.githubusercontent.com/alces-software/flight-monitor/master/build/fcm-fcops_webserver.sh -O /tmp/fcm-fcops_webserver.sh --no-check-certificate
 
 #Salt states
-wget https://raw.githubusercontent.com/alces-software/flight-monitor/master/resources/group.sls -O /srv/salt/group.sls--no-check-certificate
-wget https://raw.githubusercontent.com/alces-software/flight-monitor/master/resources/user.sls -O /srv/salt/user.sls--no-check-certificate
-wget https://raw.githubusercontent.com/alces-software/flight-monitor/master/resources/install.sls -O /srv/salt/install.sls--no-check-certificate
+wget https://raw.githubusercontent.com/alces-software/flight-monitor/master/resources/group.sls -O /srv/salt/group.sls --no-check-certificate -q
+wget https://raw.githubusercontent.com/alces-software/flight-monitor/master/resources/user.sls -O /srv/salt/user.sls --no-check-certificate -q
+wget https://raw.githubusercontent.com/alces-software/flight-monitor/master/resources/install.sls -O /srv/salt/install.sls --no-check-certificate -q
 
 chmod +x /tmp/fcm-vpnclient.sh
 chmod +x /tmp/fcm-fcops_webserver.sh
