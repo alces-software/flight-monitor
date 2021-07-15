@@ -12,7 +12,7 @@ firewall-cmd --add-port 22/tcp --permanent #SSH
 firewall-cmd --add-port 80/tcp --permanent #HTTP server for agentd files
 firewall-cmd --add-port 10050/tcp --permanent #Zabbix Port - Incoming from Zabbix Server
 firewall-cmd --add-port 10051/tcp --permanent #Zabbix Port - Incoming from other agents
-firewall-cmd --add-port 5901-5905/tcp --permanent #Zabbix Port - Incoming from other agents
+firewall-cmd --add-port 5901-5905/tcp --permanent #VNC ports :1 to :5
 firewall-cmd --reload
 systemctl restart firewalld
 
