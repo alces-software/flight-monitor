@@ -1,5 +1,5 @@
 #!/bin/bash -l
-#SBATCH --exclusive -n 1 --output=/users/alces-cluster/memtester/results/memtest.%j --mem=0
+#SBATCH --exclusive -n 1 --output=/home/fcops/memtester/memtest.%j --mem=0
 
 CORES=$(grep processor /proc/cpuinfo |wc -l)
 MEM=$(free -m |grep ^Mem |awk '{print $2}')
@@ -12,7 +12,7 @@ ulimit -l unlimited
 
 i=1
 while [ $i -le $CORES ] ; do
-   /users/alces-cluster/memtester/memtester $MEMPERCORE\M 10 > /tmp/memtest.out.$i 2>&1 &
+  /home/fcops/memtester/memtester $MEMPERCORE\M 10 > /tmp/memtest.out.$i 2>&1 &
    i=`expr $i + 1`
 done
 
