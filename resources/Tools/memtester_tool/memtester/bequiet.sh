@@ -15,6 +15,3 @@
 #$@ takes in all inputs (including parameters) and stores them as an array in $@
 #the follow & insures the process runs in the background
 
-#take this script, call it bq (be quiet), then use it to run memtester in the background.
-#so you can run "memtester <node> <time>" but to run in the background you run it as "bq memtester <node> <time>"
-#solves that issue.
