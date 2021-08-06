@@ -6,60 +6,70 @@ source /opt/bacula/slack/notif.conf
 # Get Job ID from parameter
 baculaJobId="$1"
 
+echo "ID is " $baculaJobId
+
 #SQL command
-#postgres
-#sql="PGPASSWORD=$baculaDbPass /usr/bin/psql -h$baculaDbAddr -p$baculaDbPort -U$baculaDbUser -d$baculaDbName -c" ;;
-#Mysql
-sql="/usr/bin/mysql -NB -h$baculaDbAddr -P$baculaDbPort -u$baculaDbUser -p$baculaDbPass -D$baculaDbName -e" ;;
+sql=" /usr/bin/psql -qtAX bacula bacula -p5432 -c"
 
 # Get Job type from database, then if it is a backup job, proceed, if not, exit
-baculaJobType=$($sql "select Type from Job where JobId=$baculaJobId;" 2>/dev/null)
-if [ "$baculaJobType" != "B" ] ; then exit 9 ; fi
+baculaJobType=$($sql "select Type from Job where JobId=$baculaJobId;")
 
 # Get Job level from database and classify it as Full, Differential, or Incremental
-baculaJobLevel=$($sql "select Level from Job where JobId=$baculaJobId;" 2>/dev/null)
+baculaJobLevel=$($sql "select Level from Job where JobId=$baculaJobId;")
 case $baculaJobLevel in
-  'F') level='full' ;;
-  'D') level='diff' ;;
-  'I') level='incr' ;;
-  *)   exit 11 ;;
+  'F') level='Full' ;;
+  'D') level='Differential' ;;
+  'I') level='Incremental' ;;
+  *)   level='Unknown' ;;
 esac
+
 
 # Get Job exit status from database and classify it as OK, OK with warnings, or Fail
-baculaJobStatus=$($sql "select JobStatus from Job where JobId=$baculaJobId;" 2>/dev/null)
-if [ -z $baculaJobStatus ] ; then exit 13 ; fi
-case $baculaJobStatus in
-  "T") status=0 ;;
-  "W") status=1 ;;
-  *)   status=2 ;;
-esac
+baculaJobStatus=$($sql "select JobStatus from Job where JobId=$baculaJobId;")
 
 # Get client's name from database
-baculaClientName=$($sql "select Client.Name from Client,Job where Job.ClientId=Client.ClientId and Job.JobId=$baculaJobId;" 2>/dev/null)
-if [ -z $baculaClientName ] ; then exit 15 ; fi
+baculaClientName=$($sql "select Client.Name from Client,Job where Job.ClientId=Client.ClientId and Job.JobId=$baculaJobId;")
 
-# Initialize return as zero
-return=0
+#Bytes Transferred
+baculaJobBytes=$($sql "select JobBytes from Job where JobId=$baculaJobId;")
+baculaJobBytes=$(echo $baculaJobBytes | numfmt --to=iec)
+
+#Files transferred
+baculaJobFiles=$($sql "select JobFiles from Job where JobId=$baculaJobId;")
+#Time spent by job
+#baculaJobTime=$($sql "select timestampdiff(second,StartTime,EndTime) from Job where JobId=$baculaJobId;")
+#Job speed
+#baculaJobSpeed=$($sql "select round(JobBytes/timestampdiff(second,StartTime,EndTime)/1024,2) from Job where JobId=$baculaJobId;")
+#StartTime
+baculaStartTime=$($sql "select StartTime from Job where JobId=$baculaJobId;")
+#EndTime
+baculaEndTime=$($sql "select EndTime from Job where JobId=$baculaJobId;")
+
+
+baculaJobStatus=$($sql "select JobStatus from Job where JobId=$baculaJobId;")
+if [ $baculaJobStatus = "T" ]; then
+baculaJobStatus="Job Completed Sucessfully :white_check_mark:"
+else
+baculaJobStatus="Job did not complete normally :awooga:"
+fi
+
 
 #Create Slack message to send
 
-Job Exit Status: $status
+msg="
+:floppy_disk: :vampire: Bacula Job Notification for $baculaClientName (ID: $baculaJobId / Level: $level) \n
+Job Exit Status: $baculaJobStatus \n
+Job ran from $baculaStartTime to $baculaEndTime ($baculaJobBytes / $baculaJobFiles files transferred)
+"
 
-#Bytes Transferred
-baculaJobBytes=$($sql "select JobBytes from Job where JobId=$baculaJobId;" 2>/dev/null)
-Bytes transferred: $baculaJobBytes
+#:stopwatch:  Time spent by job: $baculaJobTime \n
+#:dash:  Job Speed: $baculaJobSpeed \n
+#Send Message
 
-#Files transferred
-baculaJobFiles=$($sql "select JobFiles from Job where JobId=$baculaJobId;" 2>/dev/null)
-Files transferred: $baculaJobFiles
-
-#Time spent by job
-baculaJobTime=$($sql "select timestampdiff(second,StartTime,EndTime) from Job where JobId=$baculaJobId;" 2>/dev/null)
-Time spent: $baculaJobTime
-
-#Job speed
-baculaJobSpeed=$($sql "select round(JobBytes/timestampdiff(second,StartTime,EndTime)/1024,2) from Job where JobId=$baculaJobId;" 2>/dev/null)
-Job Speed: $baculaJobSpeed
-
-# Exit with return status
-exit $return
+cat <<EOF | curl --data @- -X POST -H "Authorization: Bearer $SLACK_TOKEN" -H 'Content-Type: application/json' https://slack.com/api/chat.postMessage
+{
+  "text": "$msg",
+  "channel": "XXXXX",
+  "as_user": true
+}
+EOF
