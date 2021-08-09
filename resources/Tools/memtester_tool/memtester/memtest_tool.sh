@@ -3,9 +3,9 @@
 source /tmp/slack.txt
 
 
-HOSTNODE = hostname | cut -d . -f1 
+HOSTNODE=$(hostname | cut -d . -f1) 
 
-HOSTCLUSTER = hostname | cut -d . f3
+HOSTCLUSTER=$(hostname | cut -d . -f3)
 
 msg="
 Memtester running on $HOSTNODE of $HOSTCLUSTER.

@@ -4,7 +4,7 @@ sudo rm -r memtester.tar.gz
 
 sudo tar -zcvf memtester.tar.gz memtester
 
-pdsh -w $1 "curl 'http://fcgateway/resources/memtester/memtester.tar.gz' > memtester.tar.gz"
+pdsh -w $1 "curl 'http://fcgateway/resources/memtester_tool/memtester.tar.gz' > memtester.tar.gz"
 
 pdsh -w $1 "tar -xzvf memtester.tar.gz"
 
