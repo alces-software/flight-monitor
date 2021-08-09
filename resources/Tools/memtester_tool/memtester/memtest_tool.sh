@@ -28,7 +28,7 @@ bash ~/memtester/bequiet.sh sudo bash ~/memtester/run_memtester.sh & sleep $1h
 sudo killall -9 memtester
  
 msg="
-Memtester finished running on $HOSTNAME.
+Memtester finished running on $HOSTNODE of $HOSTCLUSTER.
 "
 #Send Message
 
