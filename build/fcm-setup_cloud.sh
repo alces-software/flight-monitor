@@ -54,9 +54,9 @@ zcat /usr/share/doc/zabbix-proxy-mysql-4.4.5/schema.sql.gz | mysql -u zabbixuser
 # Configure Salt Installation
 #
 
-curl -L https://bootstrap.saltstack.com -o /tmp/install_salt.sh
-sudo sh /tmp/install_salt.sh -M
-mkdir /srv/salt
+#curl -L https://bootstrap.saltstack.com -o /tmp/install_salt.sh
+#sudo sh /tmp/install_salt.sh -M
+#mkdir /srv/salt
 
 
 echo "Downloading scripts from flight-monitor github"
