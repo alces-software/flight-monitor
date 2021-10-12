@@ -50,7 +50,6 @@ agentd:
     - name: /opt/zabbix/conf/zabbix_agentd.conf
     - source: salt://fcops/zabbix_agentd.conf
     - makedirs: True
-
-
-
-
+zabbix-agent:
+  service.running:
+    - enable: True

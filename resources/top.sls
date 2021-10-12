@@ -9,3 +9,6 @@ base:
 
   'login*':
     - apps/login
+
+  'cnode* or chead* or cgw*':
+    - fcops/cloud
