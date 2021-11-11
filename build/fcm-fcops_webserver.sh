@@ -49,6 +49,7 @@ mkdir /users/fcops/git
 chown fcops: -R /users/fcops/git
 su fcops -c "cd /users/fcops/git ; git clone ssh://github.com/alces-software/flight-monitor.git"
 su fcops -c "cd /users/fcops/git ; git clone ssh://github.com/alces-software/flight-monitor-resources.git"
+su fcops -c "cd /users/fcops/git ; git clone ssh://github.com/alces-software/fcops-resources.git"
 chown fcops: -R /users/fcops/git
 cd
 
@@ -103,6 +104,14 @@ wget https://raw.githubusercontent.com/alces-software/flight-monitor/master/reso
 echo "Downloading Custom Zabbix Conf"
 wget https://github.com/alces-software/flight-monitor/blob/master/resources/zabbix_custom_checks.tar.gz?raw=true -O /opt/zabbix/srv/resources/zabbix/zabbix_checks.tar.gz -q --no-check-certificate
 tar -zxvf /opt/zabbix/srv/resources/zabbix/zabbix_checks.tar.gz -C /opt/zabbix/srv/resources/zabbix/
+
+#Distribute salt + status_reports + zabbix confs
+cp /users/fcops/git/fcops-resources/template/salt /opt/
+cp /users/fcops/git/fcops-resources/template/status_reports /opt/zabbix/srv/resources
+cp /users/fcops/git/fcops-resources/template/other/scripts /opt/zabbix
+cp /users/fcops/git/fcops-resources/template/other/tools /opt/zabbix/srv/resources
+cp /users/fcops/git/fcops-resources/template/zabbix/conf /opt/zabbix/srv/resources/zabbix
+cp /users/fcops/git/fcops-resources/template/zabbix/scripts /opt/zabbix/srv/resources/scripts
 
 echo "Starting Nginx Services"
 systemctl enable nginx
