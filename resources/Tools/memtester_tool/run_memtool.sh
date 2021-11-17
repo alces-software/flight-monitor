@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source "/tmp/slack.txt"
+SLACK_TOKEN=$(cat /opt/zabbix/srv/resources/maint_scripts/adopt_config |grep slack |awk '{print $2}')
 
 HOSTCLUSTER=$(hostname | cut -d . -f3)
 
