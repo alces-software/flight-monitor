@@ -17,13 +17,12 @@ mkdir /users/fcops
 
 #Setup Pub key for fcops
 echo "Creating Key for passwordless SSH to cluster as fcops user"
-su fcops -c "ssh-keygen -t rsa -f ~/.ssh/id_fcops -C 'Alces Flight Operations Team'"
+su fcops -c "ssh-keygen -t rsa -f ~/.ssh/id_fcops -C 'Alces Flight Operations Team' -P ''"
 
 #Configure git + use ssh auth
 curl https://hub.fcops.alces-flight.com/resources/keys/gitkey_rsa -o ~fcops/.ssh/gitkey_rsa
 curl https://hub.fcops.alces-flight.com/resources/keys/gitkey_rsa.pub -o ~fcops/.ssh/gitkey_rsa.pub
 
-chown fcops: ~fcops/.ssh/ -R
 chmod 600 ~fcops/.ssh/gitkey_rsa
 chmod 664 ~fcops/.ssh/gitkey_rsa.pub
 
@@ -36,6 +35,7 @@ Host github.com
   IdentityFile ~/.ssh/gitkey_rsa
 EOF
 
+chown fcops: ~fcops/.ssh/ -R
 chmod 600 /users/fcops/.ssh/config
 
 git config --global user.name "dshaw29" 
@@ -106,12 +106,12 @@ wget https://github.com/alces-software/flight-monitor/blob/master/resources/zabb
 tar -zxvf /opt/zabbix/srv/resources/zabbix/zabbix_checks.tar.gz -C /opt/zabbix/srv/resources/zabbix/
 
 #Distribute salt + status_reports + zabbix confs
-cp /users/fcops/git/fcops-resources/template/salt /opt/
-cp /users/fcops/git/fcops-resources/template/status_reports /opt/zabbix/srv/resources
-cp /users/fcops/git/fcops-resources/template/other/scripts /opt/zabbix
-cp /users/fcops/git/fcops-resources/template/other/tools /opt/zabbix/srv/resources
-cp /users/fcops/git/fcops-resources/template/zabbix/conf /opt/zabbix/srv/resources/zabbix
-cp /users/fcops/git/fcops-resources/template/zabbix/scripts /opt/zabbix/srv/resources/scripts
+cp -r /users/fcops/git/fcops-resources/template/salt /opt/
+cp -r /users/fcops/git/fcops-resources/template/status_reports /opt/zabbix/srv/resources
+cp -r /users/fcops/git/fcops-resources/template/other/scripts /opt/zabbix
+cp -r /users/fcops/git/fcops-resources/template/other/tools /opt/zabbix/srv/resources
+cp -r /users/fcops/git/fcops-resources/template/zabbix/conf /opt/zabbix/srv/resources/zabbix
+cp -r /users/fcops/git/fcops-resources/template/zabbix/scripts /opt/zabbix/srv/resources/scripts
 
 echo "Starting Nginx Services"
 systemctl enable nginx
