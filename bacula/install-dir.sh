@@ -19,8 +19,8 @@ postgresql-setup initdb
 systemctl enable postgresql.service
 #Install bacula packages
 #Install libs from correct repo before installing rest of bacula...
-yum install --disablerepo=centos-7-base --enablerepo=Bacula-Community bacula-libs -y -e0
-yum install bacula-postgresql -y -e0
+yum install --disablerepo=centos-7-base --enablerepo=Bacula-Community bacula-libs -y -e0 --nogpgcheck
+yum install bacula-postgresql -y -e0 --nogpgcheck
 #Start postgres
 systemctl start postgresql.service
 #Setup DB + Services
