@@ -31,3 +31,7 @@ systemctl start bacula-sd.service
 systemctl start bacula-dir.service
 mkdir /opt/bacula/log
 touch /opt/bacula/log/bacula.log
+#Create alias for bacula console command
+cat << EOF >> /etc/profile.d/bacula.sh
+echo"alias bacula-cons='sudo -u bacula /opt/bacula/bin/bconsole'
+EOF
