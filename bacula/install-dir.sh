@@ -25,13 +25,19 @@ yum install bacula-postgresql -y -e0 --nogpgcheck
 systemctl start postgresql.service
 #Setup DB + Services
 sudo su - postgres -c "/opt/bacula/scripts/create_postgresql_database ; /opt/bacula/scripts/make_postgresql_tables ; /opt/bacula/scripts/grant_postgresql_privileges"
+# Backup + Update configs
+mv /opt/bacula/etc/bacula-dir.conf /opt/bacula/etc/bacula-dirORIG.conf
+mv /opt/bacula/etc/bacula-fd.conf /opt/bacula/etc/bacula-fdORIG.conf
+mv /opt/bacula/etc/bacula-sd.conf /opt/bacula/etc/bacula-sdORIG.conf
+#Create logs
+mkdir /opt/bacula/log
+touch /opt/bacula/log/bacula.log
+chown bacula: /opt/bacula/log -R
 # Start bacula
 systemctl start bacula-fd.service
 systemctl start bacula-sd.service
 systemctl start bacula-dir.service
-mkdir /opt/bacula/log
-touch /opt/bacula/log/bacula.log
 #Create alias for bacula console command
 cat << EOF >> /etc/profile.d/bacula.sh
-alias bacula-cons='sudo -u bacula /opt/bacula/bin/bconsole'
+alias bacula-console='sudo -u bacula /opt/bacula/bin/bconsole'
 EOF
