@@ -1,7 +1,7 @@
 #!/bin/bash
 #Grab GPG Key for yum repo
 cd /tmp
-wget https://www.bacula.org/downloads/Bacula-4096-Distribution-Verification-key.asc
+wget https://www.bacula.org/downloads/Bacula-4096-Distribution-Verification-key.asc --no-check-certificate
 rpm --import Bacula-4096-Distribution-Verification-key.asc
 rm -f Bacula-4096-Distribution-Verification-key.asc
 #Create new yum repo
