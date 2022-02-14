@@ -33,6 +33,9 @@ mv /opt/bacula/etc/bacula-sd.conf /opt/bacula/etc/bacula-sdORIG.conf
 wget https://raw.githubusercontent.com/alces-software/flight-monitor/master/resources/bacula/bacula-dir.conf -O /opt/bacula/etc/bacula-dir.conf --no-check-certificate -q
 wget https://raw.githubusercontent.com/alces-software/flight-monitor/master/resources/bacula/bacula-fd.conf -O /opt/bacula/etc/bacula-fd.conf --no-check-certificate -q
 wget https://raw.githubusercontent.com/alces-software/flight-monitor/master/resources/bacula/bacula-sd.conf -O /opt/bacula/etc/bacula-sd.conf --no-check-certificate -q
+#Pull down template before/after job scripts
+wget https://raw.githubusercontent.com/alces-software/flight-monitor/master/resources/bacula/slack_job_start_notif.sh -O /opt/bacula/scripts/slack_job_start_notif.sh --no-check-certificate -q
+wget https://raw.githubusercontent.com/alces-software/flight-monitor/master/resources/bacula/slack_job_end_notif.sh -O /opt/bacula/scripts/slack_job_end_notif.sh --no-check-certificate -q
 chown bacula: /opt/bacula/etc/bacula*.conf
 #Create logs
 mkdir /opt/bacula/log
