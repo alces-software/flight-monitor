@@ -27,6 +27,15 @@ if [ $? != "0" ]; then
     exit 1
 fi
 
+#Check sshfs is installed, if not install it
+
+if rpm -q --quiet fuse-sshfs ; then 
+  echo "sshfs installed - continuing"
+else
+ echo "sshfs not installed - installing" 
+ yum install fuse-sshfs -e0 -y -q --nogpgcheck
+fi
+
 sudo sshfs -o allow_other,default_permissions backup@10.178.0.141:/mnt/backup1/clusters/<cluster>/ /mnt/backup/
 
 host=$1
