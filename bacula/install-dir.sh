@@ -60,6 +60,6 @@ echo "Replace <cluster> with your cluster name in /opt/bacula/etc/*"
 echo "----------------------------"
 echo "Adjust clients appropriately in /opt/bacula/etc/bacula-dir.conf"
 echo "----------------------------"
-echo "Update <cluster> in /opt/bacula/scripts/slack_*"
+echo "Update <cluster> in /opt/bacula/scripts/slack_* + /opt/bacula/slack/slack.sh"
 echo "----------------------------"
-echo "Update password in /opt/bacula/etc/bconsole.conf to match the one in bacula-dir.conf"
+
