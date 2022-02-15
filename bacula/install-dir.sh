@@ -37,6 +37,8 @@ wget https://raw.githubusercontent.com/alces-software/flight-monitor/master/reso
 wget https://raw.githubusercontent.com/alces-software/flight-monitor/master/resources/bacula/slack_job_start_notif.sh -O /opt/bacula/scripts/slack_job_start_notif.sh --no-check-certificate -q
 wget https://raw.githubusercontent.com/alces-software/flight-monitor/master/resources/bacula/slack_job_end_notif.sh -O /opt/bacula/scripts/slack_job_end_notif.sh --no-check-certificate -q
 chown bacula: /opt/bacula/etc/bacula*.conf
+chmod +x /opt/bacula/scripts/slack_job_end_notif.sh
+chmod +x /opt/bacula/scripts/slack_job_start_notif.sh
 #Create logs
 mkdir /opt/bacula/log
 touch /opt/bacula/log/bacula.log
