@@ -25,6 +25,8 @@ yum install bacula-postgresql -y -e0 --nogpgcheck
 systemctl start postgresql.service
 #Setup DB + Services
 sudo su - postgres -c "/opt/bacula/scripts/create_postgresql_database ; /opt/bacula/scripts/make_postgresql_tables ; /opt/bacula/scripts/grant_postgresql_privileges"
+#Update db user to be fcops
+sudo sed -i 's/db_user=${db_user:-bacula}/db_user=${db_user:-fcops}/g' /opt/bacula/scripts/grant_postgresql_privileges
 # Backup bacula default configs
 mv /opt/bacula/etc/bacula-dir.conf /opt/bacula/etc/bacula-dirORIG.conf
 mv /opt/bacula/etc/bacula-fd.conf /opt/bacula/etc/bacula-fdORIG.conf
