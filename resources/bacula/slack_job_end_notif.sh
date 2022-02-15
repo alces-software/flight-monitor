@@ -1,5 +1,5 @@
 #!/bin/bash
-#Ping slack to say ur done with a backup
+#Ping slack to say ur done with a backup + unmount share
 
 host=$1
 zaburl="https://hub.fcops.alces-flight.com/api_jsonrpc.php"
@@ -16,3 +16,7 @@ cat <<EOF | curl -k --silent --output /dev/null --data @- -X POST -H "Authorizat
   "as_user": true
 }
 EOF
+
+#Unmount backup share
+
+sudo umount /mnt/backup
