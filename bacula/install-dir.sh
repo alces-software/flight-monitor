@@ -63,5 +63,3 @@ echo "----------------------------"
 echo "Update <cluster> in /opt/bacula/scripts/slack_*"
 echo "----------------------------"
 echo "Update password in /opt/bacula/etc/bconsole.conf to match the one in bacula-dir.conf"
-
-
