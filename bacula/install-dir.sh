@@ -29,10 +29,12 @@ sudo su - postgres -c "/opt/bacula/scripts/create_postgresql_database ; /opt/bac
 mv /opt/bacula/etc/bacula-dir.conf /opt/bacula/etc/bacula-dirORIG.conf
 mv /opt/bacula/etc/bacula-fd.conf /opt/bacula/etc/bacula-fdORIG.conf
 mv /opt/bacula/etc/bacula-sd.conf /opt/bacula/etc/bacula-sdORIG.conf
+mv /opt/bacula/etc/bconsole.conf /opt/bacula/etc/bconsoleORIG.conf
 # Update bacula configs
 wget https://raw.githubusercontent.com/alces-software/flight-monitor/master/resources/bacula/bacula-dir.conf -O /opt/bacula/etc/bacula-dir.conf --no-check-certificate -q
 wget https://raw.githubusercontent.com/alces-software/flight-monitor/master/resources/bacula/bacula-fd.conf -O /opt/bacula/etc/bacula-fd.conf --no-check-certificate -q
 wget https://raw.githubusercontent.com/alces-software/flight-monitor/master/resources/bacula/bacula-sd.conf -O /opt/bacula/etc/bacula-sd.conf --no-check-certificate -q
+wget https://raw.githubusercontent.com/alces-software/flight-monitor/master/resources/bacula/bconsole.conf -O /opt/bacula/etc/bconsole.conf --no-check-certificate -q
 #Pull down template before/after job scripts
 wget https://raw.githubusercontent.com/alces-software/flight-monitor/master/resources/bacula/slack_job_start_notif.sh -O /opt/bacula/scripts/slack_job_start_notif.sh --no-check-certificate -q
 wget https://raw.githubusercontent.com/alces-software/flight-monitor/master/resources/bacula/slack_job_end_notif.sh -O /opt/bacula/scripts/slack_job_end_notif.sh --no-check-certificate -q
