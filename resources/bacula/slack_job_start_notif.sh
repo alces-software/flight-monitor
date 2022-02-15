@@ -1,5 +1,22 @@
 #!/bin/bash
-#Ping slack to say ur starting a backup
+#Check for mount + ping slack to say ur starting a backup
+
+#Check if mountpoint exists, if not create it
+
+if [ -d "/mnt/backup" ] 
+then
+    echo "Directory /mnt/backup exists" 
+else
+    echo "Directory /mnt/backup does not exist - creating"
+    mkdir /mnt/backup
+fi
+
+#Check can reach fcops-backup + attempt to mount share
+
+
+
+
+
 
 host=$1
 zaburl="https://hub.fcops.alces-flight.com/api_jsonrpc.php"
