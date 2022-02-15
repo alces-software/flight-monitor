@@ -25,9 +25,7 @@ if [ $? != "0" ]; then
     echo "Connection failed - please check ssh keys in place"
 fi
 
-
-
-
+sudo sshfs -o allow_other,default_permissions backup@10.178.0.141:/mnt/backup1/clusters/<cluster>/ /mnt/backup/
 
 host=$1
 zaburl="https://hub.fcops.alces-flight.com/api_jsonrpc.php"
