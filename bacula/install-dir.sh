@@ -49,3 +49,13 @@ systemctl start bacula-dir.service
 cat << EOF >> /etc/profile.d/bacula.sh
 alias bacula-console='sudo -u bacula /opt/bacula/bin/bconsole'
 EOF
+#Next Steps
+echo "Replace <cluster> with your cluster name in /opt/bacula/etc/*"
+echo "----------------------------"
+echo "Adjust clients appropriately in /opt/bacula/etc/bacula-dir.conf"
+echo "----------------------------"
+echo "Update <cluster> in /opt/bacula/scripts/slack_*"
+echo "----------------------------"
+echo "Update password in /opt/bacula/etc/bconsole.conf to match the one in bacula-dir.conf"
+
+
