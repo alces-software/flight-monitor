@@ -17,12 +17,14 @@ if  ping -c 1 10.178.0.141 ; then
         echo "Can reach fcops-backup"
 else
 	echo "Unable to ping fcops-backup - please check connection"
+	exit 1
 fi
 
 ssh -q -o BatchMode=yes backup@10.178.0.141 exit
 
 if [ $? != "0" ]; then
     echo "Connection failed - please check ssh keys in place"
+    exit 1
 fi
 
 sudo sshfs -o allow_other,default_permissions backup@10.178.0.141:/mnt/backup1/clusters/<cluster>/ /mnt/backup/
