@@ -36,7 +36,15 @@ else
  yum install fuse-sshfs -e0 -y -q --nogpgcheck
 fi
 
-sudo sshfs -o allow_other,default_permissions backup@10.178.0.141:/mnt/backup1/clusters/<cluster>/ /mnt/backup/
+#Allow other users in fuse.conf, so can mount as fcops user
+
+cat <<EOF > /etc/fuse.conf
+# mount_max = 1000
+user_allow_other
+EOF
+
+
+sshfs -o allow_other,default_permissions backup@10.178.0.141:/mnt/backup1/clusters/<cluster>/ /mnt/backup/
 
 host=$1
 zaburl="https://hub.fcops.alces-flight.com/api_jsonrpc.php"
