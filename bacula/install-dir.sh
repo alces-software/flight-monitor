@@ -43,6 +43,33 @@ wget https://raw.githubusercontent.com/alces-software/flight-monitor/master/reso
 chown bacula: /opt/bacula/etc/bacula*.conf
 chmod +x /opt/bacula/scripts/slack_job_end_notif.sh
 chmod +x /opt/bacula/scripts/slack_job_start_notif.sh
+
+#Create unit files so services run as fcops
+cat < EOF >> /opt/bacula/etc/bacula-dir.conf
+[Unit]
+Description=Bacula Director Daemon service
+Requires=network.target
+After=network.target multi-user.target
+RequiresMountsFor=/opt/bacula/working /opt/bacula/etc /opt/bacula/bin
+
+# From http://www.freedesktop.org/software/systemd/man/systemd.service.html
+[Service]
+Type=simple
+User=fcops
+Group=fcops
+ExecStart=/opt/bacula/bin/bacula-dir -fP -c /opt/bacula/etc/bacula-dir.conf
+ExecReload=/opt/bacula/bin/bacula-dir -t -c /opt/bacula/etc/bacula-dir.conf
+ExecReload=/bin/kill -HUP $MAINPID
+SuccessExitStatus=15
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+
+
+
+
 #Create logs
 mkdir /opt/bacula/log
 touch /opt/bacula/log/bacula.log
