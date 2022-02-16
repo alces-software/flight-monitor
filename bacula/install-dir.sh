@@ -23,20 +23,24 @@ yum install --disablerepo=centos-7-base --enablerepo=Bacula-Community bacula-lib
 yum install bacula-postgresql -y -e0 --nogpgcheck
 #Start postgres
 systemctl start postgresql.service
+
 #Setup DB + Services
-sudo su - postgres -c "/opt/bacula/scripts/create_postgresql_database ; /opt/bacula/scripts/make_postgresql_tables ; /opt/bacula/scripts/grant_postgresql_privileges"
 #Update db user to be fcops
 sudo sed -i 's/db_user=${db_user:-bacula}/db_user=${db_user:-fcops}/g' /opt/bacula/scripts/grant_postgresql_privileges
+sudo su - postgres -c "/opt/bacula/scripts/create_postgresql_database ; /opt/bacula/scripts/make_postgresql_tables ; /opt/bacula/scripts/grant_postgresql_privileges"
+
 # Backup bacula default configs
 mv /opt/bacula/etc/bacula-dir.conf /opt/bacula/etc/bacula-dirORIG.conf
 mv /opt/bacula/etc/bacula-fd.conf /opt/bacula/etc/bacula-fdORIG.conf
 mv /opt/bacula/etc/bacula-sd.conf /opt/bacula/etc/bacula-sdORIG.conf
 mv /opt/bacula/etc/bconsole.conf /opt/bacula/etc/bconsoleORIG.conf
+
 # Update bacula configs
 wget https://raw.githubusercontent.com/alces-software/flight-monitor/master/resources/bacula/bacula-dir.conf -O /opt/bacula/etc/bacula-dir.conf --no-check-certificate -q
 wget https://raw.githubusercontent.com/alces-software/flight-monitor/master/resources/bacula/bacula-fd.conf -O /opt/bacula/etc/bacula-fd.conf --no-check-certificate -q
 wget https://raw.githubusercontent.com/alces-software/flight-monitor/master/resources/bacula/bacula-sd.conf -O /opt/bacula/etc/bacula-sd.conf --no-check-certificate -q
 wget https://raw.githubusercontent.com/alces-software/flight-monitor/master/resources/bacula/bconsole.conf -O /opt/bacula/etc/bconsole.conf --no-check-certificate -q
+
 #Pull down template before/after job scripts
 wget https://raw.githubusercontent.com/alces-software/flight-monitor/master/resources/bacula/slack_job_start_notif.sh -O /opt/bacula/scripts/slack_job_start_notif.sh --no-check-certificate -q
 wget https://raw.githubusercontent.com/alces-software/flight-monitor/master/resources/bacula/slack_job_end_notif.sh -O /opt/bacula/scripts/slack_job_end_notif.sh --no-check-certificate -q
@@ -66,7 +70,6 @@ SuccessExitStatus=15
 WantedBy=multi-user.target
 EOF
 
-
 cat < EOF >> /usr/lib/systemd/system/bacula-sd.service
 [Unit]
 Description=Bacula Storage Daemon service
@@ -86,9 +89,6 @@ LimitMEMLOCK=infinity
 [Install]
 WantedBy=multi-user.target
 EOF
-
-
-
 
 
 #Create logs
