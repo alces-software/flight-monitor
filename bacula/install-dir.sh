@@ -49,7 +49,7 @@ chmod +x /opt/bacula/scripts/slack_job_end_notif.sh
 chmod +x /opt/bacula/scripts/slack_job_start_notif.sh
 
 #Create unit files so services run as fcops
-cat < EOF >> /opt/bacula/etc/bacula-dir.conf
+cat << EOF > /opt/bacula/etc/bacula-dir.conf
 [Unit]
 Description=Bacula Director Daemon service
 Requires=network.target
@@ -70,7 +70,7 @@ SuccessExitStatus=15
 WantedBy=multi-user.target
 EOF
 
-cat < EOF >> /usr/lib/systemd/system/bacula-sd.service
+cat << EOF > /usr/lib/systemd/system/bacula-sd.service
 [Unit]
 Description=Bacula Storage Daemon service
 Requires=network.target
