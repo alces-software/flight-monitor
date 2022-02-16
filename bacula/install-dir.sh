@@ -67,6 +67,27 @@ WantedBy=multi-user.target
 EOF
 
 
+cat < EOF >> /usr/lib/systemd/system/bacula-sd.service
+[Unit]
+Description=Bacula Storage Daemon service
+Requires=network.target
+After=network.target
+RequiresMountsFor=/opt/bacula/working /opt/bacula/etc /opt/bacula/bin
+
+# from http://www.freedesktop.org/software/systemd/man/systemd.service.html
+[Service]
+Type=simple
+User=fcops
+Group=fcops
+ExecStart=/opt/bacula/bin/bacula-sd -fP -c /opt/bacula/etc/bacula-sd.conf
+SuccessExitStatus=15
+LimitMEMLOCK=infinity
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+
 
 
 
