@@ -107,7 +107,7 @@ systemctl start bacula-sd.service
 systemctl start bacula-dir.service
 
 #Create alias for bacula console command
-cat << EOF >> /etc/profile.d/bacula.sh
+cat << EOF > /etc/profile.d/bacula.sh
 alias bacula-console='sudo -u fcops /opt/bacula/bin/bconsole'
 EOF
 
