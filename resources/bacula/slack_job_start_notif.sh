@@ -38,10 +38,10 @@ fi
 
 #Allow other users in fuse.conf, so can mount as fcops user
 
-cat <<EOF > /etc/fuse.conf
+sudo bash -c 'cat <<EOF > /etc/fuse.conf
 # mount_max = 1000
 user_allow_other
-EOF
+EOF'
 
 
 sshfs -o allow_other,default_permissions fcops@10.178.0.141:/mnt/backup1/clusters/<cluster>/ /mnt/backup/
