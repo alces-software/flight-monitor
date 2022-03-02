@@ -114,8 +114,8 @@ EOF
 #Grab cluster name to update files 'automatically' [Presumes running on a site gw]
 CLUSTER_NAME=$(hostname |cut -f3 -d.)
 
-sed -i 's/<cluster>/$CLUSTER_NAME/g' /opt/bacula/etc/bacula-dir.conf
-sed -i 's/<cluster>/$CLUSTER_NAME/g' /opt/bacula/scripts/slack_job_start_notif.sh
+sed -i "s/<cluster>/$CLUSTER_NAME/g" /opt/bacula/etc/bacula-dir.conf
+sed -i "s/<cluster>/$CLUSTER_NAME/g" /opt/bacula/scripts/slack_job_start_notif.sh
 
 #Next Steps
 echo "----------------------------"
