@@ -33,7 +33,7 @@ if rpm -q --quiet fuse-sshfs ; then
   echo "sshfs installed - continuing"
 else
  echo "sshfs not installed - installing" 
- yum install fuse-sshfs -e0 -y -q --nogpgcheck
+ sudo yum install fuse-sshfs -e0 -y -q --nogpgcheck
 fi
 
 #Allow other users in fuse.conf, so can mount as fcops user
