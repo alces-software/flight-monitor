@@ -54,7 +54,7 @@ chmod +x /opt/bacula/scripts/slack_job_end_notif.sh
 chmod +x /opt/bacula/scripts/slack_job_start_notif.sh
 
 #Create unit files so services run as fcops
-cat << EOF > /opt/bacula/etc/bacula-dir.conf
+cat << EOF > /usr/lib/systemd/system/bacula-dir.service
 [Unit]
 Description=Bacula Director Daemon service
 Requires=network.target
@@ -99,15 +99,18 @@ EOF
 #Create logs
 mkdir /opt/bacula/log
 touch /opt/bacula/log/bacula.log
-chown bacula: /opt/bacula/log -R
+chown fcops: /opt/bacula/log -R
+
 # Start bacula
 systemctl start bacula-fd.service
 systemctl start bacula-sd.service
 systemctl start bacula-dir.service
+
 #Create alias for bacula console command
 cat << EOF >> /etc/profile.d/bacula.sh
-alias bacula-console='sudo -u bacula /opt/bacula/bin/bconsole'
+alias bacula-console='sudo -u fcops /opt/bacula/bin/bconsole'
 EOF
+
 #Next Steps
 echo "Replace <cluster> with your cluster name in /opt/bacula/etc/*"
 echo "----------------------------"
