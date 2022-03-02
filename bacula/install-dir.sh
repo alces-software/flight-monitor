@@ -111,11 +111,13 @@ cat << EOF >> /etc/profile.d/bacula.sh
 alias bacula-console='sudo -u fcops /opt/bacula/bin/bconsole'
 EOF
 
-#Next Steps
-echo "Replace <cluster> with your cluster name in /opt/bacula/etc/*"
-echo "----------------------------"
-echo "Adjust clients appropriately in /opt/bacula/etc/bacula-dir.conf"
-echo "----------------------------"
-echo "Update <cluster> in /opt/bacula/scripts/slack_* + /opt/bacula/slack/slack.sh"
-echo "----------------------------"
+#Grab cluster name to update files 'automatically' [Presumes running on a site gw]
+CLUSTER_NAME=$(hostname |cut -f3 -d.)
 
+sed -i 's/<cluster>/$CLUSTER_NAME/g' /opt/bacula/etc/bacula-dir.conf
+sed -i 's/<cluster>/$CLUSTER_NAME/g' /opt/bacula/scripts/slack_job_start_notif.sh
+
+#Next Steps
+echo "----------------------------"
+echo "Placeholder for things to check here"
+echo "----------------------------"
