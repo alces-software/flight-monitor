@@ -20,7 +20,7 @@ else
 	exit 1
 fi
 
-ssh -q -o BatchMode=yes backup@10.178.0.141 exit
+ssh -q -o BatchMode=yes fcops@10.178.0.141 exit
 
 if [ $? != "0" ]; then
     echo "Connection failed - please check ssh keys in place"
@@ -44,7 +44,7 @@ user_allow_other
 EOF
 
 
-sshfs -o allow_other,default_permissions backup@10.178.0.141:/mnt/backup1/clusters/<cluster>/ /mnt/backup/
+sshfs -o allow_other,default_permissions fcops@10.178.0.141:/mnt/backup1/clusters/<cluster>/ /mnt/backup/
 
 host=$1
 zaburl="https://hub.fcops.alces-flight.com/api_jsonrpc.php"
