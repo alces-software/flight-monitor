@@ -119,5 +119,8 @@ sed -i 's/<cluster>/$CLUSTER_NAME/g' /opt/bacula/scripts/slack_job_start_notif.s
 
 #Next Steps
 echo "----------------------------"
-echo "Placeholder for things to check here"
+echo "Install complete - please check the following"
+echo " - Connection to Bacula console"
+echo " - Connection to Bacula storage"
+echo " - Test slack pings work as expected"
 echo "----------------------------"
