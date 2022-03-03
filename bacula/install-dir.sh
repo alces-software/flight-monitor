@@ -48,10 +48,16 @@ wget https://raw.githubusercontent.com/alces-software/flight-monitor/master/reso
 wget https://raw.githubusercontent.com/alces-software/flight-monitor/master/resources/bacula/slack_job_start_notif.sh -O /opt/bacula/scripts/slack_job_start_notif.sh --no-check-certificate -q
 wget https://raw.githubusercontent.com/alces-software/flight-monitor/master/resources/bacula/slack_job_end_notif.sh -O /opt/bacula/scripts/slack_job_end_notif.sh --no-check-certificate -q
 
+#Pull down slack notif stuff
+wget https://raw.githubusercontent.com/alces-software/flight-monitor/master/bacula/slack/notif.conf -O /opt/bacula/slack/notif.conf
+wget https://raw.githubusercontent.com/alces-software/flight-monitor/master/bacula/slack/slack.sh -O /opt/bacula/slack/slack.sh
+
+
 #Permissions - set to fcops user
 chown fcops: /opt/bacula/etc/bacula*.conf
 chmod +x /opt/bacula/scripts/slack_job_end_notif.sh
 chmod +x /opt/bacula/scripts/slack_job_start_notif.sh
+chmod +x /opt/bacula/slack/slack.sh
 
 #Create unit files so services run as fcops
 cat << EOF > /usr/lib/systemd/system/bacula-dir.service
