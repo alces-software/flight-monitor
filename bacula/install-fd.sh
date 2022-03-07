@@ -15,7 +15,7 @@ gpgcheck=1
 EOF
 
 #Install bacula client
-yum install --disablerepo=centos-7-base --enablerepo=Bacula-Community bacula-client -y -e0 --nogpgcheck
+yum install --disablerepo=* --enablerepo=Bacula-Community bacula-client -y -e0 --nogpgcheck
 
 #Update bacula-fd config
 cat << EOF > /opt/bacula/etc/bacula-fd.conf
