@@ -13,5 +13,32 @@ enabled=1
 protect=0
 gpgcheck=1
 EOF
+
 #Install bacula client
 yum install --disablerepo=centos-7-base --enablerepo=Bacula-Community bacula-client -y -e0 --nogpgcheck
+
+#Update bacula-fd config
+cat << EOF > /opt/bacula/etc/bacula-fd.conf
+Director {
+  Name = fcgateway-dir
+  Password = "pOqU9LEXiRg7dTwIeJOtN8KHIkLeofxYviNGlXF0seBr"
+}
+
+FileDaemon {                          # this is me
+  Name = <client>-fd
+  FDport = 9102                  # where we listen for the director
+  WorkingDirectory = /opt/bacula/working
+  Pid Directory = /opt/bacula/working
+  Maximum Concurrent Jobs = 20
+  Plugin Directory = /opt/bacula/plugins
+}
+
+# Send all messages except skipped files back to Director
+Messages {
+  Name = Standard
+  director = fcgateway-dir = all, !skipped, !restored, !saved
+}
+EOF
+
+systemctl restart bacula-fd
+
