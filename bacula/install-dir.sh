@@ -125,6 +125,7 @@ CLUSTER_NAME=$(hostname |cut -f3 -d.)
 
 sed -i "s/<cluster>/$CLUSTER_NAME/g" /opt/bacula/etc/bacula-dir.conf
 sed -i "s/<cluster>/$CLUSTER_NAME/g" /opt/bacula/scripts/slack_job_start_notif.sh
+sed -i "s/<cluster>/$CLUSTER_NAME/g" /opt/bacula/slack/slack.conf
 
 #Allow connections to DB for slack notif
 sudo sed -i 's/local   all             all                                     peer/local   all             all                                     trust/g' /var/lib/pgsql/data/pg_hba.conf
