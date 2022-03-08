@@ -109,14 +109,7 @@ EOF
 #Create logs
 mkdir /opt/bacula/log
 touch /opt/bacula/log/bacula.log
-chown fcops: /opt/bacula/log -R
-
-# Start bacula
-systemctl daemon-reload
-
-systemctl start bacula-fd.service
-systemctl start bacula-sd.service
-systemctl start bacula-dir.service
+chown fcops: /opt/bacula/ -R
 
 #Create alias for bacula console command
 cat << EOF > /etc/profile.d/bacula.sh
@@ -134,7 +127,12 @@ sed -i "s/<cluster>/$CLUSTER_NAME/g" /opt/bacula/slack/slack.sh
 sudo sed -i 's/local   all             all                                     peer/local   all             all                                     trust/g' /var/lib/pgsql/data/pg_hba.conf
 sudo systemctl restart postgresql
 
+# Start bacula
+systemctl daemon-reload
 
+systemctl start bacula-fd.service
+systemctl start bacula-sd.service
+systemctl start bacula-dir.service
 
 #Next Steps
 echo "----------------------------"
