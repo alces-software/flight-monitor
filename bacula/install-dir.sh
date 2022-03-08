@@ -51,6 +51,7 @@ wget https://raw.githubusercontent.com/alces-software/flight-monitor/master/reso
 #Pull down slack notif stuff
 SLACK_TOKEN=$(cat /opt/zabbix/srv/resources/maint_scripts/adopt_config |grep -i slack |awk '{print $2}')
 mkdir /opt/bacula/slack
+chown fcops: /opt/bacula/slack -R
 wget https://raw.githubusercontent.com/alces-software/flight-monitor/master/bacula/slack/notif.conf -O /opt/bacula/slack/notif.conf
 wget https://raw.githubusercontent.com/alces-software/flight-monitor/master/bacula/slack/slack.sh -O /opt/bacula/slack/slack.sh
 
@@ -111,6 +112,8 @@ touch /opt/bacula/log/bacula.log
 chown fcops: /opt/bacula/log -R
 
 # Start bacula
+systemctl daemon-reload
+
 systemctl start bacula-fd.service
 systemctl start bacula-sd.service
 systemctl start bacula-dir.service
