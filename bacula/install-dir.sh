@@ -49,10 +49,12 @@ wget https://raw.githubusercontent.com/alces-software/flight-monitor/master/reso
 wget https://raw.githubusercontent.com/alces-software/flight-monitor/master/resources/bacula/slack_job_end_notif.sh -O /opt/bacula/scripts/slack_job_end_notif.sh --no-check-certificate -q
 
 #Pull down slack notif stuff
+SLACK_TOKEN=$(cat /opt/zabbix/srv/resources/maint_scripts/adopt_config |grep -i slack |awk '{print $2}')
 mkdir /opt/bacula/slack
 wget https://raw.githubusercontent.com/alces-software/flight-monitor/master/bacula/slack/notif.conf -O /opt/bacula/slack/notif.conf
 wget https://raw.githubusercontent.com/alces-software/flight-monitor/master/bacula/slack/slack.sh -O /opt/bacula/slack/slack.sh
 
+sed -i "s/<token>/$SLACK_TOKEN/g" /opt/bacula/slack/notif.conf
 
 #Permissions - set to fcops user
 chown fcops: /opt/bacula/etc/bacula*.conf
