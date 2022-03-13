@@ -69,7 +69,7 @@ Job ran from $baculaStartTime to $baculaEndTime ($baculaJobBytes / $baculaJobFil
 cat <<EOF | curl --data @- -X POST -H "Authorization: Bearer $SLACK_TOKEN" -H 'Content-Type: application/json' https://slack.com/api/chat.postMessage
 {
   "text": "$msg",
-  "channel": "<cluster>-alerts",
+  "channel": "support-alerts-zabbix2",
   "as_user": true
 }
 EOF
