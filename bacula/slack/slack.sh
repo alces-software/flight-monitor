@@ -9,7 +9,7 @@ baculaJobId="$1"
 echo "ID is " $baculaJobId
 
 #SQL command
-sql=" /usr/bin/psql -qtAX bacula bacula -p5432 -c"
+sql=" /usr/bin/psql -qtAX ${baculaDbName} ${baculaDbUser} -p${baculaDbPort} -c"
 
 # Get Job type from database, then if it is a backup job, proceed, if not, exit
 baculaJobType=$($sql "select Type from Job where JobId=$baculaJobId;")

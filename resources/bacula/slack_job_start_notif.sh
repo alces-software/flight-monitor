@@ -69,7 +69,7 @@ sshfs -o allow_other,default_permissions fcops@10.178.0.141:/mnt/backup1/cluster
 
 host=$1
 zaburl="https://hub.fcops.alces-flight.com/api_jsonrpc.php"
-SLACK_TOKEN=$(curl -k --silent http://fcgateway:/resources/maint_scripts/adopt_config |grep slack_token |awk '{print $2}')
+SLACK_TOKEN=$(cat /opt/fcops/adopt_config | grep slack_token | awk '{print $2}')
 
 msg="
 :floppy_disk: Bacula has started backup of \`$host\` [<cluster>]\n

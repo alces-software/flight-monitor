@@ -3,7 +3,7 @@
 
 host=$1
 zaburl="https://hub.fcops.alces-flight.com/api_jsonrpc.php"
-SLACK_TOKEN=$(curl -k --silent http://fcgateway:/resources/maint_scripts/adopt_config |grep slack_token |awk '{print $2}')
+SLACK_TOKEN=$(cat /opt/fcops/adopt_config | grep slack_token | awk '{print $2}')
 
 msg="
 :floppy_disk: Bacula has finished backup of \`$host\` \n
@@ -18,5 +18,4 @@ cat <<EOF | curl -k --silent --output /dev/null --data @- -X POST -H "Authorizat
 EOF
 
 #Unmount backup share
-
-sudo umount /mnt/backup
+#sudo umount /mnt/backup
