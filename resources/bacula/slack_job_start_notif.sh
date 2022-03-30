@@ -13,19 +13,40 @@ fi
 
 #Check can reach fcops-backup + attempt to mount share
 
-if  ping -c 1 10.178.0.141 ; then
-        echo "Can reach fcops-backup"
-else
-	echo "Unable to ping fcops-backup - please check connection"
-	exit 1
-fi
+MAX_TRIES=3
+COUNT=0
+while [  $COUNT -lt $MAX_TRIES ]; do
+   if ping -c 1 10.178.0.141 ; then
+   	echo "Can reach fcops-backup"
+        break
+   else
+        echo "Unable to ping fcops-backup - please check connection"
+        let COUNT=COUNT+1
 
-ssh -q -o BatchMode=yes fcops@10.178.0.141 exit
+	if [ $COUNT -ge $MAX_TRIES ]; then
+		echo "Failed to ping fcops-backup after $MAX_TRIES tries - exiting."
+		exit 1
+	fi
+   fi
+done
 
-if [ $? != "0" ]; then
-    echo "Connection failed - please check ssh keys in place"
-    exit 1
-fi
+let COUNT=0
+while [  $COUNT -lt $MAX_TRIES ]; do
+    ssh -q -o BatchMode=yes fcops@10.178.0.141 exit
+
+    if [ $? == "0" ] ; then
+	echo "Can connect to fcops-backup"
+	break
+    else
+	echo "Connection failed - please check ssh keys in place"
+	let COUNT=COUNT+1
+
+	if [ $COUNT -ge $MAX_TRIES ]; then
+                echo "Failed to connect to fcops-backup after $MAX_TRIES tries - exiting."
+                exit 1
+        fi
+    fi
+done
 
 #Check sshfs is installed, if not install it
 
@@ -51,7 +72,7 @@ zaburl="https://hub.fcops.alces-flight.com/api_jsonrpc.php"
 SLACK_TOKEN=$(curl -k --silent http://fcgateway:/resources/maint_scripts/adopt_config |grep slack_token |awk '{print $2}')
 
 msg="
-:floppy_disk: Bacula has started backup of \`$host\`[<cluster>] \n
+:floppy_disk: Bacula has started backup of \`$host\` [<cluster>]\n
 "
 
 cat <<EOF | curl -k --silent --output /dev/null --data @- -X POST -H "Authorization: Bearer $SLACK_TOKEN" -H 'Content-Type: application/json' https://slack.com/api/chat.postMessage
