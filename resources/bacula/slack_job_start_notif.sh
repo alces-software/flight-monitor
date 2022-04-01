@@ -22,6 +22,7 @@ while [  $COUNT -lt $MAX_TRIES ]; do
    else
         echo "Unable to ping fcops-backup - please check connection"
         let COUNT=COUNT+1
+	sleep $[ ( $RANDOM % 10 )  + 1 ]s
 
 	if [ $COUNT -ge $MAX_TRIES ]; then
 		echo "Failed to ping fcops-backup after $MAX_TRIES tries - exiting."
@@ -40,6 +41,7 @@ while [  $COUNT -lt $MAX_TRIES ]; do
     else
 	echo "Connection failed - please check ssh keys in place"
 	let COUNT=COUNT+1
+	sleep $[ ( $RANDOM % 10 )  + 1 ]s
 
 	if [ $COUNT -ge $MAX_TRIES ]; then
                 echo "Failed to connect to fcops-backup after $MAX_TRIES tries - exiting."
