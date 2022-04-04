@@ -67,7 +67,8 @@ user_allow_other
 EOF'
 
 
-sshfs -o allow_other,default_permissions fcops@10.178.0.141:/mnt/backup1/clusters/<cluster>/ /mnt/backup/
+#sshfs -o allow_other,default_permissions fcops@10.178.0.141:/mnt/backup1/clusters/<cluster>/ /mnt/backup/
+sshfs -o allow_other,default_permissions,reconnect,ServerAliveInterval=15,ServerAliveCountMax=3 fcops@10.178.0.141:/mnt/backup1/clusters/<cluster>/ /mnt/backup/
 
 host=$1
 zaburl="https://hub.fcops.alces-flight.com/api_jsonrpc.php"
