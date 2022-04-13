@@ -34,6 +34,9 @@ Host github.com
   User git
   Hostname github.com
   IdentityFile ~/.ssh/gitkey_rsa
+Host *
+  IdentityFile ~/.ssh/id_fcops
+  StrictHostKeyChecking no
 EOF
 
 chmod 600 /users/fcops/.ssh/config
@@ -61,7 +64,6 @@ echo "fcops    ALL=(ALL)       NOPASSWD: ALL" > /etc/sudoers.d/fcops
 #Install / Configure pdsh/genders
 yum install -y -e0 genders pdsh pdsh-mod-genders -q
 touch /etc/genders
-echo "StrictHostKeyChecking no" >> ~fcops/.ssh/config
 chown fcops: ~fcops/.ssh/config
 chmod 600 ~fcops/.ssh/config
 
