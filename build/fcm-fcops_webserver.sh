@@ -19,6 +19,9 @@ mkdir /users/fcops
 echo "Creating Key for passwordless SSH to cluster as fcops user"
 su fcops -c "ssh-keygen -t rsa -f ~/.ssh/id_fcops -C 'Alces Flight Operations Team'"
 
+su fcops -c "echo 'Host *' >> ~/.ssh/config"
+su fcops -c "echo '  IdentityFile ~/.ssh/id_fcops' >> ~/.ssh/config"
+
 #Configure git + use ssh auth
 curl https://hub.fcops.alces-flight.com/resources/keys/gitkey_rsa -o ~fcops/.ssh/gitkey_rsa
 curl https://hub.fcops.alces-flight.com/resources/keys/gitkey_rsa.pub -o ~fcops/.ssh/gitkey_rsa.pub
