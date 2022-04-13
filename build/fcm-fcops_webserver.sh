@@ -116,6 +116,9 @@ systemctl start zabbix-agent.service
 systemctl enable zabbix-proxy.service
 systemctl enable zabbix-agent.service
 
+#Add flight things to path
+echo "PATH=$PATH:/opt/flight/bin" >> ~fcops/.bashrc
+
 echo "Updating hostname and /etc/hosts"
 DOMAIN=$(hostname |cut -d . -f2-)
 CLUSTER_IP=$(ifconfig |grep 10.10 |awk '{print $2}')
