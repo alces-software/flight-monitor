@@ -17,6 +17,8 @@ EOF
 #Install bacula client
 yum install --disablerepo=* --enablerepo=Bacula-Community bacula-client -y -e0 --nogpgcheck
 
+host=$(hostname -s)
+
 #Update bacula-fd config
 cat << EOF > /opt/bacula/etc/bacula-fd.conf
 Director {
@@ -25,7 +27,7 @@ Director {
 }
 
 FileDaemon {                          # this is me
-  Name = <client>-fd
+  Name = $host-fd
   FDport = 9102                  # where we listen for the director
   WorkingDirectory = /opt/bacula/working
   Pid Directory = /opt/bacula/working
