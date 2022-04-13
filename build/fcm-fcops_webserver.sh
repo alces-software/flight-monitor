@@ -127,6 +127,17 @@ hostnamectl set-hostname fcgateway.$DOMAIN
 
 echo "$CLUSTER_IP       fcgateway.$DOMAIN fcgateway" >> /etc/hosts
 
+# Salt master installation
+echo "Installing salt master"
+curl -L https://hub.fcops.alces-flight.com/resources/salt/install_salt_master.sh | bash
+mkdir /opt/salt/srv/root/fcops
+
+# Fcops adopt config
+mkdir /opt/fcops/
+wget https://hub.fcops.alces-flight.com/resources/keys/adopt_config -O /opt/fcops/adopt_config
+chown -R fcops:fcops /opt/fcops
+
+
 echo -e "\033[0;32m==== WEBSERVER SETUP COMPLETE ====\033[0m"
 echo "This gateways VPN IP is: "$VPN_IP
 echo "Add this proxy server to Zabbix (via Frontend on ops-hub)"
