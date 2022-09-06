@@ -8,7 +8,7 @@ cat << EOF > /etc/openvpn/fcmonitor.conf
 client
 dev tun0
 proto tcp
-remote gateway.alces-flight.com 2005
+remote 10.78.0.10 2225
 resolv-retry infinite
 nobind
 persist-key
