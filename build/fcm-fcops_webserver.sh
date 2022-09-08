@@ -98,9 +98,9 @@ wget https://raw.githubusercontent.com/alces-software/flight-monitor/master/reso
 #wget https://raw.githubusercontent.com/alces-software/flight-monitor/master/resources/zabbix_agentd.conf -O /srv/salt/zabbix_agentd.conf --no-check-certificate -q
 #wget https://www.zabbix.com/downloads/4.4.5/zabbix_agent-4.4.5-linux-3.0-amd64-static.tar.gz -O /opt/zabbix/srv/resources/zabbix/zabbix_agent.tgz -q
 wget https://cdn.zabbix.com/zabbix/binaries/stable/4.4/4.4.5/zabbix_agent-4.4.5-linux-3.0-amd64-static.tar.gz -O /opt/zabbix/srv/resources/zabbix/zabbix_agent.tgz -q
-wget https://cdn.zabbix.com/zabbix/binaries/stable/4.4/4.4.5/zabbix_agent-4.4.5-linux-3.0-amd64-static.tar.gz -O /srv/salt/zabbix_agent.tgz -q
-wget https://raw.githubusercontent.com/alces-software/flight-monitor/master/resources/zabbix-agent.service -O /srv/salt/zabbix-agent.service --no-check-certificate -q
-wget https://raw.githubusercontent.com/alces-software/flight-monitor/master/resources/user_params.conf -O /srv/salt/user_params.conf --no-check-certificate -q
+#wget https://cdn.zabbix.com/zabbix/binaries/stable/4.4/4.4.5/zabbix_agent-4.4.5-linux-3.0-amd64-static.tar.gz -O /srv/salt/zabbix_agent.tgz -q
+#wget https://raw.githubusercontent.com/alces-software/flight-monitor/master/resources/zabbix-agent.service -O /srv/salt/zabbix-agent.service --no-check-certificate -q
+#wget https://raw.githubusercontent.com/alces-software/flight-monitor/master/resources/user_params.conf -O /srv/salt/user_params.conf --no-check-certificate -q
 
 echo "Downloading Custom Zabbix Conf"
 wget https://github.com/alces-software/flight-monitor/blob/master/resources/zabbix_custom_checks.tar.gz?raw=true -O /opt/zabbix/srv/resources/zabbix/zabbix_checks.tar.gz -q --no-check-certificate
