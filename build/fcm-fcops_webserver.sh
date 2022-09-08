@@ -134,7 +134,7 @@ mkdir /opt/salt/srv/root/fcops
 
 # Fcops adopt config
 mkdir /opt/fcops/
-wget https://hub.fcops.alces-flight.com/resources/keys/adopt_config -O /opt/fcops/adopt_config
+wget https://hub.fcops.alces-flight.com/resources/keys/adopt_config -O /opt/fcops/adopt_config --no-check-certificate
 chown -R fcops:fcops /opt/fcops
 
 
