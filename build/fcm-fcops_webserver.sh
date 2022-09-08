@@ -137,6 +137,11 @@ mkdir /opt/fcops/
 wget https://hub.fcops.alces-flight.com/resources/keys/adopt_config -O /opt/fcops/adopt_config --no-check-certificate
 chown -R fcops:fcops /opt/fcops
 
+#Other
+#Update secure path for salt
+sed -i 's@secure_path.*@secure_path = /sbin:/bin:/usr/sbin:/usr/bin:/opt/salt/bin@g' /etc/sudoers
+
+
 
 echo -e "\033[0;32m==== WEBSERVER SETUP COMPLETE ====\033[0m"
 echo "This gateways VPN IP is: "$VPN_IP
