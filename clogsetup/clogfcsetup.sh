@@ -10,7 +10,7 @@ firewall-cmd --zone public --add-port 514/tcp --permanent
 #Add flight-logs to fcgateway hosts file
 cat << EOF >> /etc/hosts
 
-10.178.0.161  flight-logs.fcops.alces-flight.com flight-logs
+10.178.0.177  fcops-monitor.fcops.alces-flight.com fcops-monitor
 EOF
 
 
