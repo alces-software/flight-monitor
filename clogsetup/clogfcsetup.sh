@@ -26,7 +26,7 @@ template(name="remoteFormat" type="string" string="<%PRI%>1 %TIMESTAMP:::date-rf
 :fromhost-ip, !isequal, "127.0.0.1" {
 	# Forward to central logging server
 	# Use a queue to store logs when remote is down
-	action(type="omfwd" Target="flight-logs.fcops.alces-flight.com" Port="514" Protocol="tcp" Template="remoteFormat" queue.filename="forwarding" queue.size="1000000" queue.type="LinkedList" queue.maxFileSize="1G" action.resumeRetryCount="-1")
+	action(type="omfwd" Target="fcops-monitor.fcops.alces-flight.com" Port="514" Protocol="tcp" Template="remoteFormat" queue.filename="forwarding" queue.size="1000000" queue.type="LinkedList" queue.maxFileSize="1G" action.resumeRetryCount="-1")
 	stop
 }
 
