@@ -69,7 +69,7 @@ fi
 #Create Slack message to send
 
 msg="
-:floppy_disk: :vampire: Bacula Job Notification for $baculaClientName (ID: $baculaJobId / Level: $level) \n
+:floppy_disk: :vampire: Bacula Job Notification for \`$cluster\` $baculaClientName (ID: $baculaJobId / Level: $level) \n
 Job Exit Status: $baculaJobStatusMsg \n
 Job ran from $baculaStartTime to $baculaEndTime ($baculaJobBytes / $baculaJobFiles files transferred)
 "
@@ -78,7 +78,7 @@ Job ran from $baculaStartTime to $baculaEndTime ($baculaJobBytes / $baculaJobFil
 #:dash:  Job Speed: $baculaJobSpeed \n
 #Send Message
 
-cat << EOF | curl --data @- -X POST -H "Authorization: Bearer $SLACK_TOKEN" -H 'Content-Type: application/json' https://slack.com/api/chat.postMessage
+cat << EOF | curl -k --silent --output /dev/null --data @- -X POST -H "Authorization: Bearer $SLACK_TOKEN" -H 'Content-Type: application/json' https://slack.com/api/chat.postMessage
 {
   "text": "$msg",
   "channel": "$channel",
