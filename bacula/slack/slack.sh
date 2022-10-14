@@ -1,5 +1,10 @@
 #!/bin/bash
 
+cluster=$(hostname -f | cut -d"." -f3)
+use_proxy=false
+backup_channel="backups"
+cluster_channel="${cluster}-alerts"
+
 # Import configuration file
 source /opt/bacula/slack/notif.conf
 
@@ -48,17 +53,24 @@ baculaEndTime=$($sql "select EndTime from Job where JobId=$baculaJobId;")
 
 baculaJobStatus=$($sql "select JobStatus from Job where JobId=$baculaJobId;")
 if [ $baculaJobStatus = "T" ]; then
-baculaJobStatus="Job Completed Sucessfully :white_check_mark:"
+baculaJobStatusMsg="Job Completed Sucessfully :white_check_mark:"
+channel=$backup_channel
 else
-baculaJobStatus="Job did not complete normally :awooga:"
+baculaJobStatusMsg="Job did not complete normally :awooga:"
+channel=$cluster_channel
 fi
 
+
+# Use proxy
+if [ "$use_true" = true ] ; then
+	export http_proxy=http://10.78.0.10:3128/; export https_proxy=$http_proxy
+fi
 
 #Create Slack message to send
 
 msg="
 :floppy_disk: :vampire: Bacula Job Notification for $baculaClientName (ID: $baculaJobId / Level: $level) \n
-Job Exit Status: $baculaJobStatus \n
+Job Exit Status: $baculaJobStatusMsg \n
 Job ran from $baculaStartTime to $baculaEndTime ($baculaJobBytes / $baculaJobFiles files transferred)
 "
 
@@ -66,10 +78,15 @@ Job ran from $baculaStartTime to $baculaEndTime ($baculaJobBytes / $baculaJobFil
 #:dash:  Job Speed: $baculaJobSpeed \n
 #Send Message
 
-cat <<EOF | curl --data @- -X POST -H "Authorization: Bearer $SLACK_TOKEN" -H 'Content-Type: application/json' https://slack.com/api/chat.postMessage
+cat << EOF | curl --data @- -X POST -H "Authorization: Bearer $SLACK_TOKEN" -H 'Content-Type: application/json' https://slack.com/api/chat.postMessage
 {
   "text": "$msg",
-  "channel": "support-alerts-zabbix2",
+  "channel": "$channel",
   "as_user": true
 }
 EOF
+
+if [ "$use_true" = true ] ; then
+	unset http_proxy
+	unset https_proxy
+fi
