@@ -1,8 +1,9 @@
 yum -y install wget
 
 #Install necessary packages to /tmp
-wget https://github.com/prometheus/node_exporter/releases/download/v1.4.0/node_exporter-1.4.0.linux-amd64.tar.gz /tmp
-tar -xzvf /tmp/node_exporter-1.4.0.linux-amd64.tar.gz /tmp
+cd /tmp
+wget https://github.com/prometheus/node_exporter/releases/download/v1.4.0/node_exporter-1.4.0.linux-amd64.tar.gz
+tar -xzvf /node_exporter-1.4.0.linux-amd64.tar.gz 
 
 #move bin to new folder
 mkdir /opt/node-exporter
@@ -28,7 +29,7 @@ systemctl daemon-reload
 systemctl enable --now node-exporter
 
 #Clear leftover files in /tmp
-rm -rf /tmp/*
+rm -f /tmp/node_exporter-1.4.0.linux-amd64.tar.gz
 
 #Open port to allow metric transfer
 firewall-cmd --zone public --add-port 9100/tcp
