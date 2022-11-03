@@ -5,6 +5,8 @@ use_proxy=false
 backup_channel="backups"
 cluster_channel="${cluster}-alerts"
 
+host=$(hostname -s)
+
 # Import configuration file
 source /opt/bacula/slack/notif.conf
 
@@ -60,16 +62,23 @@ baculaJobStatusMsg="Job did not complete normally :awooga:"
 channel=$cluster_channel
 fi
 
-
 # Use proxy
-if [ "$use_true" = true ] ; then
-	export http_proxy=http://10.78.0.10:3128/; export https_proxy=$http_proxy
+if [ "$use_proxy" = true ] ; then
+        export http_proxy=http://10.78.0.10:3128/; export https_proxy=$http_proxy
 fi
 
 #Create Slack message to send
 
+bup_location=""
+
+if [ "$host" = "fcgateway" ] ; then
+	bup_location="Fcops Backups"
+else
+	bup_location="Site Backups"
+fi
+
 msg="
-:floppy_disk: :vampire: Bacula Job Notification for \`$cluster\` $baculaClientName (ID: $baculaJobId / Level: $level) \n
+:floppy_disk: :vampire: Bacula Job Notification ($bup_location) for \`$cluster\` $baculaClientName (ID: $baculaJobId / Level: $level) \n
 Job Exit Status: $baculaJobStatusMsg \n
 Job ran from $baculaStartTime to $baculaEndTime ($baculaJobBytes / $baculaJobFiles files transferred)
 "
@@ -86,7 +95,7 @@ cat << EOF | curl -k --silent --output /dev/null --data @- -X POST -H "Authoriza
 }
 EOF
 
-if [ "$use_true" = true ] ; then
-	unset http_proxy
-	unset https_proxy
+if [ "$use_proxy" = true ] ; then
+        unset http_proxy
+        unset https_proxy
 fi
