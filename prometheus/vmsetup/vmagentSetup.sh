@@ -45,7 +45,7 @@ cat << 'EOF' > /opt/vmagent/configs/node-exporter.yml
   - job_name: 'node'
     file_sd_configs:
       - files:
-        - '/opt/vmagent/targets/node-exporter.yml'
+        - '/opt/vmagent/targets/all.yml'
     # Remove port from hostname label
     relabel_configs:
       - source_labels: [__address__]
@@ -54,11 +54,159 @@ cat << 'EOF' > /opt/vmagent/configs/node-exporter.yml
         replacement: '${1}'
 EOF
 
+cat << 'EOF' > /opt/vmagent/configs/lustre.yml
+# lustre_exporter
+  - job_name: 'lustre'
+    scrape_interval: 1m
+    file_sd_configs:
+      - files:
+        - '/opt/vmagent/targets/lustre.yml'
+    # Remove port from hostname label
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: instance
+        regex: '([^:]+)(:[0-9]+)?'
+        replacement: '${1}'
+EOF
+
+cat << 'EOF' > /opt/vmagent/configs/gpfs.yml
+# gpfs-exporter
+  - job_name: 'gpfs'
+    file_sd_configs:
+      - files:
+        - '/opt/vmagent/targets/gpfs.yml'
+    # Remove port from hostname label
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: instance
+        regex: '([^:]+)(:[0-9]+)?'
+        replacement: '${1}'
+EOF
+
+cat << 'EOF' > /opt/vmagent/configs/infiniband.yml
+# infiniband-exporter
+  - job_name: 'infiniband'
+    file_sd_configs:
+      - files:
+        - '/opt/vmagent/targets/infiniband.yml'
+    # Remove port from hostname label
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: instance
+        regex: '([^:]+)(:[0-9]+)?'
+        replacement: '${1}'
+EOF
+
+cat << 'EOF' > /opt/vmagent/configs/slurm.yml
+# slurm_exporter
+  - job_name: 'slurm'
+    scrape_interval: 1m
+    file_sd_configs:
+      - files:
+        - '/opt/vmagent/targets/slurm.yml'
+    # Remove port from hostname label
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: instance
+        regex: '([^:]+)(:[0-9]+)?'
+        replacement: '${1}'
+EOF
+
+cat << 'EOF' > /opt/vmagent/configs/nvidia-gpu.yml
+  - job_name: 'nvidia'
+    file_sd_configs:
+      - files:
+        - '/opt/vmagent/targets/nvidia-gpu.yml'
+    # Remove port from hostname label
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: instance
+        regex: '([^:]+)(:[0-9]+)?'
+        replacement: '${1}'
+EOF
+
+cat << 'EOF' > /opt/vmagent/configs/idrac.yml
+# snmp_exporter
+  - job_name: "idrac"
+    scrape_interval: 1m
+    file_sd_configs:
+      - files:
+        - '/opt/vmagent/targets/idrac.yml'
+    metrics_path: /snmp
+    params:
+      module: [dell_idrac]
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+        regex: '([^.]+)(.bmc)?'
+        replacement: '${1}'
+      - target_label: __address__
+        replacement: 127.0.0.1:9116
+EOF
+
+cat << 'EOF' > /opt/vmagent/configs/ilo.yml
+# snmp_exporter
+  - job_name: "ilo"
+    scrape_interval: 1m
+    file_sd_configs:
+      - files:
+        - '/opt/vmagent/targets/ilo.yml'
+    metrics_path: /snmp
+    params:
+      module: [hpe_ilo]
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+        regex: '([^.]+)(.bmc)?'
+        replacement: '${1}'
+      - target_label: __address__
+        replacement: 127.0.0.1:9116
+EOF
+
 #Add targets to relevant target files
-cat << EOF > /opt/vmagent/targets/node-exporter.yml
+cat << EOF > /opt/vmagent/targets/all.yml
 ---
 - targets:
   - fcgateway:9100
+EOF
+
+cat << EOF > /opt/vmagent/targets/lustre.yml
+---
+- targets:
+EOF
+
+cat << EOF > /opt/vmagent/targets/gpfs.yml
+---
+- targets:
+EOF
+
+cat << EOF > /opt/vmagent/targets/infiniband.yml
+---
+- targets:
+EOF
+
+cat << EOF > /opt/vmagent/targets/slurm.yml
+---
+- targets:
+EOF
+
+cat << EOF > /opt/vmagent/targets/nvidia-gpu.yml
+---
+- targets:
+EOF
+
+cat << EOF > /opt/vmagent/targets/idrac.yml
+---
+- targets:
+EOF
+
+cat << EOF > /opt/vmagent/targets/ilo.yml
+---
+- targets:
 EOF
 
 #Create and start service
