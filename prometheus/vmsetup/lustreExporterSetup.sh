@@ -1,20 +1,18 @@
-mkdir /opt/lustre-exporter
-mv lustre_exporter /opt/lustre-exporter/lustre-exporter
+#!/bin/bash
 
+mkdir /opt/slurm-exporter
+cd /opt/slurm-exporter
+wget http://fcgateway/resources/metrics/slurm-exporter
+chmod +x /opt/slurm-exporter/slurm-exporter
 
-cat << EOF > /usr/lib/systemd/system/lustre-exporter.service
+cat << EOF > /usr/lib/systemd/system/slurm-exporter.service
 [Unit]
-Description=Lustre exporter service
-After=network.target
+Description=Prometheus SLURM Exporter
 
 [Service]
-Type=simple
-WorkingDirectory=/opt/lustre-exporter
-ExecStart=/opt/lustre-exporter/lustre_exporter --web.listen-address=:9169 --log.level=error --collector.health=disabled --collector.generic=disabled --collector.ost=disabled --collector.mdt=disabled --collector.mgs=disabled --collector.mds=disabled --collector.client=extended --collector.lnet=disabled
-
-[Install]
-WantedBy=multi-user.target
-EOF
+ExecStart=/opt/slurm-exporter/slurm-exporter -p 9101 -jN
+Restart=always
+RestartSec=15
 
 [Install]
 WantedBy=multi-user.target
