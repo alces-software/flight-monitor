@@ -16,7 +16,7 @@ After=basic.target network.target
 [Service]
 Type=simple
 WorkingDirectory=/opt/infiniband-exporter
-ExecStart=/opt/infiniband-exporter --web.listen-address=:9315 --collector.hca --collector.switch
+ExecStart=/opt/infiniband-exporter/infiniband_exporter --web.listen-address=:9315 --collector.hca --collector.switch
 KillMode=process
 Restart=always
 
