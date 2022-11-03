@@ -1,28 +1,23 @@
+#!/bin/bash
 
-cd /tmp
-wget http://github.com/treydock/infiniband_exporter/releases/download/v0.3.1/infiniband_exporter-0.3.1.linux-amd64.tar.gz
-tar -xzvf infiniband_exporter-0.3.1.linux-amd64.tar.gz
+mkdir /opt/lustre-exporter
+cd /opt/lustre-exporter
+wget http://fcgateway/resources/metrics/lustre_exporter
+chmod +x /opt/lustre-exporter/lustre_exporter
 
-mkdir /opt/infiniband-exporter
-mv /tmp/infiniband_exporter-0.3.1.linux-amd64/infiniband_exporter /opt/infiniband-exporter
-rm -f /tmp/infiniband_exporter-0.3.1.linux-amd64.tar.gz
-
-cat << EOF > /usr/lib/systemd/system/infiniband_exporter.service
+cat << EOF > /usr/lib/systemd/system/lustre-exporter.service
 [Unit]
-Description=Infiniband exporter service
-Wants=basic.target 
-After=basic.target network.target
+Description=Lustre exporter service
+After=network.target
 
 [Service]
 Type=simple
-WorkingDirectory=/opt/infiniband-exporter
-ExecStart=/opt/infiniband-exporter/infiniband_exporter --web.listen-address=:9315 --collector.hca --collector.switch
-KillMode=process
-Restart=always
+WorkingDirectory=/opt/lustre-exporter
+ExecStart=/opt/lustre-exporter/lustre_exporter --web.listen-address=:9169 --log.level=error --collector.health=disabled --collector.generic=disabled --collector.ost=disabled --collector.mdt=disabled --collector.mgs=disabled --collector.mds=disabled --collector.client=extended --collector.lnet=disabled
 
 [Install]
 WantedBy=multi-user.target
 EOF
 
-systemctl daemon-reload 
-systemctl enable --now infiniband-exporter
+systemctl daemon-reload
+systemctl enable --now lustre-exporter
