@@ -1,5 +1,8 @@
+#!/bin/bash
+
 mkdir /opt/slurm-exporter
-mv slurm-exporter /opt/slurm-exporter/slurm-exporter
+cd /opt/slurm-exporter
+wget http://fcgateway/resources/metrics/slurm-exporter
 chmod +x /opt/slurm-exporter/slurm-exporter
 
 cat << EOF > /usr/lib/systemd/system/slurm-exporter.service
