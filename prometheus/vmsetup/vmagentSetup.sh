@@ -45,7 +45,7 @@ cat << 'EOF' > /opt/vmagent/configs/node-exporter.yml
   - job_name: 'node'
     file_sd_configs:
       - files:
-        - '/opt/vmagent/targets/all.yml'
+        - '/opt/vmagent/targets/node.json'
     # Remove port from hostname label
     relabel_configs:
       - source_labels: [__address__]
@@ -60,7 +60,7 @@ cat << 'EOF' > /opt/vmagent/configs/lustre.yml
     scrape_interval: 1m
     file_sd_configs:
       - files:
-        - '/opt/vmagent/targets/lustre.yml'
+        - '/opt/vmagent/targets/lustre.json'
     # Remove port from hostname label
     relabel_configs:
       - source_labels: [__address__]
@@ -74,7 +74,7 @@ cat << 'EOF' > /opt/vmagent/configs/gpfs.yml
   - job_name: 'gpfs'
     file_sd_configs:
       - files:
-        - '/opt/vmagent/targets/gpfs.yml'
+        - '/opt/vmagent/targets/gpfs.json'
     # Remove port from hostname label
     relabel_configs:
       - source_labels: [__address__]
@@ -88,7 +88,7 @@ cat << 'EOF' > /opt/vmagent/configs/infiniband.yml
   - job_name: 'infiniband'
     file_sd_configs:
       - files:
-        - '/opt/vmagent/targets/infiniband.yml'
+        - '/opt/vmagent/targets/infiniband.json'
     # Remove port from hostname label
     relabel_configs:
       - source_labels: [__address__]
@@ -103,7 +103,7 @@ cat << 'EOF' > /opt/vmagent/configs/slurm.yml
     scrape_interval: 1m
     file_sd_configs:
       - files:
-        - '/opt/vmagent/targets/slurm.yml'
+        - '/opt/vmagent/targets/slurm.json'
     # Remove port from hostname label
     relabel_configs:
       - source_labels: [__address__]
@@ -112,11 +112,11 @@ cat << 'EOF' > /opt/vmagent/configs/slurm.yml
         replacement: '${1}'
 EOF
 
-cat << 'EOF' > /opt/vmagent/configs/nvidia-gpu.yml
+cat << 'EOF' > /opt/vmagent/configs/nvidia.yml
   - job_name: 'nvidia'
     file_sd_configs:
       - files:
-        - '/opt/vmagent/targets/nvidia-gpu.yml'
+        - '/opt/vmagent/targets/nvidia.json'
     # Remove port from hostname label
     relabel_configs:
       - source_labels: [__address__]
@@ -168,36 +168,12 @@ cat << 'EOF' > /opt/vmagent/configs/ilo.yml
 EOF
 
 #Add targets to relevant target files
-cat << EOF > /opt/vmagent/targets/all.yml
----
-- targets:
-  - fcgateway:9100
-EOF
-
-cat << EOF > /opt/vmagent/targets/lustre.yml
----
-- targets:
-EOF
-
-cat << EOF > /opt/vmagent/targets/gpfs.yml
----
-- targets:
-EOF
-
-cat << EOF > /opt/vmagent/targets/infiniband.yml
----
-- targets:
-EOF
-
-cat << EOF > /opt/vmagent/targets/slurm.yml
----
-- targets:
-EOF
-
-cat << EOF > /opt/vmagent/targets/nvidia-gpu.yml
----
-- targets:
-EOF
+touch /opt/vmagent/targets/node.json
+touch /opt/vmagent/targets/lustre.json
+touch /opt/vmagent/targets/gpfs.json
+touch /opt/vmagent/targets/infiniband.json
+touch /opt/vmagent/targets/slurm.json
+touch /opt/vmagent/targets/nvidia.json
 
 cat << EOF > /opt/vmagent/targets/idrac.yml
 ---
