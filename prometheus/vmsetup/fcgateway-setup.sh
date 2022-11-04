@@ -4,7 +4,7 @@ mkdir -p /opt/zabbix/srv/resources/metrics
 cd /opt/zabbix/srv/resources/metrics
 
 # Grab binaries from hub
-wget --no-verbose https://hub.fcops.alces-flight.com/resources/metrics/slurm_exporter --no-check-certificate
+wget --no-verbose https://hub.fcops.alces-flight.com/resources/metrics/slurm-exporter --no-check-certificate
 wget --no-verbose https://hub.fcops.alces-flight.com/resources/metrics/lustre_exporter --no-check-certificate
 wget --no-verbose https://hub.fcops.alces-flight.com/resources/metrics/gpfs_exporter --no-check-certificate
 wget --no-verbose https://hub.fcops.alces-flight.com/resources/metrics/nvidia_gpu_prometheus_exporter --no-check-certificate
