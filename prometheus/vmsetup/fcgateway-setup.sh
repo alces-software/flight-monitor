@@ -9,6 +9,7 @@ wget --no-check-certificate "http://hub/resources/metrics/lustre_exporter"
 wget --no-check-certificate "http://hub/resources/metrics/gpfs_exporter"
 wget --no-check-certificate "http://hub/resources/metrics/nvidia_gpu_prometheus_exporter"
 wget --no-check-certificate "http://hub/resources/metrics/snmp_exporter"
+wget --no-check-certificate "http://hub/resources/metrics/gridengine_exporter"
 
 # Grab exporter install scripts from git
 wget --no-verbose https://raw.githubusercontent.com/alces-software/flight-monitor/master/prometheus/vmsetup/vmagentSetup.sh
@@ -21,6 +22,7 @@ wget --no-verbose https://raw.githubusercontent.com/alces-software/flight-monito
 wget --no-verbose https://raw.githubusercontent.com/alces-software/flight-monitor/master/prometheus/vmsetup/lustreExporterSetup.sh
 wget --no-verbose https://raw.githubusercontent.com/alces-software/flight-monitor/master/prometheus/vmsetup/lustreExporterSetupMDS.sh
 wget --no-verbose https://raw.githubusercontent.com/alces-software/flight-monitor/master/prometheus/vmsetup/nvidiaExporterSetup.sh
+wget --no-verbose https://raw.githubusercontent.com/alces-software/flight-monitor/master/prometheus/vmsetup/geExporterSetup.sh
 
 chown -R fcops:fcops /opt/zabbix/srv/resources/metrics
 
