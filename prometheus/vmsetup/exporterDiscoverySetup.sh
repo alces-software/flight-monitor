@@ -3,7 +3,7 @@
 network="10.10.0.0/16"
 
 # Check vmagent is installed
-if [ ! -d "/opt/vmagent2" ] ; then
+if [ ! -d "/opt/vmagent" ] ; then
 	echo "Error: Install vmagent first."
 	exit 1
 fi
